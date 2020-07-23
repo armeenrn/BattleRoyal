@@ -31,9 +31,6 @@ public class Game {
 		}
 		
 		gameBoard = new Board(BOARDWIDTH, CENTER_X, CENTER_Y);	
-		
-		
-		
 	}
 	
 	public Board getGameBoard() {
@@ -62,7 +59,7 @@ public class Game {
 			return 2;
 		}
 	}
-	
+	/*
 	public Stone checkIfPointIsUnOccupied(Point point) {
 		return point.getOccupiedStone();
 	}
@@ -129,7 +126,7 @@ public class Game {
 		
 		return adjacentPoints;
 	}
-	
+/*	
 	public void displayAdjacentPoints(Stone stoneToMove) {
 		int counter = 1;
 		for (Point eachPoint : getAdjacentPoints(stoneToMove)) {
@@ -160,8 +157,8 @@ public class Game {
 		
 		return stonesAvailable;
 	}
-	
-	
+*/	
+/*	
 	public ArrayList<Line> getFilledLine(HumanPlayer player) {
 		ArrayList<Line> filledLines = new ArrayList<Line>();
 		for (Square eachSquare : gameBoard.getSquares()) {
@@ -175,16 +172,16 @@ public class Game {
 		
 		return filledLines;
 	}
-	
+
 	public int getNumberOfLinesFormed(HumanPlayer player) {
 		for (Line eachLine : getFilledLine(player)) {
 			System.out.println(eachLine.toString());
 		}
 		return getFilledLine(player).size();
 	}
-	
+	*/
 	public boolean checkIfAjdacent(Stone stoneToSelect, Point pointToSelect) {
-		boolean answer = false;
+/*		boolean answer = false;
 		
 		if (checkIfPointIsUnOccupied(pointToSelect) == null) {
 			for (Square eachSquare : gameBoard.getSquares()) {
@@ -213,12 +210,11 @@ public class Game {
 				}
 			}
 		}
-		
-		return answer;
+		*/
+		return true; 
 	}
 	
-	public void play() {
-		
+	public void play() {		
 		while (winner == 0) {
 			if (goFirst == 1) {
 				turnHumanPlayer(player1);
@@ -236,16 +232,27 @@ public class Game {
 	}
 	
 	public void turnHumanPlayer(HumanPlayer humanPlayer) {
-		
-		// check AI's number of stones at the end
+
+		// check AI's number of stones at the end to see if you win
 		if (player2.getNumberOfStonesRemaining() < 3) {
 			winner = 1;
 		}
 	}
 
 	public void turnAIPlayer(AIPlayer compPlayer) {
-		
-		// check human player's number of stones at the end
+		if (compPlayer.getStonesPlaced() < 9) {
+			compPlayer.placeStone(player2.getStones().get(player2.getStonesPlaced()), gameBoard);
+		}
+		else {
+			if (compPlayer.getNumberOfStonesRemaining() <= 3) {
+				// jump
+				compPlayer.placeStone(player2.getStones().get(player2.getStonesPlaced()), gameBoard);
+			}
+			else {
+				// move adjacent
+			}
+		}
+		// check human player's number of stones at the end to see if you win
 		if (player1.getNumberOfStonesRemaining() < 3) {
 			winner = 2;
 		}

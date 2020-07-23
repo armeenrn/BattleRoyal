@@ -12,16 +12,16 @@ public class TextApplication {
 		System.out.println("Please enter one of the following options:");
 		System.out.println("PLAY, QUIT");
 		
-		String next = input.nextLine();
 		String names[] = new String[2];
 		names[0] = "alpha";
 		names[1] = "beta";
 		int mode = 0;
+		String next = input.nextLine();
 		
 		do {
 			if (next.equalsIgnoreCase("PLAY")) {
 				game = new Game(names, mode);
-				game.play(); // we would need public void play() in Game class, which will actually run whole one game of morris
+				game.play(); // one game is played
 				
 				// game is over
 				System.out.println("Thank you for playing. Enter PLAY if you want to play again,"

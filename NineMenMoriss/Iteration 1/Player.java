@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player {
-	
+	private int numberOfStonesPlaced;
 	private ArrayList<Stone> stones;
 	private int numberOfStonesRemaining;
 	private int PLACE = 1;
@@ -13,17 +13,21 @@ public class Player {
 	public Player(String name, int num) {
 		numberOfStonesRemaining = 9;
 		stones = new ArrayList<Stone>();
+		numberOfStonesPlaced = 0;
 		
 		for (int index = 0; index < 9; index++) {
 			stones.add(new Stone(this));
 		}
 
 		this.name = name;
-		int number = num;
 	}
 	
 	public ArrayList<Stone> getStones() {
 		return stones;
+	}
+	
+	public int getStonesPlaced() {
+		return numberOfStonesPlaced;
 	}
 	
 	public void moveStone(Stone stone, Point point, int moveType) {
