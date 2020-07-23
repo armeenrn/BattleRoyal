@@ -13,7 +13,7 @@ public class TextApplication {
 		System.out.println("PLAY, QUIT");
 		
 		String next = input.nextLine();
-		String names[] = new names[2];
+		String names[] = new String[2];
 		names[0] = "alpha";
 		names[1] = "beta";
 		int mode = 0;
