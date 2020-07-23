@@ -5,10 +5,11 @@ public class Game {
 	private double BOARDWIDTH = 30;
 	private double CENTER_X = 0;
 	private double CENTER_Y = 0;
-	private Player player1;
-	private Player player2;
+	private HumanPlayer player1;
+	private AIPlayer player2;
 	private int goFirst;
 	private Board gameBoard;
+	private int winner = 0;
 	
 	public Game(String[] playerNames, int mode) {
 		Random rand = new Random();
@@ -52,11 +53,7 @@ public class Game {
 		return null;
 	}
 	
-	
-	
-	
-	
-	public int determinePlayerMove(HumanPlayer playerToCheck) {
+	public int determinePlayerMove(Player playerToCheck) {
 		if (playerToCheck.getNumberOfStonesRemaining() > 0) {
 			return 1;
 		}
@@ -221,15 +218,36 @@ public class Game {
 	}
 	
 	public void play() {
-		if (goFirst == 1) {
-			turn(player1);
-		}
-		else {
-			turn(player2);
+		
+		while (winner == 0) {
+			if (goFirst == 1) {
+				turnHumanPlayer(player1);
+				if (winner == 0) {
+					turnAIPlayer(player2);					
+				}
+			}
+			else {
+				turnAIPlayer(player2);					
+				if (winner == 0) {
+					turnHumanPlayer(player1);
+				}
+			}			
 		}
 	}
 	
-	public void turn(Player currentPlayer) {
+	public void turnHumanPlayer(HumanPlayer humanPlayer) {
 		
+		// check AI's number of stones at the end
+		if (player2.getNumberOfStonesRemaining() < 3) {
+			winner = 1;
+		}
+	}
+
+	public void turnAIPlayer(AIPlayer compPlayer) {
+		
+		// check human player's number of stones at the end
+		if (player1.getNumberOfStonesRemaining() < 3) {
+			winner = 2;
+		}
 	}
 }
