@@ -1,28 +1,54 @@
 
 public class Square {
+	private String name;
 	private Line lineN;
 	private Line lineW;
 	private Line lineE;
 	private Line lineS;
-	private int sideLength;
+	private Line[] lines;
 	
-	public Square (int sizeOfSquare, int startX, int startY) {
-		Point origin = new Point(startX, startY);
-		Point midSouth = new Point((startX + sizeOfSquare), startY);
-		Point southEast = new Point((startX + sizeOfSquare * 2), startY);
-		Point midWest = new Point(startX, (startY + sizeOfSquare));
-		Point northWest = new Point(startX, (startY + sizeOfSquare * 2));
-		Point midNorth = new Point((startX + sizeOfSquare), (startY + sizeOfSquare * 2));
-		Point northEast = new Point((startX + sizeOfSquare * 2), (startY + sizeOfSquare * 2));
-		Point midEast = new Point ((startX + sizeOfSquare * 2), (startY + sizeOfSquare));
+	public Square (String name, double size, double startX, double startY) {
+		this.name = name;
+		Point southWest = new Point(startX, startY);
+		Point midSouth = new Point((startX + size/2), startY);
+		Point southEast = new Point((startX + size), startY);
+		Point midWest = new Point(startX, (startY + size/2));
+		Point northWest = new Point(startX, startY + size);
+		Point midNorth = new Point(startX + size/2, startY + size);				
+		Point northEast = new Point(startX + size, startY + size);
+		Point midEast = new Point(startX + size, startY + size/2);	
+	
+		lineN = new Line("lineN",northWest, midNorth, northEast);
+		lineW = new Line("lineW", southWest, midWest, northWest);
+		lineE = new Line("lineE", southEast, midEast, northEast);
+		lineS = new Line("lineS", southWest, midSouth, southEast);
+
+		lines = new Line[4];
 		
-		lineN = new Line(northWest, midNorth, northEast);
-		lineW = new Line(origin, midWest, northWest);
-		lineE = new Line(southEast, midEast, northEast);
-		lineS = new Line(origin, midSouth, southEast);
-		sideLength = sizeOfSquare;
+		lines[0] = lineN;
+		lines[1] = lineW;
+		lines[2] = lineE;
+		lines[3] = lineS;
+		
+	}
+
+
+	public Square(Line northMidLine, Line westMidLine, Line eastMidLine, Line southMidLine) {
+		name = "pseudo-square";
+		lineN = northMidLine;
+		lineW = westMidLine;
+		lineE = eastMidLine;
+		lineS = southMidLine;
+
+		lines = new Line[4];
+
+		lines[0] = lineN;
+		lines[1] = lineW;
+		lines[2] = lineE;
+		lines[3] = lineS;
 	}
 	
+
 	/**
 	 * Getter method to retrieve north Line of the Square object
 	 * 
@@ -57,5 +83,15 @@ public class Square {
 	 */
 	public Line getSouthLine() {
 		return lineS;
+	}
+
+	
+	public String toString() {
+		return name;
+	}
+
+
+	public Line[] getLines() {
+		return lines;
 	}
 }
