@@ -3,7 +3,6 @@ public class Point {
 	
 	private double x;
 	private double y;
-	private int occupyingPlayerNumber;
 	private Stone occupiedStone;
 	private Player occupiedPlayer;
 
@@ -11,7 +10,6 @@ public class Point {
 	public Point(double xCoord, double yCoord) {
 		x = xCoord;
 		y = yCoord;
-		occupyingPlayerNumber = 0;
 	}
 	
 	public double getX() {
@@ -27,24 +25,35 @@ public class Point {
 	}
 	
 	public void setOccupiedStone(Stone stoneToOccupy) {
-		occupiedStone = stoneToOccupy; 
+		if (stoneToOccupy == null) {
+			occupiedStone = null;
+		}
+		
+		else {
+			occupiedStone = stoneToOccupy; 	
+		}
 	}
 	
-	public int getOccupyingPlayerNumber() {
-		return occupyingPlayerNumber;
-	}
-	
-	
-	public void setOccupyingPlayerNumber(int playerNumber) {
-		occupyingPlayerNumber = playerNumber;
-	}
 	
 	public Player getOccupiedPlayer() {
-		return occupiedPlayer;
+		if (occupiedPlayer == null) {
+			return null;
+		}
+		
+		else {
+			return occupiedPlayer;	
+		}
 	}
 	
+	
 	public void setOccupiedPlayer(Player playerToOccupy) {
-		occupiedPlayer = playerToOccupy;
+		if (playerToOccupy == null) {
+			occupiedPlayer = null;
+		}
+		
+		else {
+			occupiedPlayer = playerToOccupy; 	
+		}
 	}
 	
 	

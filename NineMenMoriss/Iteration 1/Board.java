@@ -8,19 +8,21 @@ public class Board {
 	private Line westMidLine;
 	private Line eastMidLine;
 	private Line southMidLine;
-	private Square[] squares = new Square[4];
+	private Square[] squares;
 
 //Add an extra element for pseudoSquares
-	public Board(int range, int CentreXCoord, int CentreYCoord) {
-		outerSquare = new Square(range, CentreXCoord - range / 2, CentreYCoord - range / 2);
+	public Board(double range, double centreXCoord, double centreYCoord) {
+		squares = new Square[4];
+		
+		outerSquare = new Square("Outer Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
 		squares[0] = outerSquare;
-		range *= 0.67;
+		range = range * (2.0/3);
 
-		midSquare = new Square(range, CentreXCoord - range / 2, CentreYCoord - range / 2);
+		midSquare = new Square("Middle Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
 		squares[1] = midSquare;
-		range *= 0.67;
+		range = range * 0.5;
 
-		innerSquare = new Square(range, CentreXCoord - range / 2, CentreYCoord - range / 2);
+		innerSquare = new Square("Inner Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
 		squares[2] = innerSquare;
 
 		northMidLine = new Line("North Mid Line", innerSquare.getNorthLine().getMidPoint(),
@@ -47,4 +49,24 @@ public class Board {
 			System.out.println("Points on the South Lines: " + squares[i].getSouthLine().getPoints());
 		}
 	}
+	
+	public Point getPointByCoordinates(double xcor, double ycor) {
+		Point answer = null;
+		for (Square eachSquare : squares) {
+
+			for (Line eachLine : eachSquare.getLines()) {
+				
+				for (Point eachPoint : eachLine.getPoints()) {
+			
+					if (eachPoint.getX() == xcor && eachPoint.getY() == ycor) {
+						answer = eachPoint;
+					}
+				}
+			}
+		}
+		
+		return answer;
+	}
+	
+
 }

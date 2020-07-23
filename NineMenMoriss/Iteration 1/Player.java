@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
 public class Player {
-	private int numberOfStonesPlaced;
+	private int unusedStones;
+	private int stonesOnBoard;
 	private ArrayList<Stone> stones;
-	private int numberOfStonesRemaining;
+	private int totalStones;
 	private int PLACE = 1;
 	private int MOVE_ADJACENT = 2;
 	private int JUMP = 3;
@@ -11,9 +12,10 @@ public class Player {
 	private int number;
 	
 	public Player(String name, int num) {
-		numberOfStonesRemaining = 9;
+		unusedStones = 9;
+		totalStones = 9;
 		stones = new ArrayList<Stone>();
-		numberOfStonesPlaced = 0;
+		stonesOnBoard = 0;
 		
 		for (int index = 0; index < 9; index++) {
 			stones.add(new Stone(this));
@@ -22,12 +24,24 @@ public class Player {
 		this.name = name;
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 	public ArrayList<Stone> getStones() {
 		return stones;
 	}
 	
-	public int getStonesPlaced() {
-		return numberOfStonesPlaced;
+	public int getNumberOfStonesPlaced() {
+		return stonesOnBoard;
+	}
+	
+	public int getnumberOfNewStones() {
+		return unusedStones;
+	}
+	
+	public int getNumberOfTotalStones() {
+		return totalStones;
 	}
 	
 	public void moveStone(Stone stone, Point point, int moveType) {
@@ -45,17 +59,13 @@ public class Player {
 	}
 	
 	
-	public int getNumberOfStonesRemaining() {
-		return numberOfStonesRemaining;
-	}
-	
 	public void setNewStoneInPlace(Point place) {
-		stones.get(numberOfStonesRemaining-1).setLocation(place);
-		place.setOccupiedStone(stones.get(numberOfStonesRemaining-1));
-		System.out.println("about to set stone to this player: " + this.toString());
+		stones.get(unusedStones-1).setLocation(place);
+		place.setOccupiedStone(stones.get(unusedStones-1));
 		place.setOccupiedPlayer(this);
-		numberOfStonesRemaining = numberOfStonesRemaining - 1;
-		
+		unusedStones = unusedStones - 1;
+		System.out.println(place.getOccupiedPlayer().toString() + ": New stone placed at: " + place.toString());
+		System.out.println("");
 	}
 	
 	
@@ -63,6 +73,20 @@ public class Player {
 		stone.setLocation(place);
 		place.setOccupiedStone(stone);
 		place.setOccupiedPlayer(this);
+		System.out.println(this.toString() + ": stone moved to: " + place.toString());
+		System.out.println("");
+	}
+	
+	
+	public void removeStone(Stone stoneToBeRemoved) {
+		Point pointItIsRemoved = stoneToBeRemoved.getLocation();
+		stoneToBeRemoved.setLocation(null);
+		pointItIsRemoved.setOccupiedStone(null);
+		pointItIsRemoved.setOccupiedStone(null);
+		stonesOnBoard = stonesOnBoard - 1;
+		totalStones = totalStones - 1;
+		System.out.println(this.toString() + "'s stone at " + pointItIsRemoved.toString() + " removed");
+		System.out.println("");
 	}
 	
 	

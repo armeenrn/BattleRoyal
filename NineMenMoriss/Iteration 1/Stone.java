@@ -14,7 +14,13 @@ public class Stone {
 	}
 
 	public void setLocation(Point location) {
-		this.location = location;
+		if (location == null) {
+			this.location = null;
+		}
+		
+		else {
+			this.location = location;	
+		}	
 	}
 	
 	public Point getLocation() {
@@ -24,4 +30,6 @@ public class Stone {
 	public Player getOwner() {
 		return owner;
 	}
+	
+
 }

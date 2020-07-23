@@ -10,32 +10,30 @@
  *
  */
 public class Line {
-	private String playerName;// what does this variable represent?
+	private String name;
 	private Point endPoint1;
 	private Point midPoint;
 	private Point endPoint2;
-	private boolean isFilled;
-	private Point[] slotLocationOnBoard;
+	private Point[] points;
 
 	public Line(String name, Point endPoint1, Point midPoint, Point endPoint2) {
-		this.playerName = name;
-		isFilled = false;
-		slotLocationOnBoard = new Point[3];// meaning of integer in []?
+		this.name = name;
+		points = new Point[3];
 
 		this.endPoint1 = endPoint1;
-		slotLocationOnBoard[0] = this.endPoint1;
+		points[0] = this.endPoint1;
 		this.midPoint = midPoint;
-		slotLocationOnBoard[1] = this.midPoint;
+		points[1] = this.midPoint;
 		this.endPoint2 = endPoint2;
-		slotLocationOnBoard[2] = this.endPoint2;
+		points[2] = this.endPoint2;
 	}
 
 	public String toString() {
-		return playerName;// why is this method needed?, access player name from another class?
+		return name;// why is this method needed?, access player name from another class?
 	}
 
 	public Point[] getPoints() {// Why is this Point [] only whereas other getter methods use Point only?
-		return slotLocationOnBoard;
+		return points;
 	}
 
 	public Point getEndPoint1() {
@@ -50,74 +48,52 @@ public class Line {
 		return midPoint;
 	}
 	
-	public void setFilled(boolean filled) {//Where do you use this?
-		isFilled = filled;
-	}
 
-//	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
-//		if (endPoint1.getOccupiedStone() != null) {
-//			if (endPoint1.getOccupiedStone() == midPoint.getOccupiedPlayer()) {
-//				if (midPoint.getOccupiedStone() == endPoint2.getOccupiedPlayer()) {
-//					return true;
-//				}
-//
-//				else {
-//					return false;
-//				}
-//			}
-//
-//			else {
-//				return false;
-//			}
-//		}
-//
-//		else {
-//			return false;
-//		}
-//
-//	}
-
-	public void isLineFilled (Stone playerStonePosition) {
-		if (doesSlotContainStone(playerStonePosition)==3) {
-			isFilled = true;
-			System.out.println(playerName+"has three stones in a line.");
-		}
-		
-	}
-	public int doesSlotContainStone(Stone playerStonePosition) {// checks number of stones in a line
-		boolean slotContainsAStone = false;//purpose to check this, where is it used?
-		int numberOfStonesInLine = 0;
-
-		if (endPoint1.getOccupiedStone() == playerStonePosition) {
-			slotContainsAStone = true;
-			numberOfStonesInLine += 1;
-		}	
-			if (midPoint.getOccupiedStone() == playerStonePosition) {
-				slotContainsAStone = true;
-				numberOfStonesInLine += 1;
-			}
-				if (endPoint2.getOccupiedStone() == playerStonePosition) {
-					slotContainsAStone = true;
-					numberOfStonesInLine += 1;
+	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
+		if (endPoint1.getOccupiedPlayer() == player) {
+			if (endPoint1.getOccupiedPlayer() == midPoint.getOccupiedPlayer()) {
+				if (midPoint.getOccupiedPlayer() == endPoint2.getOccupiedPlayer()) {
+					return true;
 				}
 
-		if (midPoint.getOccupiedStone() == playerStonePosition) {
-			slotContainsAStone = true;
-			numberOfStonesInLine += 1;
-		}	
-			if (endPoint2.getOccupiedStone() == playerStonePosition) {
-			slotContainsAStone = true;
-			numberOfStonesInLine += 1;
+				else {
+					return false;
+				}
 			}
 
-		else if (endPoint2.getOccupiedStone() == playerStonePosition) {
-			slotContainsAStone = true;
-			numberOfStonesInLine += 1;
+			else {
+				return false;
+			}
 		}
 
-		return numberOfStonesInLine;
+		else {
+			return false;
+		}
+
 	}
 
+
+	
+	public boolean doesLineContain(Stone stoneToCheck) {
+		boolean contains = false;
+		
+		if (endPoint1.getOccupiedStone() == stoneToCheck) {
+			contains = true;
+		}
+		
+		else if (midPoint.getOccupiedStone() == stoneToCheck) {
+			contains = true;
+		}
+		
+		else if (endPoint2.getOccupiedStone() == stoneToCheck) {
+			contains = true;
+		}
+		
+		return contains;
+	}
+	
+
+	
 	public boolean doesLineContainPoint(Point pointToBeChecked) {
 		boolean contains = false;
 
