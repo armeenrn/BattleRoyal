@@ -1,3 +1,6 @@
+/**
+ * @author armeen
+ */
 
 public class Point {
 	

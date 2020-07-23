@@ -1,3 +1,6 @@
+/**
+ * @author daniel
+ */
 
 public class Stone {
 	private Point location;

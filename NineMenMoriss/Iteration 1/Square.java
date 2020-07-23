@@ -1,3 +1,6 @@
+/**
+ * @author armeen, daniel
+ */
 
 public class Square {
 	private String name;

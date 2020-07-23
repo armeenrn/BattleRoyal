@@ -1,3 +1,6 @@
+/**
+ * @author sadia
+ */
 
 public class Board {
 

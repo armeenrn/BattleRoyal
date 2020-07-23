@@ -1,3 +1,7 @@
+/**
+ * @author daniel
+ */
+
 import java.util.Scanner;
 //random comment test
 
