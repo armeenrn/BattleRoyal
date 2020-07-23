@@ -10,7 +10,7 @@ public class Stone {
 	 * @param Player player the stone belongs to
 	 */
 	public Stone(Player owner) {
-		this.owner = Player;
+		this.owner = owner;
 	}
 
 	public void setLocation(Point location) {
@@ -20,7 +20,7 @@ public class Stone {
 	public Point getLocation() {
 		return location;	}
 	
-	public int getOwner() {
+	public Player getOwner() {
 		return owner;
 	}
 }
