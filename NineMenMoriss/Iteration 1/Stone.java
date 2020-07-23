@@ -18,7 +18,8 @@ public class Stone {
 	}
 	
 	public Point getLocation() {
-		return location;	}
+		return location;	
+	}
 	
 	public Player getOwner() {
 		return owner;

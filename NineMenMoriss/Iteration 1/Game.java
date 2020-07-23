@@ -219,4 +219,17 @@ public class Game {
 		
 		return answer;
 	}
+	
+	public void play() {
+		if (goFirst == 1) {
+			turn(player1);
+		}
+		else {
+			turn(player2);
+		}
+	}
+	
+	public void turn(Player currentPlayer) {
+		
+	}
 }

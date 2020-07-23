@@ -7,15 +7,19 @@ public class Player {
 	private int PLACE = 1;
 	private int MOVE_ADJACENT = 2;
 	private int JUMP = 3;
+	private String name;
+	private int number;
 	
-	public Player() {
-		stones = new ArrayList<Stone>();	
+	public Player(String name, int num) {
 		numberOfStonesRemaining = 9;
 		stones = new ArrayList<Stone>();
 		
 		for (int index = 0; index < 9; index++) {
 			stones.add(new Stone(this));
 		}
+
+		this.name = name;
+		int number = num;
 	}
 	
 	public ArrayList<Stone> getStones() {

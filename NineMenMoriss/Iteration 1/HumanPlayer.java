@@ -7,9 +7,7 @@ public class HumanPlayer extends Player {
 	private int number;
 	
 	public HumanPlayer(String name, int num) {
-		
-		this.name = name;
-		int number = num;
+		super(name, num);
 	}
 	
 	public Stone selectStoneToMove(ArrayList<Stone> stonesToSelect) {
