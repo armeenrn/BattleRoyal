@@ -5,8 +5,8 @@ public class Game {
 	private double BOARDWIDTH = 30;
 	private double CENTER_X = 0;
 	private double CENTER_Y = 0;
-	private HumanPlayer player1;
-	private HumanPlayer player2;
+	private Player player1;
+	private Player player2;
 	private int goFirst;
 	private Board gameBoard;
 	
@@ -20,12 +20,12 @@ public class Game {
 		
 		if (goFirst == 1) {
 			player1 = new HumanPlayer(playerNames[0], 1);
-			player2 = new HumanPlayer(playerNames[1], 2);	
+			player2 = new AIPlayer(playerNames[1], 2);	
 		}
 		
 		if (goFirst == 2) {
 			player1 = new HumanPlayer(playerNames[1], 1);
-			player2 = new HumanPlayer(playerNames[0], 2);	
+			player2 = new AIPlayer(playerNames[0], 2);	
 			
 		}
 		
@@ -39,11 +39,11 @@ public class Game {
 		return gameBoard;
 	}
 	
-	public HumanPlayer selectFirstPlayer() {
+	public Player selectFirstPlayer() {
 		return player1;
 	}
 	
-	public HumanPlayer selectSecondPlayer() {
+	public Player selectSecondPlayer() {
 		return player2;
 	}
 
