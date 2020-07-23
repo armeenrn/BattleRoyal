@@ -17,6 +17,9 @@ public class TextApplication {
 		do {
 			if (next.equalsIgnoreCase("PLAY")) {
 				game = new Game();
+				game.play(); // we would need public void play() in Game class, which will actually run the whole one game of morris
+				
+				// game is over
 				System.out.println("Thank you for playing. Enter PLAY if you want to play again,"
 						+ " or QUIT to quit the game.");				
 			}
