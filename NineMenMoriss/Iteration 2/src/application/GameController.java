@@ -19,8 +19,8 @@ public class GameController extends MainController {
     }
 
     @FXML
-    public void displayRules(ActionEvent event) {
-    	super.displayRules(event);
+    public void rulesPressed(ActionEvent event) {
+    	displayRules(event);
     }
 
     @FXML
