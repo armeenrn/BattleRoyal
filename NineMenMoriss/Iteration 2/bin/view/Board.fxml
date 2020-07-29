@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GameController">
+   <children>
+      <Pane prefHeight="650.0" prefWidth="650.0">
+         <children>
+            <Button fx:id="exitButton" layoutX="504.0" layoutY="606.0" mnemonicParsing="false" onAction="#exitCurrentGame" text="Exit Current Game">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="rulesButton" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" onAction="#displayRules" text="Rules">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children></Pane>
+   </children>
+</Pane>
