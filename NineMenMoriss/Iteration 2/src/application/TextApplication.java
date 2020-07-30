@@ -21,7 +21,7 @@ public class TextApplication {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to Nine-men Morris!");
 		System.out.println("Please enter one of the following options:");
-		System.out.println("PLAY, QUIT");
+		System.out.println("PLAY, RULES, QUIT");
 		next = input.nextLine();		
 		String names[] = new String[2];
 		names[0] = "alpha";
@@ -38,8 +38,29 @@ public class TextApplication {
 				System.out.println("Thank you for playing. Enter PLAY if you want to play again,"
 						+ " or QUIT to quit the game.");				
 			}
+			else if (next.equalsIgnoreCase("RULES")) {
+				System.out.println("HOW TO PLAY\n********************");
+				System.out.println("Stage 1: PLACE :");
+				System.out.println("1. Place one stone at any vacant point on the board per turn.");
+				System.out.println("2. Repeat step 1 until you place all the stones in your possession on the board.");
+				System.out.println("Stage 2: MOVE :");
+				System.out.println("1. Move one stone to an adjacent vacant space per turn.");
+				System.out.println("Stage 3: JUMP :");
+				System.out.println("1. Activates once the player has 3 stones left on the board during Stage 2.");
+				System.out.println("2. The player may choose a stone and place it at any vacant point on the board.");
+				System.out.println("********************");
+				System.out.println("HOW TO WIN\n********************");
+				System.out.println("During any stage in the game, you can form a \"mill.\"");
+				System.out.println("A \"mill\" is formed by placing 3 stones along one single line on the board.");
+				System.out.println("When a mill is formed, the player must remove one of the opponent's stones on the board.");
+				System.out.println("The player wins once the opponent has 2 stones left on the board during or after Stage 2.");
+				System.out.println("The player also wins if the opponent is not able to make a valid move.");
+				System.out.println("********************");
+				System.out.println("RESTRICTIONS\n********************");
+				System.out.println("A player may not remove a stone that is part of a mill, unless there are no other stones left to remove.");				
+			}
 			else {
-				System.out.println("Invalid input. Please try again:");				
+				System.out.println("Invalid input. Please try again:");								
 			}
 			
 			next = input.nextLine();

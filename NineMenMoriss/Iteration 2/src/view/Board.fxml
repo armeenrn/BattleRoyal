@@ -15,7 +15,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="rulesButton" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" onAction="#displayRules" text="Rules">
+            <Button fx:id="rulesButton" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" onAction="#rulesPressed" text="Rules">
                <font>
                   <Font size="14.0" />
                </font>

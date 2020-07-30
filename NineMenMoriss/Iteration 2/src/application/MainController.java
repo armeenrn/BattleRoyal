@@ -31,7 +31,7 @@ public class MainController {
 
     @FXML
     public void playGame(ActionEvent event) {
-
+    	MainApp.changeScreen("src/view/Board.fxml");
     }
 
     @FXML
