@@ -49,21 +49,14 @@ public class MainController {
     			ruleStage.setResizable(false);
     			ruleStage.setTitle("Rules");
     			ruleStage.setScene(scene);
-    			ruleStage.show();		
     			firstTutOpen = true;
     		} catch (IOException e) {
     			// TODO Auto-generated catch block
     			System.out.println("Problem loading Game.fxml");
     		}    		
     	}
-    	else {
-    		ruleStage.show();
-    	}
-    }
 
-    @FXML
-    public void startTutorial(ActionEvent event) {
-    	MainApp.changeScreen("src/view/Board.fxml");
+		ruleStage.show();
     }
 
     @FXML
