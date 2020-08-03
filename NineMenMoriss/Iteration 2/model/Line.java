@@ -50,63 +50,75 @@ public class Line {
 		return midPoint;
 	}
 
+	/**
+	 * Checks if the line is filled with same player. This method can be used to
+	 * determine if the player has won.
+	 * 
+	 * @param player is one of the players playing in this turn and will be used to
+	 *               compare if this player occupies each point in a line or not.
+	 * @return true if a line is filled by the same player (a wining move for the
+	 *         game), false otherwise
+	 */
 	public boolean isLineFilled(Player player) {
+		boolean lineIsFilledByPlayer = false;
 		if (endPoint1.getOccupiedPlayer() == player) {
-			if (endPoint1.getOccupiedPlayer() == midPoint.getOccupiedPlayer()) {
-				if (midPoint.getOccupiedPlayer() == endPoint2.getOccupiedPlayer()) {
-					return true;
-				}
-
-				else {
-					return false;
+			if (endPoint2.getOccupiedPlayer() == player) {
+				if (midPoint.getOccupiedPlayer() == player) {
+					lineIsFilledByPlayer = true;
 				}
 			}
-
-			else {
-				return false;
-			}
 		}
-
-		else {
-			return false;
-		}
-
+		return lineIsFilledByPlayer;
 	}
 
-	public boolean doesLineContain(Stone stoneToCheck) {
-		boolean contains = false;
+	/**
+	 * Check if the line contains the stone entered in the parameter
+	 * 
+	 * @param stoneToCheck a stone with x and y coordinate
+	 * @return true if the any of the points on the line contains stone entered in
+	 *         the parameter, false otherwise
+	 */
+	public boolean doesLineContainStone(Stone stoneToCheck) {
+		boolean containsStones = false;
 
 		if (endPoint1.getOccupiedStone() == stoneToCheck) {
-			contains = true;
+			containsStones = true;
 		}
 
 		else if (midPoint.getOccupiedStone() == stoneToCheck) {
-			contains = true;
+			containsStones = true;
 		}
 
 		else if (endPoint2.getOccupiedStone() == stoneToCheck) {
-			contains = true;
+			containsStones = true;
 		}
 
-		return contains;
+		return containsStones;
 	}
 
+	/**
+	 * Check if the line contains the point entered in the parameter
+	 * 
+	 * @param pointToBeChecked a point with x and y coordinate
+	 * @return true if the line contains any of the point entered in the parameter,
+	 *         false otherwise
+	 */
 	public boolean doesLineContainPoint(Point pointToBeChecked) {
-		boolean contains = false;
+		boolean containsPoints = false;
 
 		if (endPoint1 == pointToBeChecked) {
-			contains = true;
+			containsPoints = true;
 		}
 
 		else if (midPoint == pointToBeChecked) {
-			contains = true;
+			containsPoints = true;
 		}
 
 		else if (endPoint2 == pointToBeChecked) {
-			contains = true;
+			containsPoints = true;
 		}
 
-		return contains;
+		return containsPoints;
 	}
 
 }
