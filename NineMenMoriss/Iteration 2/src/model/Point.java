@@ -1,16 +1,26 @@
 package model;
 
+import javafx.scene.shape.Circle;
+
 public class Point {
 	
 	private double x;
 	private double y;
 	private Stone occupiedStone;
 	private Player occupiedPlayer;
-
+	private Circle circle;
 	
 	public Point(double xCoord, double yCoord) {
 		x = xCoord;
 		y = yCoord;
+	}
+	
+	public void setCircle(Circle circle) {
+		this.circle = circle;
+	}
+	
+	public Circle getCircle() {
+		return circle;
 	}
 	
 	public double getX() {

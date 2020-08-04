@@ -1,9 +1,11 @@
 package model;
 
+import javafx.scene.shape.Ellipse;
+
 public class Stone {
 	private Point location;
 	private Player owner;
-
+	private Ellipse ellipse;
 	/**
 	 * Constructor of a Stone object
 	 * 
@@ -22,6 +24,14 @@ public class Stone {
 		else {
 			this.location = location;	
 		}	
+	}
+	
+	public void setEllipse(Ellipse ellipseToSet) {
+		ellipse = ellipseToSet;
+	}
+	
+	public Ellipse getEllipse() {
+		return ellipse;
 	}
 	
 	public Point getLocation() {
