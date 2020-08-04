@@ -37,9 +37,11 @@ public class AIPlayer extends Player {
 	
 	
 	public Stone selectRandomStone(ArrayList<Stone> stonesList) {
-		int index = 0;
 		Random rand = new Random();
-		index = rand.nextInt(stonesList.size());
+		int index = 0;
+		do {
+			index = rand.nextInt(stonesList.size());
+		} while (stonesList.get(index).getDead());
 		return stonesList.get(index);
 	}
 	

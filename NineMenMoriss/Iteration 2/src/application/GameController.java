@@ -341,55 +341,55 @@ public class GameController extends MainController {
     @FXML
     public void compStone1Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(0);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone2Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(1);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone3Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(2);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone4Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(3);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone5Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(4);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone6Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(5);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone7Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(6);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone8Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(7);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
 
     @FXML
     public void compStone9Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(8);
-    	removeChosenStone(chosenStone);
+    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
     }
     
 	public void turnComputer(AIPlayer compPlayer) {
@@ -411,15 +411,9 @@ public class GameController extends MainController {
 			Stone randomStone;
 			ArrayList<Point> adjacentPoints;
 			
-			System.out.println("it reached here comp");
-
 			do {
-				randomStone = compPlayer.selectRandomStone(configGUI.selectSecondPlayer().getStones());
-				adjacentPoints = configGUI.getAdjacentPoints(randomStone);
-				
-				System.out.println("it reached here comp loop");
-				System.out.println("Adjacent point Size:" + adjacentPoints.size());
-
+				randomStone = compPlayer.selectRandomStone(compPlayer.getStones());
+				adjacentPoints = compPlayer.getAdjacentPoints(randomStone, configGUI.getGameBoard());				
 
 				for (Point point : adjacentPoints) {
 					if (point.getOccupiedPlayer() == 0) {
@@ -429,8 +423,6 @@ public class GameController extends MainController {
 				}
 			} while (!isEmpty);
 				
-			System.out.println("did it reach here comp");
-			
 			chosenStone = randomStone;
 			setCoordinatesCircle(destination);
     		stoneMovedVisually(configGUI.getPlayerNumTwo());
@@ -455,14 +447,8 @@ public class GameController extends MainController {
 		if (filled_Lines_At_End_Of_Turn > filledLines) {
 			Stone randomRemove = compPlayer.selectRandomStoneToRemove(configGUI.getStonesOfOpponent(configGUI.selectFirstPlayer()));
 			chosenStone = randomRemove;
-			removeChosenStone(chosenStone);
+			removeChosenStone(chosenStone, configGUI.getPlayerNumOne());
 			configGUI.removeStone(configGUI.selectFirstPlayer(), chosenStone);
-		}
-		
-		// check AI's number of stones at the end to see if you win
-		if (configGUI.selectFirstPlayer().getNumberOfTotalStones() <= 3) {
-			winner = 2;
-			System.out.println("The computer won.");
 		}
 	}
 	
@@ -490,16 +476,13 @@ public class GameController extends MainController {
     		boolean validAdjacent = false;
             ArrayList<Point> adjacentPoints = configGUI.selectFirstPlayer().getAdjacentPoints(chosenStone, configGUI.getGameBoard());
 
-            System.out.println("it reached here");
-            
+            System.out.println(adjacentPoints.size());
             for (Point adjacentPoint : adjacentPoints) {
             	if (destination.equals(adjacentPoint)) {
             		validAdjacent = true;
             	}
             }
             
-            System.out.println("did it reach here");
-
             if (!validAdjacent) {
             	statusLabel.setText("Invalid destination. Try again");
         		for (Button pointButton : allButtons) {
@@ -842,39 +825,51 @@ public class GameController extends MainController {
 		}
     }
 
-    public void removeChosenStone(Stone stone) {
+    public void removeChosenStone(Stone stone, int playerNum) {
     	try {
-        	stoneRemovedVisually(configGUI.getPlayerNumTwo());
-    		configGUI.removeStone(configGUI.selectSecondPlayer(), chosenStone);
-    		    		
-        	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() < 9) {
-        		for (Button button : allButtons) {
-        			button.setDisable(false);
-        		}
-        	}
-        	else {
-        		for (Circle circle : humanStones) {
-        			circle.setDisable(false);
-        		}
-        	}
-
-        	for (Circle eachStone : compStones) {
-        		eachStone.setDisable(true);
-        	}
-
-    		// check AI's number of stones at the end to see if you win
-    		if (configGUI.selectSecondPlayer().getNumberOfTotalStones() < 3) {
-    			winner = 1;
+    		if (playerNum == configGUI.getPlayerNumOne()) {
+            	stoneRemovedVisually(configGUI.getPlayerNumOne());
+        		configGUI.removeStone(configGUI.selectFirstPlayer(), chosenStone);
+        		    		
+    			// check AI's number of stones at the end to see if you win
+    			if (configGUI.selectFirstPlayer().getNumberOfTotalStones() <= 3) {
+    				winner = 2;
+    				System.out.println("The computer won.");
+    			}    			
     		}
-    		
-        	// check if you win
-        	if (winner == 0) {
-            	turnComputer(configGUI.selectSecondPlayer());
-        		promptEachTurn();
-        	}
-        	else {
-        		statusLabel.setText("You are the winner!");        		
-        	}
+    		else {
+            	stoneRemovedVisually(configGUI.getPlayerNumTwo());
+        		configGUI.removeStone(configGUI.selectSecondPlayer(), chosenStone);
+        		    		
+            	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() < 9) {
+            		for (Button button : allButtons) {
+            			button.setDisable(false);
+            		}
+            	}
+            	else {
+            		for (Circle circle : humanStones) {
+            			circle.setDisable(false);
+            		}
+            	}
+
+            	for (Circle eachStone : compStones) {
+            		eachStone.setDisable(true);
+            	}
+
+        		// check AI's number of stones at the end to see if you win
+        		if (configGUI.selectSecondPlayer().getNumberOfTotalStones() < 3) {
+        			winner = 1;
+        		}
+        		
+            	// check if you win
+            	if (winner == 0) {
+                	turnComputer(configGUI.selectSecondPlayer());
+            		promptEachTurn();
+            	}
+            	else {
+            		statusLabel.setText("You are the winner!");        		
+            	}    			
+    		}
     	}
     	catch (NullPointerException NPE) {
     		// tried to remove a stone that is not on the field
@@ -1011,7 +1006,7 @@ public class GameController extends MainController {
 	}
 
 	private void stoneRemovedVisually(int playerNum) {
-		if (playerNum == 1) {
+		if (playerNum == configGUI.getPlayerNumOne()) {
 			if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(0))) {
 				boardPane.getChildren().remove(humanStone1);
 			}
