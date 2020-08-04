@@ -3,6 +3,7 @@ package model;
 public class Stone {
 	private Point location;
 	private Player owner;
+	private boolean isDead;
 
 	/**
 	 * Constructor of a Stone object
@@ -12,6 +13,13 @@ public class Stone {
 	 */
 	public Stone(Player owner) {
 		this.owner = owner;
+		isDead = false;
+	}
+
+	public Stone(Player owner, Point location) {
+		this.owner = owner;
+		this.location = location;
+		isDead = false;
 	}
 
 	public void setLocation(Point location) {
@@ -32,5 +40,12 @@ public class Stone {
 		return owner;
 	}
 	
+	public boolean getDead() {
+		return isDead;
+	}
+	
+	public void setDead() {
+		isDead = true;
+	}
 
 }

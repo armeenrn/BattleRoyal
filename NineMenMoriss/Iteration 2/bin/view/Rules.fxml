@@ -40,7 +40,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="134.0" text="1. Activates once the player has 3 stones left on the board after Stage 2.">
+            <Label layoutX="14.0" layoutY="134.0" text="1. Activates once the player has 3 stones left on the board during Stage 2.">
                <font>
                   <Font size="14.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="220.0" text="A &quot;mill&quot; is formed by placing three stones along one single line on the board.">
+            <Label layoutX="14.0" layoutY="220.0" text="A &quot;mill&quot; is formed by placing 3 stones along one single line on the board.">
                <font>
                   <Font size="14.0" />
                </font>

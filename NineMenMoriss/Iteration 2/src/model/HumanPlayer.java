@@ -6,10 +6,9 @@ import java.util.Scanner;
 public class HumanPlayer extends Player {
 	
 	private String name;
-	private int number;
 	
-	public HumanPlayer(String name, int num) {
-		super(name, num);
+	public HumanPlayer(String name, int num, boolean goFirst) {
+		super(name, num, goFirst);
 		this.name = name;
 	}
 	

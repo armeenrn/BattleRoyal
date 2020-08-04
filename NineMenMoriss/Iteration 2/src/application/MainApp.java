@@ -23,12 +23,13 @@ public class MainApp extends Application {
 	        primaryStage.show();		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Problem loading Game.fxml");
+			System.out.println("Problem loading Main.fxml");
 		}
 	}
 	
 	/**
-	 * https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx
+	 * Idea borrowed from https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx
+	 * and PollTrackerApp.java from Team Mission 2
 	 * 
 	 * @param fxmlFile
 	 */
