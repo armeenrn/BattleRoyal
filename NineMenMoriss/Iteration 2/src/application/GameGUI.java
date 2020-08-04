@@ -38,13 +38,13 @@ public class GameGUI {
 		}
 		
 		if (goFirst == 1) {
-			player1 = new HumanPlayer(playerNames[0], 1, gameController);
-			player2 = new AIPlayer(playerNames[1], 2, gameController);	
+			player1 = new HumanPlayer(playerNames[0], 1);
+			player2 = new AIPlayer(playerNames[1], 2);	
 		}
 		
 		if (goFirst == 2) {
-			player1 = new HumanPlayer(playerNames[1], 1, gameController);
-			player2 = new AIPlayer(playerNames[0], 2, gameController);	
+			player1 = new HumanPlayer(playerNames[1], 1);
+			player2 = new AIPlayer(playerNames[0], 2);	
 			
 			
 		}
