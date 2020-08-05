@@ -20,8 +20,12 @@ public class Point {
 		return y;
 	}
 	
-	public Stone getOccupiedStone(){
+	public Stone getOccupiedStone() {
 		return occupiedStone;
+	}
+	
+	public void setOccupiedStone(Stone stone) {
+		occupiedStone = stone;
 	}
 	
 	public int getOccupiedPlayer() {

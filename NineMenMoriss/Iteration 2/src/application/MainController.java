@@ -7,9 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import model.Game;
 
 public class MainController {
 	private Stage ruleStage;
@@ -44,7 +44,7 @@ public class MainController {
     			ruleStage = new Stage();
     			FXMLLoader loader = new FXMLLoader();
     			Scene scene = new Scene(loader.load(new FileInputStream("src/view/Rules.fxml")),600,365);
-    			ruleStage.setResizable(false);
+    			ruleStage.initStyle(StageStyle.UTILITY);
     			ruleStage.setTitle("Rules");
     			ruleStage.setScene(scene);
     			firstTutOpen = true;

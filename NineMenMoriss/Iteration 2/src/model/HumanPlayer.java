@@ -7,8 +7,8 @@ public class HumanPlayer extends Player {
 	
 	private String name;
 	
-	public HumanPlayer(String name, int num, boolean goFirst) {
-		super(name, num, goFirst);
+	public HumanPlayer(String name, int num, boolean goFirst, Board gameBoard) {
+		super(name, num, goFirst, gameBoard);
 		this.name = name;
 	}
 	

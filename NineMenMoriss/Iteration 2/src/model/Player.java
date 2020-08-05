@@ -4,20 +4,44 @@ import java.util.ArrayList;
 
 public class Player {
 	private ArrayList<Stone> stones;
-	private int placedStones;
-	private int totalStones;
+	private int placedStones = 0;
+	private int totalStones = 9;
 	private String name;
 	private int playerNumber;
-	private boolean goFirst;
+	private Board board;
+	private Point[] allPoints = new Point[24];
 
 
-	public Player(String name, int num, boolean goFirst) {
-		placedStones = 0;
-		totalStones = 9;
+	public Player(String name, int num, boolean goFirst, Board gameBoard) {
 		stones = new ArrayList<Stone>();
 		this.name = name;
 		playerNumber = num;
-		this.goFirst = goFirst;
+		board = gameBoard;
+		
+		allPoints[0] = board.getSquares()[0].getSouthLine().getEndPoint1();
+		allPoints[1] = board.getSquares()[0].getSouthLine().getMidPoint();
+		allPoints[2] = board.getSquares()[0].getSouthLine().getEndPoint2();
+		allPoints[3] = board.getSquares()[0].getWestLine().getMidPoint();
+		allPoints[4] = board.getSquares()[0].getEastLine().getMidPoint();
+		allPoints[5] = board.getSquares()[0].getNorthLine().getEndPoint1();
+		allPoints[6] = board.getSquares()[0].getNorthLine().getMidPoint();
+		allPoints[7] = board.getSquares()[0].getNorthLine().getEndPoint2();
+		allPoints[8] = board.getSquares()[1].getSouthLine().getEndPoint1();
+		allPoints[9] = board.getSquares()[1].getSouthLine().getMidPoint();
+		allPoints[10] = board.getSquares()[1].getSouthLine().getEndPoint2();
+		allPoints[11] = board.getSquares()[1].getWestLine().getMidPoint();
+		allPoints[12] = board.getSquares()[1].getEastLine().getMidPoint();
+		allPoints[13] = board.getSquares()[1].getNorthLine().getEndPoint1();
+		allPoints[14] = board.getSquares()[1].getNorthLine().getMidPoint();
+		allPoints[15] = board.getSquares()[1].getNorthLine().getEndPoint2();
+		allPoints[16] = board.getSquares()[2].getSouthLine().getEndPoint1();
+		allPoints[17] = board.getSquares()[2].getSouthLine().getMidPoint();
+		allPoints[18] = board.getSquares()[2].getSouthLine().getEndPoint2();
+		allPoints[19] = board.getSquares()[2].getWestLine().getMidPoint();
+		allPoints[20] = board.getSquares()[2].getEastLine().getMidPoint();
+		allPoints[21] = board.getSquares()[2].getNorthLine().getEndPoint1();
+		allPoints[22] = board.getSquares()[2].getNorthLine().getMidPoint();
+		allPoints[23] = board.getSquares()[2].getNorthLine().getEndPoint2();
 	}
 	
 	public String toString() {
@@ -48,43 +72,18 @@ public class Player {
 		return playerNumber;
 	}
 	
+	public Point[] getPointList() {
+		return allPoints;
+	}
+	
 	/**
 	 * Called by Game class to move one Stone to an adjacent empty point. Can be used in phase 2
 	 * 
 	 * @param stone stone to move
 	 * @param board board
 	 */
-	public ArrayList<Point> getAdjacentPoints(Stone stone, Board board) {
-		Point currentPoint;
-		Point[] allPoints = new Point[24];
+	public ArrayList<Point> getAdjacentPoints(Point currentPoint) {
 		ArrayList<Point> adjacentPoints = new ArrayList<Point>();
-		
-		allPoints[0] = board.getSquares()[0].getLines()[0].getEndPoint1();
-		allPoints[1] = board.getSquares()[0].getLines()[0].getMidPoint();
-		allPoints[2] = board.getSquares()[0].getLines()[0].getEndPoint2();
-		allPoints[3] = board.getSquares()[0].getLines()[1].getMidPoint();
-		allPoints[4] = board.getSquares()[0].getLines()[2].getMidPoint();
-		allPoints[5] = board.getSquares()[0].getLines()[3].getEndPoint1();
-		allPoints[6] = board.getSquares()[0].getLines()[3].getMidPoint();
-		allPoints[7] = board.getSquares()[0].getLines()[3].getEndPoint2();
-		allPoints[8] = board.getSquares()[1].getLines()[0].getEndPoint1();
-		allPoints[9] = board.getSquares()[1].getLines()[0].getMidPoint();
-		allPoints[10] = board.getSquares()[1].getLines()[0].getEndPoint2();
-		allPoints[11] = board.getSquares()[1].getLines()[1].getMidPoint();
-		allPoints[12] = board.getSquares()[1].getLines()[2].getMidPoint();
-		allPoints[13] = board.getSquares()[1].getLines()[3].getEndPoint1();
-		allPoints[14] = board.getSquares()[1].getLines()[3].getMidPoint();
-		allPoints[15] = board.getSquares()[1].getLines()[3].getEndPoint2();
-		allPoints[16] = board.getSquares()[2].getLines()[0].getEndPoint1();
-		allPoints[17] = board.getSquares()[2].getLines()[0].getMidPoint();
-		allPoints[18] = board.getSquares()[2].getLines()[0].getEndPoint2();
-		allPoints[19] = board.getSquares()[2].getLines()[1].getMidPoint();
-		allPoints[20] = board.getSquares()[2].getLines()[2].getMidPoint();
-		allPoints[21] = board.getSquares()[2].getLines()[3].getEndPoint1();
-		allPoints[22] = board.getSquares()[2].getLines()[3].getMidPoint();
-		allPoints[23] = board.getSquares()[2].getLines()[3].getEndPoint2();
-
-		currentPoint = stone.getLocation();
 		
 		if (currentPoint.equals(allPoints[0])) {
 			adjacentPoints.add(allPoints[1]);

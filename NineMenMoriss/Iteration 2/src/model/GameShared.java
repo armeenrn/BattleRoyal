@@ -13,28 +13,24 @@ public class GameShared {
 	private Player[] playerList;
 	private Board gameBoard;
 	
-	private final int PLACE = 1;
-	private final int MOVE_ADJACENT = 2;
-	private final int JUMP = 3;
-	
 	private final int NO_ONE_NUM = 0;
 	private final int HUMAN_PLAYER_NUM = 1;
 	private final int COMP_PLAYER_NUM = 2;
 	
-	public void setGameConfig() {		
+	public void setGameConfig() {
 		gameBoard = new Board(BOARDWIDTH, CENTER_X, CENTER_Y);		
 		Random rand = new Random();
 		
 		goFirst = rand.nextInt(2) + 1; 
 		
 		if (goFirst == HUMAN_PLAYER_NUM) {
-			player1 = new HumanPlayer("YOU", 1, true);
-			player2 = new AIPlayer("COMPUTER", 2, false);	
+			player1 = new HumanPlayer("YOU", 1, true, gameBoard);
+			player2 = new AIPlayer("COMPUTER", 2, false, gameBoard);	
 		}
 		
 		if (goFirst == COMP_PLAYER_NUM) {
-			player1 = new HumanPlayer("YOU", 1, false);
-			player2 = new AIPlayer("COMPUTER", 2, true);	
+			player1 = new HumanPlayer("YOU", 1, false, gameBoard);
+			player2 = new AIPlayer("COMPUTER", 2, true, gameBoard);	
 			
 		}
 
@@ -82,20 +78,18 @@ public class GameShared {
 	
 	public void setNewStoneInPlace(Player player, Point place) {
 		player.getStones().add(new Stone(player, place));
-		move(player, player.getStones().get(player.getNumberOfPlacedStones()), place);
+		player.getStones().get(player.getNumberOfPlacedStones()).setLocation(place);
 		place.setOccupiedPlayer(player.getPlayerNumber());
+		place.setOccupiedStone(player.getStones().get(player.getNumberOfPlacedStones()));
 		player.increaseNumberOfPlacedStones();
 	}
 
 	public void move(Player player, Stone stone, Point place) {
-		if (player.getNumberOfPlacedStones() == 9) {
-			if (stone.getLocation().getOccupiedPlayer() != NO_ONE_NUM) {
-				stone.getLocation().setOccupiedPlayer(NO_ONE_NUM);
-			}			
-		}
-
+		stone.getLocation().setOccupiedPlayer(NO_ONE_NUM);
+		stone.getLocation().setOccupiedStone(null);
 		stone.setLocation(place);
 		place.setOccupiedPlayer(player.getPlayerNumber());
+		place.setOccupiedStone(stone);
 	}
 	
 	public ArrayList<Stone> getStonesOfOpponent(Player opponent) {
@@ -109,11 +103,10 @@ public class GameShared {
 		return stonesOfOpponent;
 	}
 	
-	public void moveStone(Player player, Stone stone, Point point, int moveType) {
-		if (moveType == PLACE) {
+	public void moveStone(Player player, Stone stone, Point point) {
+		if (player.getNumberOfPlacedStones() < 9) {
 			setNewStoneInPlace(player, point);
-		}
-		
+		}		
 		else {
 			move(player, stone, point);
 		}
@@ -123,15 +116,16 @@ public class GameShared {
 		int index;
 		Point pointItIsRemoved = stoneToBeRemoved.getLocation();
 		
-		for (index = 0; index < opponentPlayer.getStones().size(); index++) {
-			if (opponentPlayer.getStones().get(index).equals(stoneToBeRemoved)) {
-				opponentPlayer.getStones().get(index).setDead();
-				pointItIsRemoved.setOccupiedPlayer(NO_ONE_NUM);					
+		for (index = 0; index < opponentPlayer.getNumberOfTotalStones(); index++) {
+			if (opponentPlayer.getStones().get(index) == stoneToBeRemoved) {
 				break;
 			}
 		}
-
-		opponentPlayer.decreaseNumberOfOwnedStones();
+		
+		pointItIsRemoved.setOccupiedPlayer(NO_ONE_NUM);
+		pointItIsRemoved.setOccupiedStone(null);
+		opponentPlayer.getStones().get(index).setDead();
+		opponentPlayer.decreaseNumberOfOwnedStones();			
 	}
 	
 	public ArrayList<Stone> getFreeStones(Player player) {

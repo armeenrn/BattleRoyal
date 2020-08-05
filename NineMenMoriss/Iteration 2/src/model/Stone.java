@@ -23,13 +23,7 @@ public class Stone {
 	}
 
 	public void setLocation(Point location) {
-		if (location == null) {
-			this.location = null;
-		}
-		
-		else {
-			this.location = location;	
-		}	
+		this.location = location;	
 	}
 	
 	public Point getLocation() {

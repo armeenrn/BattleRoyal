@@ -30,7 +30,6 @@ public class Square {
 		lines[1] = lineW;
 		lines[2] = lineE;
 		lines[3] = lineN;
-		
 	}
 
 

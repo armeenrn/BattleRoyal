@@ -4,9 +4,6 @@ public class Game {
 	private int winner = 0;
 	private GameShared textGameConfig;
 	
-	private final int PLACE = 1;
-	private final int MOVE_ADJACENT = 2;
-	
 	public Game() {		
 		textGameConfig = new GameShared();
 		textGameConfig.setGameConfig();
@@ -77,7 +74,7 @@ public class Game {
 				userPoint = humanPlayer.selectDestination(textGameConfig.getPointsAsList());
 			}
 			
-			textGameConfig.moveStone(textGameConfig.selectFirstPlayer(), null, userPoint, PLACE);
+			textGameConfig.moveStone(textGameConfig.selectFirstPlayer(), null, userPoint);
 			System.out.println("Player " + textGameConfig.selectFirstPlayer().getPlayerNumber() + ": New stone placed at: " + userPoint.toString());
 			System.out.println("");			
 		}
@@ -92,7 +89,7 @@ public class Game {
 				userPoint = humanPlayer.selectDestination(textGameConfig.getPointsAsList());
 			}
 			
-			textGameConfig.moveStone(humanPlayer, selectedStone, userPoint, MOVE_ADJACENT);
+			textGameConfig.moveStone(humanPlayer, selectedStone, userPoint);
 			System.out.println(this.toString() + ": stone moved to: " + userPoint.toString());
 			System.out.println("");
 		}
@@ -146,7 +143,7 @@ public class Game {
 				randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
 			}
 			
-			textGameConfig.moveStone(compPlayer, null, randomPoint, 1);			
+			textGameConfig.moveStone(compPlayer, null, randomPoint);			
 		}		
 		else if (compPlayer.getNumberOfTotalStones() > 3) {
 			Stone randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
@@ -156,10 +153,9 @@ public class Game {
 				randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
 			}
 			
-			textGameConfig.moveStone(compPlayer, randomStone, randomPoint, 2);
+			textGameConfig.moveStone(compPlayer, randomStone, randomPoint);
 		}
 		else {
-			Stone randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
 			Point randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
 			while (randomPoint.getOccupiedPlayer() != 0) {
 				randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());

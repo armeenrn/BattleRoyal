@@ -73,8 +73,6 @@ public class Line {
 		}
 
 	}
-
-
 	
 	public boolean doesLineContain(Stone stoneToCheck) {
 		boolean contains = false;
