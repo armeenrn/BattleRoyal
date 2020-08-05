@@ -116,7 +116,7 @@ public class GameShared {
 		int index;
 		Point pointItIsRemoved = stoneToBeRemoved.getLocation();
 		
-		for (index = 0; index < opponentPlayer.getNumberOfTotalStones(); index++) {
+		for (index = 0; index < opponentPlayer.getStones().size(); index++) {
 			if (opponentPlayer.getStones().get(index) == stoneToBeRemoved) {
 				break;
 			}
