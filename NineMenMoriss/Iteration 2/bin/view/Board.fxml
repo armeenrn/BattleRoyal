@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -8,18 +9,59 @@
 
 <Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GameController">
    <children>
-      <Pane prefHeight="650.0" prefWidth="650.0">
+      <Pane prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #ffc371;">
          <children>
-            <Button fx:id="exitButton" layoutX="504.0" layoutY="606.0" mnemonicParsing="false" onAction="#exitCurrentGame" text="Exit Current Game">
+            <Button fx:id="exitButton" layoutX="646.0" layoutY="792.0" mnemonicParsing="false" onAction="#exitCurrentGame" text="Quit current game">
                <font>
-                  <Font size="14.0" />
+                  <Font size="20.0" />
                </font>
             </Button>
-            <Button fx:id="rulesButton" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" onAction="#displayRules" text="Rules">
+            <Button fx:id="rulesButton" layoutX="14.0" layoutY="792.0" mnemonicParsing="false" onAction="#rulesPressed" text="Rules">
                <font>
-                  <Font size="14.0" />
+                  <Font size="20.0" />
                </font>
             </Button>
+            <Label fx:id="namePlayer2" layoutX="662.0" layoutY="14.0" text="COMPUTER" textFill="RED">
+               <font>
+                  <Font name="Comic Sans MS" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="namePlayer1" layoutX="14.0" layoutY="14.0" text="YOU" textFill="BLUE">
+               <font>
+                  <Font name="Comic Sans MS" size="32.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc471" height="650.0" layoutX="100.0" layoutY="100.0" stroke="BLACK" strokeType="OUTSIDE" width="650.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc371" height="450.0" layoutX="200.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="450.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc371" height="250.0" layoutX="300.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+            <Line endX="100.0" layoutX="650.0" layoutY="425.0" startX="-100.0" />
+            <Line endX="100.0" layoutX="200.0" layoutY="425.0" startX="-100.0" />
+            <Line endX="-100.0" endY="200.0" layoutX="526.0" layoutY="550.0" startX="-100.0" />
+            <Line endX="-100.0" endY="200.0" layoutX="526.0" layoutY="100.0" startX="-100.0" />
+            <Circle layoutX="100.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="426.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="750.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="100.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="outSqSouthLiEndP1" layoutX="100.0" layoutY="750.0" onMouseClicked="#outSqSouthLiEndP1Selected" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="201.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="426.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="649.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="750.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="750.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="649.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="426.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="201.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="649.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="201.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="426.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="426.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="300.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="550.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="550.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="300.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="426.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="300.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="550.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
          </children></Pane>
    </children>
 </Pane>
