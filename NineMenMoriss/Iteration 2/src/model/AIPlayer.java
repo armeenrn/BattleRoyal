@@ -338,7 +338,7 @@ public class AIPlayer extends Player {
 		int numEmptyPoint;
 		int numCompPoint;
 		Point pointToTest = null;
-		
+		/*
 		for (Square square : board.getSquares()) {
 			for (Line line : square.getLines()) {
 				numEmptyPoint = 0;
@@ -366,11 +366,11 @@ public class AIPlayer extends Player {
 					}
 					else {
 						// endpoint test
-						/*
+						
 						if () {
 							pointToMoveTo = pointToTest;
 							return true;							
-						}*/
+						}
 					}
 					
 					for (Point adjacentPoint : adjacentPoints) {						
@@ -387,7 +387,7 @@ public class AIPlayer extends Player {
 				}
 			}
 		}
-		
+		*/
 		return false;
 	}
 
