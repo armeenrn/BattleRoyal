@@ -1,3 +1,10 @@
+/**
+ * Controller for GUI of the Game
+ * 
+ * @author Daniel Kim, Armeen Rashidian
+ * @version 2.0
+ */
+
 package application;
 
 import javafx.fxml.FXML;
@@ -174,17 +181,17 @@ public class GameController extends MainController {
 	private GameShared configGUI;
 	private double clickedX;
 	private double clickedY;
-	private ArrayList<Line> filledLines;
 	
-	private Button[] allButtons = new Button[24];
+	private Button[] allPoints = new Button[24];
 
 	private Circle[] humanStones = new Circle[9];
 	private Circle[] compStones = new Circle[9];
 	
     /**
+     * Quits the game with confirmation window
      * Base idea https://examples.javacodegeeks.com/desktop-java/javafx/dialog-javafx/javafx-dialog-example/
      * 
-     * @param event
+     * @param event QUIT button clicked
      */
     @FXML
     public void exitCurrentGame(ActionEvent event) {
@@ -198,161 +205,80 @@ public class GameController extends MainController {
     	}
     }
 
+    /**
+     * Displays rules
+     * 
+     * @param event RULES button clicked
+     */
     @FXML
     public void rulesPressed(ActionEvent event) {
     	displayRules(event);
     }
 
-    @FXML
-    void initialize() {
-        assert exitButton != null : "fx:id=\"exitButton\" was not injected: check your FXML file 'Board.fxml'.";
-        assert rulesButton != null : "fx:id=\"rulesButton\" was not injected: check your FXML file 'Board.fxml'.";
-        configGUI = new GameShared();
-        configGUI.setGameConfig();
-        firstTurnPlay();
-        humanStones[0] = humanStone1;
-        humanStones[1] = humanStone2;
-        humanStones[2] = humanStone3;
-        humanStones[3] = humanStone4;
-        humanStones[4] = humanStone5;
-        humanStones[5] = humanStone6;
-        humanStones[6] = humanStone7;
-        humanStones[7] = humanStone8;
-        humanStones[8] = humanStone9;
-        compStones[0] = compStone1;
-        compStones[1] = compStone2;
-        compStones[2] = compStone3;
-        compStones[3] = compStone4;
-        compStones[4] = compStone5;
-        compStones[5] = compStone6;
-        compStones[6] = compStone7;
-        compStones[7] = compStone8;
-        compStones[8] = compStone9;
-        allButtons[0] = outSqLineSEnd1;
-        allButtons[1] = outSqLineSMid;
-        allButtons[2] = outSqLineSEnd2;
-        allButtons[3] = outSqLineWMid;
-        allButtons[4] = outSqLineEMid;
-        allButtons[5] = outSqLineNEnd1;
-        allButtons[6] = outSqLineNMid;
-        allButtons[7] = outSqLineNEnd2;
-        allButtons[8] = midSqLineSEnd1;
-        allButtons[9] = midSqLineSMid;
-        allButtons[10] = midSqLineSEnd2;
-        allButtons[11] = midSqLineWMid;
-        allButtons[12] = midSqLineEMid;
-        allButtons[13] = midSqLineNEnd1;
-        allButtons[14] = midSqLineNMid;
-        allButtons[15] = midSqLineNEnd2;
-        allButtons[16] = innSqLineSEnd1;
-        allButtons[17] = innSqLineSMid;
-        allButtons[18] = innSqLineSEnd2;
-        allButtons[19] = innSqLineWMid;
-        allButtons[20] = innSqLineEMid;
-        allButtons[21] = innSqLineNEnd1;
-        allButtons[22] = innSqLineNMid;
-        allButtons[23] = innSqLineNEnd2;
-    }
-
-    public void firstTurnPlay() {
-        if (configGUI.getFirstPlayer() == 2) {
-			turnComputer(configGUI.selectSecondPlayer());
-    	}
-    }
-    
-    public void promptEachTurn() {
-    	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 9) {
-    		// stage 2 or 3; select stone first; disable all buttons; enable all circles
-    		statusLabel.setText("Choose a stone to move");
-
-    		for (Button button : allButtons) {
-    			button.setDisable(true);
-    		}
-    		
-    		for (Circle circle : humanStones) {
-    			circle.setDisable(false);
-    		}
-    	}
-    	else {
-    		statusLabel.setText("Choose a point to place a stone");
-    	}
-    }    
-    
-    public void endGame() {
-    	if (winner == 1) {
-    		statusLabel.setText("You win!");
-    	}
-    	else {
-    		statusLabel.setText("Computer wins!");
-    	}
-
-    	for (Button button : allButtons) {
-			button.setDisable(true);
-		}
-		
-		for (Circle circle : humanStones) {
-			circle.setDisable(true);
-		}
-
-		for (Circle circle : compStones) {
-			circle.setDisable(true);
-		}
-	}
-
+    /**
+     * Clicking on any of nine human stones will select its corresponding Stone object and invoke move method
+     * 
+     * @param event Human stone clicked
+     */
     @FXML
     public void humanStone1Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(0);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone2Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(1);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone3Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(2);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone4Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(3);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone5Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(4);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone6Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(5);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone7Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(6);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone8Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(7);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
     @FXML
     public void humanStone9Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectFirstPlayer().getStones().get(8);
-    	moveFromChosenStone(chosenStone);
+    	moveFromChosenStone();
     }
 
+    /**
+     * Clicking on any of nine AI stones will select its corresponding Stone object and invoke remove method
+     * 
+     * @param event Human stone clicked
+     */
     @FXML
     public void compStone1Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(0);
@@ -405,29 +331,99 @@ public class GameController extends MainController {
     public void compStone9Clicked(MouseEvent event) {
     	chosenStone = configGUI.selectSecondPlayer().getStones().get(8);
     	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    } 
+
+    /**
+     * Performs first turn; if the AI goes first it will call the AI to take its turn
+     */
+    public void firstTurnPlay() {
+        if (configGUI.getFirstPlayer() == 2) {
+			turnComputer(configGUI.selectSecondPlayer());
+    	}
     }
     
+    /**
+     * Starts human player turn
+     */
+    public void promptEachTurn() {
+    	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 9) {
+    		// stage 2 or 3; select stone first; disable all buttons; enable all human stones for click
+    		statusLabel.setText("Choose a stone to move");
+
+    		for (Button point : allPoints) {
+    			point.setDisable(true);
+    		}
+    		
+    		for (Circle humanStone : humanStones) {
+    			humanStone.setDisable(false);
+    		}
+    	}
+    	else {
+    		statusLabel.setText("Choose a point to place a stone");
+    	}
+    }    
+    
+    /**
+     * Ends the game and displays message
+     */
+    public void endGame() {
+    	if (winner == 1) {
+    		statusLabel.setText("You win!");
+    	}
+    	else {
+    		statusLabel.setText("Computer wins!");
+    	}
+
+    	// disables all buttons and stones; the game will no longer be accessible
+    	for (Button point : allPoints) {
+    		point.setDisable(true);
+		}
+		
+		for (Circle humanStone : humanStones) {
+			humanStone.setDisable(true);
+		}
+
+		for (Circle compStone : compStones) {
+			compStone.setDisable(true);
+		}
+	}
+
+    /**
+     * Performs a turn with AI
+     * 
+     * @param compPlayer
+     */
 	public void turnComputer(AIPlayer compPlayer) {
-		filledLines = configGUI.getFilledLine(compPlayer);
+		ArrayList<Line> filledLines_StartTurn = configGUI.getFilledLine(compPlayer);
     	
 		if (compPlayer.getNumberOfPlacedStones() < 9) {
+			// placing stage
 			compTurnPlaceStage(compPlayer);
 		}
     	else if (compPlayer.getNumberOfTotalStones() > 3) {
+			// can only move adjacent
     		compTurnMoveAdjacentStage(compPlayer);
     	}
 		else {
+			// jumping stage
 			compTurnJumpStage(compPlayer);
 		}
 		
-		compTurnCheckMillAndEndTurn(compPlayer);
+		// ending stage
+		compTurnCheckMillAndEndTurn(compPlayer, filledLines_StartTurn);
 	}
 	
+	/**
+	 * Performs the placing stage part with AI
+	 * 
+	 * @param compPlayer
+	 */
 	private void compTurnPlaceStage(AIPlayer compPlayer) {
+		// look for the best move in placing stage
 		destination = compPlayer.lookForBestMove(configGUI.getGameBoard());
 
 		if (destination == null) {
-			// destination was null; the AI had no good move to make; make a random move
+			// the AI had no good move to make; make a random point to move to
 			Point randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
 			while (randomPoint.getOccupiedPlayer() != 0) {
 				randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
@@ -436,15 +432,22 @@ public class GameController extends MainController {
 			destination = randomPoint;			
 		}
 
-		setCoordinatesCircle(destination);
+		setCoordinatesStone(destination);
 		stonePlacedNewVisually(configGUI.getPlayerNumTwo());
 		configGUI.moveStone(compPlayer, null, destination);
 	}
 	
+	/**
+	 * Performs a moving adjacent part of the turn with AI
+	 * 
+	 * @param compPlayer
+	 */
 	private void compTurnMoveAdjacentStage(AIPlayer compPlayer) {
+		// look for the best move in placing stage
 		destination = compPlayer.lookForBestMove(configGUI.getGameBoard());
 		
 		if (destination == null) {
+			// the AI had no good move to make; make a move adjacent with a random stone
 			boolean isEmpty = false;
 			Stone randomStone;
 			ArrayList<Point> adjacentPoints;
@@ -467,17 +470,22 @@ public class GameController extends MainController {
 			chosenStone = compPlayer.getBestMoveStone();			
 		}
 		
-		setCoordinatesCircle(destination);
+		setCoordinatesStone(destination);
 		stoneMovedVisually(configGUI.getPlayerNumTwo());
 		configGUI.moveStone(compPlayer, chosenStone, destination);
 	}
 	
+	/**
+	 * Performs a jumping stage with AI
+	 * 
+	 * @param compPlayer
+	 */
 	private void compTurnJumpStage(AIPlayer compPlayer) {
-		// jumping stage
+		// look for the best move in jumping stage
     	destination = compPlayer.lookForBestMove(configGUI.getGameBoard());
     	
     	if (destination == null) {
-    		// destination was null; the AI had no good move to make; make a random move
+			// the AI had no good move to make; make a random move with a random stone
     		Stone randomStone = compPlayer.selectRandomStone(configGUI.getFreeStones(compPlayer));
     		Point randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
     		while (randomPoint.getOccupiedPlayer() != 0) {
@@ -491,28 +499,41 @@ public class GameController extends MainController {
     		chosenStone = compPlayer.getBestMoveStone();
     	}
 
-    	setCoordinatesCircle(destination);
+    	setCoordinatesStone(destination);
 		stoneMovedVisually(configGUI.getPlayerNumTwo());
 		configGUI.moveStone(compPlayer, chosenStone, destination);
 	}
 	
-	private void compTurnCheckMillAndEndTurn(AIPlayer compPlayer) {
+	/**
+	 * Checks if the AI performed a new mill this turn and perform accordingly.
+	 * 
+	 * @param compPlayer
+	 * @param filledLines_StartTurn List of mills at the start of the turn
+	 */
+	private void compTurnCheckMillAndEndTurn(AIPlayer compPlayer, ArrayList<Line> filledLines_StartTurn) {
 		ArrayList<Line> filled_Lines_At_End_Of_Turn = configGUI.getFilledLine(compPlayer);
 		
-		if ((!(filled_Lines_At_End_Of_Turn.equals(filledLines))) && filled_Lines_At_End_Of_Turn.size() >= filledLines.size()) {
+		if ((!(filled_Lines_At_End_Of_Turn.equals(filledLines_StartTurn))) && filled_Lines_At_End_Of_Turn.size() >= filledLines_StartTurn.size()) {
+			// A new mill was found; look for the best stone to remove and perform
 			chosenStone = compPlayer.lookforBestRemove(configGUI.getGameBoard(), configGUI.selectFirstPlayer());
 			removeChosenStone(chosenStone, configGUI.getPlayerNumOne());
 		}
 		else {
+			// Player's turn without removing stone
 			promptEachTurn();			
 		}
 	}
-	
+
+	/**
+	 * Activates when any point is clicked
+	 * 
+	 * @param event Mouse click on a point
+	 */
     @FXML
     public void pointClicked(ActionEvent event) {
     	Button button = (Button)event.getSource();
     	Boolean moveWasDone;
-		filledLines = configGUI.getFilledLine(configGUI.selectFirstPlayer());
+    	ArrayList<Line> filledLines_StartTurn = configGUI.getFilledLine(configGUI.selectFirstPlayer());
     	
     	// If phase1 -> placing stones
     	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() < 9) {
@@ -527,16 +548,21 @@ public class GameController extends MainController {
     		moveWasDone = humanTurnJumpStage(button);
     	}
     	
+		// ending stage if a move was done properly; otherwise reset the turn
     	if (moveWasDone) {
-        	humanTurnCheckMillAndEndTurn();    		
+        	humanTurnCheckMillAndEndTurn(filledLines_StartTurn);    		
     	}    	
     }
     
+	/**
+	 * Performs the placing stage part with human player
+	 * 
+	 * @param compPlayer
+	 */
     private boolean humanTurnPlaceStage(Button button) {
-		// Check if player chooses an empty location
-		
 		destination = chooseLocation(button);
 		
+		// Check if player chooses an empty location		
 		if (destination.getOccupiedPlayer() != 0) {
 			statusLabel.setText("Invalid location; please try again");
 			return false;
@@ -544,17 +570,23 @@ public class GameController extends MainController {
 		else {
     		stonePlacedNewVisually(configGUI.getPlayerNumOne());
     		configGUI.moveStone(configGUI.selectFirstPlayer(), null, destination);
-		}
-		
-		return true;
+    		return true;
+		}		
     }
     
+	/**
+	 * Human player performs moving adjacent
+	 * 
+	 * @param compPlayer
+	 */
     private boolean humanTurnMoveAdjacentStage(Button button) {
-		// the player will choose an empty location
+		boolean validAdjacent = false;
+		boolean moveWasValid;
+
+		// the player will choose a point
 		destination = chooseLocation(button);
 		
-    	// Check if the empty point chosen was an adjacent point
-		boolean validAdjacent = false;
+    	// Check if the point chosen was an adjacent point
         ArrayList<Point> adjacentPoints = configGUI.selectFirstPlayer().getAdjacentPoints(chosenStone.getLocation());
 
         for (Point adjacentPoint : adjacentPoints) {
@@ -563,91 +595,104 @@ public class GameController extends MainController {
         	}
         }
         
+        // Check if the point chosen is empty
         if (!validAdjacent || destination.getOccupiedPlayer() != 0) {
         	statusLabel.setText("Invalid destination. Try again");
-    		for (Button pointButton : allButtons) {
-    			pointButton.setDisable(true);
-    		}
-    		
-    		for (Circle circle : humanStones) {
-    			circle.setDisable(false);
-    		}
-
-    		return false;
+        	
+    		moveWasValid = false;
         }
-		
-		stoneMovedVisually(configGUI.getPlayerNumOne());
-		configGUI.moveStone(configGUI.selectFirstPlayer(), chosenStone, destination);
+        else {
+    		stoneMovedVisually(configGUI.getPlayerNumOne());
+    		configGUI.moveStone(configGUI.selectFirstPlayer(), chosenStone, destination);
 
-		for (Button pointButton : allButtons) {
-			pointButton.setDisable(true);
+    		moveWasValid = true;        	
+        }
+        
+    	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
+		for (Button point : allPoints) {
+			point.setDisable(true);
 		}
 		
-		for (Circle circle : humanStones) {
-			circle.setDisable(false);
+		for (Circle humanStone : humanStones) {
+			humanStone.setDisable(false);
 		}
-		
-		return true;
+
+        return moveWasValid;
     }
     
+	/**
+	 * Human player performs a jump
+	 * 
+	 * @param compPlayer
+	 */  
     private boolean humanTurnJumpStage(Button button) {
-		// the player will choose an empty location
+    	boolean moveWasValid;
 		destination = chooseLocation(button);
 		
+		// Check if player chooses an empty location				
 		if (destination.getOccupiedPlayer() != 0) {
 			statusLabel.setText("Invalid location; please try again");    				
-    		for (Button pointButton : allButtons) {
-    			pointButton.setDisable(true);
-    		}
-    		
-    		for (Circle circle : humanStones) {
-    			circle.setDisable(false);
-    		}
 
-    		return false;
+    		moveWasValid = false;;
 		}
-		
-		stoneMovedVisually(configGUI.getPlayerNumOne());
-		configGUI.moveStone(configGUI.selectFirstPlayer(), chosenStone, destination);
+		else {			
+			stoneMovedVisually(configGUI.getPlayerNumOne());
+			configGUI.moveStone(configGUI.selectFirstPlayer(), chosenStone, destination);
 
-		for (Button pointButton : allButtons) {
-			pointButton.setDisable(true);
+			moveWasValid = true;
+		}
+
+    	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
+		for (Button point : allPoints) {
+			point.setDisable(true);
 		}
 		
-		for (Circle circle : humanStones) {
-			circle.setDisable(false);
+		for (Circle humanStone : humanStones) {
+			humanStone.setDisable(false);
 		}
 		
-		return true;
+		return moveWasValid;
     }
     
-    private void humanTurnCheckMillAndEndTurn() {
+	/**
+	 * Checks if the human player performed a new mill this turn and perform accordingly.
+	 * 
+	 * @param filledLines_StartTurn List of mills at the start of the turn
+	 */
+    private void humanTurnCheckMillAndEndTurn(ArrayList<Line> filledLines_StartTurn) {
     	// check if you formed line
     	
 		ArrayList<Line> filled_Lines_At_End_Of_Turn = configGUI.getFilledLine(configGUI.selectFirstPlayer());
 		
-		if ((!filled_Lines_At_End_Of_Turn.equals(filledLines)) && filled_Lines_At_End_Of_Turn.size() >= filledLines.size()) {
-			// will wait to choose white stone
+		if ((!filled_Lines_At_End_Of_Turn.equals(filledLines_StartTurn)) && filled_Lines_At_End_Of_Turn.size() >= filledLines_StartTurn.size()) {
 	    	statusLabel.setText("You formed a line!\nSelect a stone to remove");
 	    	
-    		for (Button pointButton : allButtons) {
-    			pointButton.setDisable(true);
-    		}
-
-    		for (Circle circle : compStones) {
-    			circle.setDisable(false);
+			// A new mill was found; only computer stones will be selectable
+    		for (Button point : allPoints) {
+    			point.setDisable(true);
     		}
     		
-    		for (Circle circle : humanStones) {
-    			circle.setDisable(true);
+    		for (Circle humanStone : humanStones) {
+    			humanStone.setDisable(true);
+    		}
+
+    		for (Circle compStone : compStones) {
+    			compStone.setDisable(false);
     		}
 		}
 		else {
+			// A mill was not found. It is the computer's turn
 			turnComputer(configGUI.selectSecondPlayer());
 		}
     }
     
-    private void setCoordinatesCircle(Point point) {
+    /**
+     * Sets coordinates of a stone in relation to the right point to move visually
+     * Used with AI only
+     * 
+     * @param point Clicked point
+     */
+    private void setCoordinatesStone(Point point) {
     	if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[0].getEndPoint1())) {
     		clickedX = outSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;    		
@@ -746,6 +791,12 @@ public class GameController extends MainController {
     	}
     }
     
+    /**
+     * Sets coordinates of an actual point according to which point was visually clicked
+     * 
+     * @param button Point clicked
+     * @return Point retrieved
+     */
     private Point chooseLocation(Button button) {
     	Point pointSelected;
     	
@@ -901,21 +952,32 @@ public class GameController extends MainController {
     	return pointSelected;
     }
     
-    private void moveFromChosenStone(Stone stone) {
+    /**
+     * Activates when a human stone is clicked; prompt to click a point to move to.
+     */
+    private void moveFromChosenStone() {
     	statusLabel.setText("Choose a destination point");
 
-		for (Button pointButton : allButtons) {
-			pointButton.setDisable(false);
+    	// All points are clickable
+		for (Button point : allPoints) {
+			point.setDisable(false);
 		}
     }
 
+    /**
+     * Removes a chosen stone from a chosen player
+     * 
+     * @param stone Stone to remove
+     * @param playerNum Player to remove the stone from
+     */
     private void removeChosenStone(Stone stone, int playerNum) {
     	try {
     		if (playerNum == configGUI.getPlayerNumOne()) {
+    			// remove Human player's stone
             	stoneRemovedVisually(configGUI.getPlayerNumOne());
         		configGUI.removeStone(configGUI.selectFirstPlayer(), chosenStone);
         		    		
-    			// check AI's number of stones at the end to see if you win
+    			// check Human player's number of stones at the end to see if the AI wins
     			if (configGUI.selectFirstPlayer().getNumberOfTotalStones() < 3) {
     				winner = 2;
     				endGame();
@@ -925,28 +987,29 @@ public class GameController extends MainController {
     			}
     		}
     		else {
+    			// remove AI player's stone
             	stoneRemovedVisually(configGUI.getPlayerNumTwo());
         		configGUI.removeStone(configGUI.selectSecondPlayer(), chosenStone);
 
-        		// check AI's number of stones at the end to see if you win
+        		// check AI's number of stones at the end to see if the Human player wins
         		if (configGUI.selectSecondPlayer().getNumberOfTotalStones() < 3) {
         			winner = 1;
         			endGame();
         		}
         		else {
                 	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() < 9) {
-                		for (Button button : allButtons) {
-                			button.setDisable(false);
+                		for (Button point : allPoints) {
+                			point.setDisable(false);
                 		}
                 	}
                 	else {
-                		for (Circle circle : humanStones) {
-                			circle.setDisable(false);
+                		for (Circle humanStone : humanStones) {
+                			humanStone.setDisable(false);
                 		}
                 	}
 
-                	for (Circle eachStone : compStones) {
-                		eachStone.setDisable(true);
+                	for (Circle compStone : compStones) {
+                		compStone.setDisable(true);
                 	}
 
                 	turnComputer(configGUI.selectSecondPlayer());
@@ -959,6 +1022,11 @@ public class GameController extends MainController {
     	}
 	}    	
 
+    /**
+     * Visually places a new circle associated with the stone on the board
+     * 
+     * @param playerNum Player number that indicates whether it is Human or AI
+     */
     private void stonePlacedNewVisually(int playerNum) {
     	Circle circle;
     	
@@ -1023,6 +1091,11 @@ public class GameController extends MainController {
 		setStoneLayoutVisual(circle);
 	}
 
+    /**
+     * Visually moves an existing associated with the stone on the board
+     * 
+     * @param playerNum Player number that indicates whether it is Human or AI
+     */
 	private void stoneMovedVisually(int playerNum) {
 		Circle circle;
 		
@@ -1087,6 +1160,11 @@ public class GameController extends MainController {
 		setStoneLayoutVisual(circle);
 	}
 
+    /**
+     * Visually remove a circle associated with the stone from the board
+     * 
+     * @param playerNum Player number that indicates whether it is Human or AI
+     */
 	private void stoneRemovedVisually(int playerNum) {
 		if (playerNum == configGUI.getPlayerNumOne()) {
 			if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(0))) {
@@ -1148,8 +1226,68 @@ public class GameController extends MainController {
 		}
 	}	
 	
-	private void setStoneLayoutVisual(Circle circle) {
-		circle.setLayoutX(clickedX);
-		circle.setLayoutY(clickedY);
+	/**
+	 * The part where it actively moves the stone visually in GUI
+	 * 
+	 * @param stone
+	 */
+	private void setStoneLayoutVisual(Circle stone) {
+		stone.setLayoutX(clickedX);
+		stone.setLayoutY(clickedY);
 	}
+	
+    /**
+     * Initializes the game and performs the first turn
+     * The method also includes all stones and points in the corresponding arrays for later use
+     */
+    @FXML
+    void initialize() {
+        assert exitButton != null : "fx:id=\"exitButton\" was not injected: check your FXML file 'Board.fxml'.";
+        assert rulesButton != null : "fx:id=\"rulesButton\" was not injected: check your FXML file 'Board.fxml'.";
+        configGUI = new GameShared();
+        configGUI.setGameConfig();
+        firstTurnPlay();
+        humanStones[0] = humanStone1;
+        humanStones[1] = humanStone2;
+        humanStones[2] = humanStone3;
+        humanStones[3] = humanStone4;
+        humanStones[4] = humanStone5;
+        humanStones[5] = humanStone6;
+        humanStones[6] = humanStone7;
+        humanStones[7] = humanStone8;
+        humanStones[8] = humanStone9;
+        compStones[0] = compStone1;
+        compStones[1] = compStone2;
+        compStones[2] = compStone3;
+        compStones[3] = compStone4;
+        compStones[4] = compStone5;
+        compStones[5] = compStone6;
+        compStones[6] = compStone7;
+        compStones[7] = compStone8;
+        compStones[8] = compStone9;
+        allPoints[0] = outSqLineSEnd1;
+        allPoints[1] = outSqLineSMid;
+        allPoints[2] = outSqLineSEnd2;
+        allPoints[3] = outSqLineWMid;
+        allPoints[4] = outSqLineEMid;
+        allPoints[5] = outSqLineNEnd1;
+        allPoints[6] = outSqLineNMid;
+        allPoints[7] = outSqLineNEnd2;
+        allPoints[8] = midSqLineSEnd1;
+        allPoints[9] = midSqLineSMid;
+        allPoints[10] = midSqLineSEnd2;
+        allPoints[11] = midSqLineWMid;
+        allPoints[12] = midSqLineEMid;
+        allPoints[13] = midSqLineNEnd1;
+        allPoints[14] = midSqLineNMid;
+        allPoints[15] = midSqLineNEnd2;
+        allPoints[16] = innSqLineSEnd1;
+        allPoints[17] = innSqLineSMid;
+        allPoints[18] = innSqLineSEnd2;
+        allPoints[19] = innSqLineWMid;
+        allPoints[20] = innSqLineEMid;
+        allPoints[21] = innSqLineNEnd1;
+        allPoints[22] = innSqLineNMid;
+        allPoints[23] = innSqLineNEnd2;
+    }
 }
