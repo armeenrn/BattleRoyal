@@ -11,16 +11,25 @@
    <children>
       <Pane fx:id="boardPane" prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #ffc371;">
          <children>
+<<<<<<< Updated upstream
             <Button fx:id="exitButton" layoutX="646.0" layoutY="792.0" mnemonicParsing="false" onAction="#exitCurrentGame" text="Quit current game">
+=======
+            <Button fx:id="exitButton" layoutX="504.0" layoutY="606.0" mnemonicParsing="false" onAction="#exitCurrentGame" onMouseClicked="#clickedCircle" text="Exit Current Game">
+>>>>>>> Stashed changes
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
+<<<<<<< Updated upstream
             <Button fx:id="rulesButton" layoutX="14.0" layoutY="792.0" mnemonicParsing="false" onAction="#rulesPressed" text="Rules">
+=======
+            <Button fx:id="rulesButton" layoutX="14.0" layoutY="606.0" mnemonicParsing="false" onAction="#displayRules" onMouseClicked="#clickedCircle" text="Rules">
+>>>>>>> Stashed changes
                <font>
                   <Font size="20.0" />
                </font>
             </Button>
+<<<<<<< Updated upstream
             <Label fx:id="namePlayer2" layoutX="662.0" layoutY="14.0" text="COMPUTER" textFill="RED">
                <font>
                   <Font name="Comic Sans MS" size="32.0" />
@@ -109,6 +118,55 @@
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
+=======
+            <TextFlow fx:id="myTextFlow" layoutX="28.0" layoutY="51.0" onMouseClicked="#clickedCircle" prefHeight="73.0" prefWidth="599.0">
+               <children>
+                  <TextField fx:id="myText" prefHeight="67.0" prefWidth="446.0" />
+               </children></TextFlow>
+            <Circle fx:id="point22" fill="DODGERBLUE" layoutX="101.0" layoutY="191.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point23" fill="DODGERBLUE" layoutX="328.0" layoutY="191.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point24" fill="DODGERBLUE" layoutX="531.0" layoutY="191.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point3" fill="DODGERBLUE" layoutX="531.0" layoutY="544.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point2" fill="DODGERBLUE" layoutX="328.0" layoutY="544.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="pointOne" fill="DODGERBLUE" layoutX="101.0" layoutY="544.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point10" fill="DODGERBLUE" layoutX="101.0" layoutY="377.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point15" fill="DODGERBLUE" layoutX="531.0" layoutY="377.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point21" fill="DODGERBLUE" layoutX="442.0" layoutY="285.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point20" fill="DODGERBLUE" layoutX="325.0" layoutY="285.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point19" fill="DODGERBLUE" layoutX="204.0" layoutY="285.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point4" fill="DODGERBLUE" layoutX="200.0" layoutY="478.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point5" fill="DODGERBLUE" layoutX="327.0" layoutY="478.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point6" fill="DODGERBLUE" layoutX="438.0" layoutY="478.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point11" fill="DODGERBLUE" layoutX="200.0" layoutY="377.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point14" fill="DODGERBLUE" layoutX="442.0" layoutY="377.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point16" fill="DODGERBLUE" layoutX="255.0" layoutY="340.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point17" fill="DODGERBLUE" layoutX="327.0" layoutY="340.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point18" fill="DODGERBLUE" layoutX="389.0" layoutY="340.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point9" fill="DODGERBLUE" layoutX="389.0" layoutY="427.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point8" fill="DODGERBLUE" layoutX="327.0" layoutY="427.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point7" fill="DODGERBLUE" layoutX="255.0" layoutY="427.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point12" fill="DODGERBLUE" layoutX="255.0" layoutY="377.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="point13" fill="DODGERBLUE" layoutX="387.0" layoutY="377.0" onMouseClicked="#clickedCircle" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button fx:id="myStart" layoutX="282.0" layoutY="607.0" mnemonicParsing="false" onAction="#startGame" text="Button" />
+            <Ellipse fx:id="humanRock1" fill="#d2d4d7" layoutX="52.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock2" fill="#d2d4d7" layoutX="72.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock3" fill="#d2d4d7" layoutX="92.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock4" fill="#d2d4d7" layoutX="112.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock5" fill="#d2d4d7" layoutX="132.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock6" fill="#d2d4d7" layoutX="152.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock7" fill="#d2d4d7" layoutX="172.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock8" fill="#d2d4d7" layoutX="192.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="humanRock9" fill="#d2d4d7" layoutX="212.0" layoutY="34.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock1" fill="#2f2f2f" layoutX="406.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock2" fill="#2f2f2f" layoutX="429.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock3" fill="#2f2f2f" layoutX="451.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock4" fill="#2f2f2f" layoutX="471.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock5" fill="#2f2f2f" layoutX="491.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock6" fill="#2f2f2f" layoutX="511.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock7" fill="#2f2f2f" layoutX="531.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock8" fill="#2f2f2f" layoutX="550.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Ellipse fx:id="aiRock9" fill="#2f2f2f" layoutX="567.0" layoutY="24.0" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />
+>>>>>>> Stashed changes
          </children></Pane>
    </children>
 </Pane>
