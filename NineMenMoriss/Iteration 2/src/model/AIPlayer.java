@@ -253,6 +253,58 @@ public class AIPlayer extends Player {
 	}
 	
 	public boolean checkTwoStepsFromMillByPlace(Board board) {
+		int numEmptyPoint;
+		int numCompPoint;
+		Point pointToTest = null;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numCompPoint = 0;
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 2) {
+						numCompPoint++;
+					}
+				}
+				
+				// only perform further check if the conditions are right
+				if (numEmptyPoint == 2 && numCompPoint == 1) {
+					if (getNumberOfPlacedStones() < 9) {
+						// placing stage; place a stone on the same line, prefer midpoint
+						if (line.getMidPoint().getOccupiedPlayer() == 0) {
+							pointToMoveTo = line.getMidPoint();
+							return true;
+						}
+						else {
+							pointToMoveTo = pointToTest;
+							return true;
+						}
+					}
+					else {
+						// jumping stage; make sure the stone on the line is not moved
+						for (Stone currentStone : getStones()) {
+							if (!currentStone.getDead()) {
+								bestMoveStone = currentStone;
+
+								if (line.getMidPoint().getOccupiedPlayer() == 0) {
+									pointToMoveTo = line.getMidPoint();
+									return true;
+								}
+								else {
+									pointToMoveTo = pointToTest;
+									return true;
+								}
+							}
+						}					
+					}
+				}
+			}
+		}
+		
 		return false;
 	}
 	
@@ -338,7 +390,7 @@ public class AIPlayer extends Player {
 		int numEmptyPoint;
 		int numCompPoint;
 		Point pointToTest = null;
-		/*
+		
 		for (Square square : board.getSquares()) {
 			for (Line line : square.getLines()) {
 				numEmptyPoint = 0;
@@ -353,41 +405,133 @@ public class AIPlayer extends Player {
 					}
 				}
 				
-				// only perform further check if the conditions are right
+				// case 1; there are two computer stones on the line
 				if (numEmptyPoint == 1 && numCompPoint == 2) {
 					ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
-					ArrayList<Point> adjacentToAdjacentPoint;
+					ArrayList<Point> adjacentsToAdjacentPoint;
 					
-					
-					if (pointToTest != line.getMidPoint()) {
-						// midpoint test
-						pointToMoveTo = pointToTest;
-						return true;
-					}
-					else {
-						// endpoint test
+					for (Point adjacentPoint : adjacentPoints) {
+						adjacentsToAdjacentPoint = getAdjacentPoints(adjacentPoint);
 						
-						if () {
-							pointToMoveTo = pointToTest;
-							return true;							
-						}
-					}
-					
-					for (Point adjacentPoint : adjacentPoints) {						
 						if (adjacentPoint.getOccupiedPlayer() == 0) {
-							adjacentToAdjacentPoint = getAdjacentPoints(adjacentPoint);
-								bestMoveStone = adjacentPoint.getOccupiedStone();
-								pointToMoveTo = pointToTest;
-								return true;
+							for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
+								if (adjacentAdjacent.getOccupiedPlayer() == 2) {
+									bestMoveStone = adjacentAdjacent.getOccupiedStone();
+									pointToMoveTo = adjacentPoint;
+									return true;
+								}
+							}	
 						}
 						else if (adjacentPoint.getOccupiedPlayer() == 2) {
-							adjacentToAdjacentPoint = getAdjacentPoints(adjacentPoint);							
+							for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
+								if (adjacentAdjacent.getOccupiedPlayer() == 2) {
+									if (pointToTest == line.getMidPoint()) {
+										// midpoint test
+										bestMoveStone = adjacentPoint.getOccupiedStone();
+										pointToMoveTo = pointToTest;
+										return true;
+									}
+									else {
+										// endpoints test										
+										if (!(line.doesLineContain(adjacentAdjacent.getOccupiedStone()))) {
+											bestMoveStone = adjacentPoint.getOccupiedStone();
+											pointToMoveTo = pointToTest;
+											return true;
+										}
+									}							
+								}
+							}
+						}
+					}
+				}
+				// case 2; there is one computer stone on the line on the line
+				else if (numEmptyPoint == 2 && numCompPoint == 1) {
+					ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
+					ArrayList<Point> adjacentsToAdjacentPoint;
+					boolean adjacentToAdjacentHasStone;
+					ArrayList<Point> emptyDoubleAdjacent = new ArrayList<Point>();
+					ArrayList<Point> tripleAdjacent;
+
+					// start from the point with stone
+					for (Point point : line.getPoints()) {
+						if (point.getOccupiedPlayer() == 2) {
+							pointToTest = point;
+						}
+					}
+					
+					for (Point adjacentPoint : adjacentPoints) {
+						adjacentsToAdjacentPoint = getAdjacentPoints(adjacentPoint);
+						
+						if (adjacentPoint.getOccupiedPlayer() == 0) {
+							adjacentToAdjacentHasStone = false;
+
+							for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
+								if (adjacentAdjacent.getOccupiedPlayer() == 2) {
+									// Stone on double adjacent point was found
+									adjacentToAdjacentHasStone = true;
+								}
+								else if (adjacentAdjacent.getOccupiedPlayer() == 0) {
+									// Add empty double adjacent points to check for triple adjacents
+									emptyDoubleAdjacent.add(adjacentAdjacent);
+								}
+								
+								// Stone on double adjacent point was found
+								if (adjacentToAdjacentHasStone) {
+									for (Point doubleAdjacentPoint : emptyDoubleAdjacent) {
+										tripleAdjacent = getAdjacentPoints(doubleAdjacentPoint);
+										for (Point tripleAdjacentPoint : tripleAdjacent) {
+											if (tripleAdjacentPoint.getOccupiedPlayer() == 2) {
+												int random = (int) (Math.random() * 2);
+												
+												if (random == 0) {
+													bestMoveStone = adjacentAdjacent.getOccupiedStone();
+													pointToMoveTo = adjacentPoint;
+												}
+												else {
+													bestMoveStone = tripleAdjacentPoint.getOccupiedStone();
+													pointToMoveTo = doubleAdjacentPoint;
+												}
+												
+												return true;
+											}
+										}
+									}
+								}
+							}	
+						}
+					}
+				}
+				// case 3; the computer has a mill
+				else if (numCompPoint == 3) {
+					int random;
+					ArrayList<Point> adjacentPoints;
+					
+					while (true) {
+						random = (int) (Math.random() * 3);
+						
+						if (random == 0) {
+							bestMoveStone = line.getEndPoint1().getOccupiedStone();
+						}
+						else if (random == 1) {
+							bestMoveStone = line.getMidPoint().getOccupiedStone();							
+						}
+						else {
+							bestMoveStone = line.getEndPoint2().getOccupiedStone();							
+						}
+						
+						adjacentPoints = getAdjacentPoints(bestMoveStone.getLocation());
+						
+						for (Point adjacentPoint : adjacentPoints) {
+							if (adjacentPoint.getOccupiedPlayer() == 0) {
+								pointToMoveTo = adjacentPoint;
+								return true;
+							}
 						}
 					}
 				}
 			}
 		}
-		*/
+		
 		return false;
 	}
 
