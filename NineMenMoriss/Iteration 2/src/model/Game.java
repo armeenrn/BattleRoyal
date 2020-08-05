@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Game {
 	private int winner = 0;
 	private GameShared textGameConfig;
@@ -135,41 +137,63 @@ public class Game {
 	
 	public void turnComputer(AIPlayer compPlayer) {
 		displayPointsAsList();
-		int filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(compPlayer).size();
+		ArrayList<Line> filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(compPlayer);
+		Point movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
+		Stone moveStone;
 		
 		if (compPlayer.getNumberOfPlacedStones() < 9) {
-			Point randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
-			while (textGameConfig.checkIfPointIsUnOccupied(randomPoint) != 0) {
-				randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
+			if (movePoint == null) {
+				do {
+					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());					
+				} while (textGameConfig.checkIfPointIsUnOccupied(movePoint) != 0);
 			}
 			
-			textGameConfig.moveStone(compPlayer, null, randomPoint);			
+			textGameConfig.moveStone(compPlayer, null, movePoint);			
 		}		
 		else if (compPlayer.getNumberOfTotalStones() > 3) {
-			Stone randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
-			Point randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
-			while (textGameConfig.checkIfAjdacent(randomStone, randomPoint) == false) {
-				randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
-				randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
+			
+			if (movePoint == null) {
+				Stone randomStone;
+				
+				do {
+					randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
+					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());					
+				} while (textGameConfig.checkIfAjdacent(randomStone, movePoint) == false);
+
+				moveStone = randomStone;
+			}
+			else {
+				moveStone = compPlayer.getBestMoveStone();
 			}
 			
-			textGameConfig.moveStone(compPlayer, randomStone, randomPoint);
+			textGameConfig.moveStone(compPlayer, moveStone, movePoint);
 		}
 		else {
-			Point randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
-			while (randomPoint.getOccupiedPlayer() != 0) {
-				randomPoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
+			if (movePoint == null) {
+				Stone randomStone;
+				
+				do {
+					randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
+					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
+				} while (movePoint.getOccupiedPlayer() != 0);
+				
+				moveStone = randomStone;
 			}
+			else {
+				moveStone = compPlayer.getBestMoveStone();
+			}
+
+			textGameConfig.moveStone(compPlayer, moveStone, movePoint);
 		}
 		
-		int filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(compPlayer).size();
+		ArrayList<Line> filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(compPlayer);
 		
-		if (filled_Lines_At_End_Of_Turn > filled_Lines_At_Start_Of_Turn) {
+		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_End_Of_Turn))) && filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_End_Of_Turn.size()) {
 			System.out.println("The computer formed a new line at: " );
-			System.out.print(textGameConfig.getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn-1));
+			System.out.print(textGameConfig.getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
 			System.out.println("The computer removes one of your stones on the board." + "\n");
-			Stone randomRemove = compPlayer.selectRandomStoneToRemove(textGameConfig.getStonesOfOpponent(textGameConfig.selectFirstPlayer()));
-			textGameConfig.removeStone(textGameConfig.selectFirstPlayer(), randomRemove);
+			Stone removeStone = compPlayer.lookforBestRemove(textGameConfig.getGameBoard(), textGameConfig.selectFirstPlayer());
+			textGameConfig.removeStone(textGameConfig.selectFirstPlayer(), removeStone);
 		}
 		
 		// check AI's number of stones at the end to see if you win
