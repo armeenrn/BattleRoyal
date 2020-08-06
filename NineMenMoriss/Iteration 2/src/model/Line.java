@@ -18,6 +18,14 @@ public class Line {
 	private Point endPoint2;
 	private Point[] points;
 
+	/**
+	 * Constructor for a Line object, with its name and points on the line
+	 * 
+	 * @param name Name of the Line object
+	 * @param endPoint1 An endpoint of the line
+	 * @param midPoint A midpoint of the line
+	 * @param endPoint2 The other endpoint of the line
+	 */
 	public Line(String name, Point endPoint1, Point midPoint, Point endPoint2) {
 		this.name = name;
 		points = new Point[3];
@@ -28,10 +36,6 @@ public class Line {
 		points[1] = this.midPoint;
 		this.endPoint2 = endPoint2;
 		points[2] = this.endPoint2;
-	}
-
-	public String toString() {
-		return name;// why is this method needed?, access player name from another class?
 	}
 
 	public Point[] getPoints() {// Why is this Point [] only whereas other getter methods use Point only?
@@ -50,7 +54,12 @@ public class Line {
 		return midPoint;
 	}
 	
-
+	/**
+	 * Checks if all three points of the line is filled by the same player's stones
+	 * 
+	 * @param player Player in which stones will be checked
+	 * @return Indicates if the line is filled
+	 */
 	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
 		if (endPoint1.getOccupiedPlayer() == player.getPlayerNumber()) {
 			if (endPoint1.getOccupiedPlayer() == midPoint.getOccupiedPlayer()) {
@@ -74,6 +83,12 @@ public class Line {
 
 	}
 	
+	/**
+	 * Checks if any point of the line contains the stone the game seeks
+	 * 
+	 * @param stoneToCheck Stone object to check its existence
+	 * @return Indicates if the line contains the stone
+	 */
 	public boolean doesLineContain(Stone stoneToCheck) {
 		boolean contains = false;
 		
@@ -92,8 +107,12 @@ public class Line {
 		return contains;
 	}
 	
-
-	
+	/**
+	 * Checks if the line contains the point given
+	 * 
+	 * @param pointToBeChecked Point object to check its existence
+	 * @return Indicates if the line contains the point
+	 */
 	public boolean doesLineContainPoint(Point pointToBeChecked) {
 		boolean contains = false;
 
