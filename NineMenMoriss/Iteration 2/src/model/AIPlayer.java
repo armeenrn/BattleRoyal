@@ -466,10 +466,10 @@ public class AIPlayer extends Player {
 					}
 				}
 				
-				if (numEmptyPoint == 1 && numHumanPoint == 2) {
+				if (numEmptyPoint == 1 && numHumanPoint >= 3) {
 					adjacentPoints = getAdjacentPoints(pointToTest);
 					
-					for (Point adjacentPoint : adjacentPoints) {						
+					for (Point adjacentPoint : adjacentPoints) {
 						// check if an adjacent point has a stone occupied by AI Player
 						if (adjacentPoint.getOccupiedPlayer() == 2) {
 							// the stone can move to the empty point to stop mill
@@ -554,7 +554,7 @@ public class AIPlayer extends Player {
 	 * @param line Line that pointToTest belongs to and will be called to test
 	 * @return Indicates whether a move was found
 	 */
-	public boolean TwoStepsFromMillCaseOne(Point pointToTest, Line line) {
+	public boolean TwoStepsFromMillCaseOne(Point pointToTest, Line line) {/*
 		ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
 		ArrayList<Point> adjacentsToAdjacentPoint;
 		
@@ -595,7 +595,7 @@ public class AIPlayer extends Player {
 			}
 		}
 
-		// all tests were done and the move was not found
+		// all tests were done and the move was not found*/
 		return false;
 	}
 	
