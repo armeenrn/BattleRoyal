@@ -3,6 +3,8 @@
  * 
  * @author Daniel Kim, Armeen Rashidian
  * @version 2.0
+ * 10.00 6 August 2020
+ * Team D
  */
 
 package model;

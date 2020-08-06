@@ -7,7 +7,9 @@
  * and their relative position on the board.
  * 
  * @author srish
- *
+ * @version 1.1
+ * 10.00 6 August 2020
+ * Team D
  */
 package model;
 
