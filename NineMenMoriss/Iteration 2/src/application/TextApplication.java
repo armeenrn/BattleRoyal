@@ -1,3 +1,6 @@
+/**Has all the text prompts for the game
+ * 
+ */
 package application;
 
 import java.util.Scanner;
@@ -5,15 +8,18 @@ import model.Game;
 
 public class TextApplication {
 	private Game gameToPlay;
-	
+
 	public TextApplication() {
-		
+
 	}
-	
+
 	public TextApplication(Game game) {
 		gameToPlay = game;
 	}
-	
+/**
+ *  Once the game is run, it will run for one game and these are all the prompts for the rule window and
+ * play window depending on the events that occur during the game.
+ */
 	public void run() {
 		Game game;
 		String next = "";
@@ -21,19 +27,18 @@ public class TextApplication {
 		System.out.println("Welcome to Nine-men Morris!");
 		System.out.println("Please enter one of the following options:");
 		System.out.println("PLAY, RULES, QUIT");
-		next = input.nextLine();		
-	
+		next = input.nextLine();
+
 		do {
 			if (next.equalsIgnoreCase("PLAY")) {
 				game = new Game();
 				TextApplication app = new TextApplication(game);
 				app.gameToPlay.play(); // one game is played
-				
+
 				// game is over
-				System.out.println("Thank you for playing. Enter PLAY if you want to play again,"
-						+ " or QUIT to quit the game.");				
-			}
-			else if (next.equalsIgnoreCase("RULES")) {
+				System.out.println(
+						"Thank you for playing. Enter PLAY if you want to play again," + " or QUIT to quit the game.");
+			} else if (next.equalsIgnoreCase("RULES")) {
 				System.out.println("HOW TO PLAY\n********************");
 				System.out.println("Stage 1: PLACE :");
 				System.out.println("1. Place one stone at any vacant point on the board per turn.");
@@ -47,27 +52,30 @@ public class TextApplication {
 				System.out.println("HOW TO WIN\n********************");
 				System.out.println("During any stage in the game, you can form a \"mill.\"");
 				System.out.println("A \"mill\" is formed by placing 3 stones along one single line on the board.");
-				System.out.println("When a mill is formed, the player must remove one of the opponent's stones on the board.");
-				System.out.println("The player wins once the opponent has 2 stones left on the board during or after Stage 2.");
+				System.out.println(
+						"When a mill is formed, the player must remove one of the opponent's stones on the board.");
+				System.out.println(
+						"The player wins once the opponent has 2 stones left on the board during or after Stage 2.");
 				System.out.println("The player also wins if the opponent is not able to make a valid move.");
 				System.out.println("********************");
 				System.out.println("RESTRICTIONS\n********************");
-				System.out.println("A player may not remove a stone that is part of a mill, unless there are no other stones left to remove.");				
+				System.out.println(
+						"A player may not remove a stone that is part of a mill, unless there are no other stones left to remove.");
+			} else {
+				System.out.println("Invalid input. Please try again:");
 			}
-			else {
-				System.out.println("Invalid input. Please try again:");								
-			}
-			
+
 			next = input.nextLine();
 		} while (!next.equalsIgnoreCase("QUIT"));
 	}
-		
-	
+/**
+ * A run of the game is initialized.
+ * @param args
+ */
 	public static void main(String[] args) {
-		
+
 		TextApplication initial = new TextApplication();
 		initial.run();
-	}	
-
+	}
 
 }
