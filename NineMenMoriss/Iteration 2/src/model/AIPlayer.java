@@ -554,7 +554,7 @@ public class AIPlayer extends Player {
 	 * @param line Line that pointToTest belongs to and will be called to test
 	 * @return Indicates whether a move was found
 	 */
-	public boolean TwoStepsFromMillCaseOne(Point pointToTest, Line line) {/*
+	public boolean TwoStepsFromMillCaseOne(Point pointToTest, Line line) {
 		ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
 		ArrayList<Point> adjacentsToAdjacentPoint;
 		
@@ -595,7 +595,7 @@ public class AIPlayer extends Player {
 			}
 		}
 
-		// all tests were done and the move was not found*/
+		// all tests were done and the move was not found
 		return false;
 	}
 	
