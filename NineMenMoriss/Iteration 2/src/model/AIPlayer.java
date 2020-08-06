@@ -466,10 +466,10 @@ public class AIPlayer extends Player {
 					}
 				}
 				
-				if (numEmptyPoint == 1 && numHumanPoint == 2) {
+				if (numEmptyPoint == 1 && numHumanPoint >= 3) {
 					adjacentPoints = getAdjacentPoints(pointToTest);
 					
-					for (Point adjacentPoint : adjacentPoints) {						
+					for (Point adjacentPoint : adjacentPoints) {
 						// check if an adjacent point has a stone occupied by AI Player
 						if (adjacentPoint.getOccupiedPlayer() == 2) {
 							// the stone can move to the empty point to stop mill
