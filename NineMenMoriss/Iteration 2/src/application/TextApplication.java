@@ -1,5 +1,10 @@
-/**Has all the text prompts for the game
+/**
+ * Has all the text prompts for the game
  * 
+ * @author armeen rashidian
+ * @version 1.0
+ * 10.00 6 August 2020
+ * Team D
  */
 package application;
 
@@ -7,19 +12,10 @@ import java.util.Scanner;
 import model.Game;
 
 public class TextApplication {
-	private Game gameToPlay;
-
-	public TextApplication() {
-
-	}
-
-	public TextApplication(Game game) {
-		gameToPlay = game;
-	}
-/**
- *  Once the game is run, it will run for one game and these are all the prompts for the rule window and
- * play window depending on the events that occur during the game.
- */
+	/** 
+	 *  Once the game is run, it will run for one game and these are all the prompts for the rule window and
+	 * play window depending on the events that occur during the game.
+	 */
 	public void run() {
 		Game game;
 		String next = "";
@@ -32,8 +28,7 @@ public class TextApplication {
 		do {
 			if (next.equalsIgnoreCase("PLAY")) {
 				game = new Game();
-				TextApplication app = new TextApplication(game);
-				app.gameToPlay.play(); // one game is played
+				game.play(); // one game is played
 
 				// game is over
 				System.out.println(
@@ -68,10 +63,11 @@ public class TextApplication {
 			next = input.nextLine();
 		} while (!next.equalsIgnoreCase("QUIT"));
 	}
-/**
- * A run of the game is initialized.
- * @param args
- */
+	
+	/**
+	 * A run of the game is initialized.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		TextApplication initial = new TextApplication();

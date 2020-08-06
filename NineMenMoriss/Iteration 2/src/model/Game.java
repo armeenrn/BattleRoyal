@@ -221,7 +221,7 @@ public class Game {
 		 * check if the AI player formed a new line during their turn
 		 */
 		
-		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_End_Of_Turn))) && filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_End_Of_Turn.size()) {
+		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_Start_Of_Turn))) && filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
 			System.out.println("The computer formed a new line at: " );
 			System.out.print(textGameConfig.getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
 			System.out.println("The computer removes one of your stones on the board." + "\n");
