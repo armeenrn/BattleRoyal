@@ -1,5 +1,10 @@
 /**
  * Sets up the initial screen of the GUI
+ * 
+ * @author Daniel Kim
+ * @version 1.0
+ * 10.00 6 August 2020
+ * Team D
  */
 package application;
 
@@ -16,7 +21,7 @@ import javafx.scene.control.Button;
 
 public class MainController {
 	private Stage ruleStage;
-	private boolean firstTutOpen = false;
+	private boolean firstRulesOpen = false;
 
 	@FXML
 	private Button quitButton;
@@ -58,7 +63,8 @@ public class MainController {
 	 */
 	@FXML
 	public void displayRules(ActionEvent event) {
-		if (!firstTutOpen) {
+		if (!firstRulesOpen) {
+			// only create a new rule stage when it is loaded for the first time. Otherwise simply show the stage.
 			try {
 				ruleStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
@@ -66,7 +72,7 @@ public class MainController {
 				ruleStage.initStyle(StageStyle.UTILITY);
 				ruleStage.setTitle("Rules");
 				ruleStage.setScene(scene);
-				firstTutOpen = true;
+				firstRulesOpen = true;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				System.out.println("Problem loading Rules.fxml");
@@ -76,19 +82,14 @@ public class MainController {
 		ruleStage.show();
 	}
 
+	/**
+	 * Initializes the main screen
+	 */
 	@FXML
 	void initialize() {
 		assert quitButton != null : "fx:id=\"quitButton\" was not injected: check your FXML file 'Main.fxml'.";
 		assert rulesButton != null : "fx:id=\"rulesButton\" was not injected: check your FXML file 'Main.fxml'.";
 		assert tutorialButton != null : "fx:id=\"tutorialButton\" was not injected: check your FXML file 'Main.fxml'.";
 		assert playButton != null : "fx:id=\"playButton\" was not injected: check your FXML file 'Main.fxml'.";
-	}
-	/**
-	 * Not a feature for iteration 2, but this will open a tutorial
-	 * of the game.
-	 * @return
-	 */
-	public boolean getTutOpen() {
-		return firstTutOpen;
 	}
 }
