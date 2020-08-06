@@ -12,6 +12,7 @@ public class Game {
 	private int goFirst;
 	private Board gameBoard;
 	private int winner = 0;
+	private static int matchNum = 0;
 
 	public int getWinner() {
 		return winner;
@@ -46,7 +47,7 @@ public class Game {
 		playerList = new Player[2];
 		playerList[0] = player1;
 		playerList[1] = player2;
-
+		matchNum +=1;
 	}
 
 	public Board getGameBoard() {

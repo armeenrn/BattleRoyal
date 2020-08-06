@@ -8,52 +8,39 @@ public class Score extends Game {
 		// TODO Auto-generated constructor stub
 	}
 
-	private static int matchScore1 = 0;
-	private static int matchScore2 = 0;
+	private static int matchScore = 0;
+	//private static int matchScore2 = 0;
 	private static int gameScore = 0;
 	// private ArrayList<String> playerScore;
 	// private Line eachLine;
-	private Game matchNum;
+	//private Game matchNum;
 
-	public int totalScoreOfEachMatch(HumanPlayer player1) {
+	public int totalScoreOfEachMatch(Player player) {
 		
 		//scored based on number of filled lines throughout match
-		if (matchNum.getWinner() != 0 && matchNum.getFilledLine(player1).isEmpty() == false) {
-			int totalLines = matchNum.getFilledLine(player1).size();
-			matchScore1 = totalLines * 5;
+		if (this.getWinner() != 0 && this.getFilledLine(player).isEmpty() == false) {
+			int totalLines = this.getFilledLine(player).size();
+			matchScore = totalLines * 5;
 		}
 		//score based on stones remaining 
-		int remainingStones = player1.getNumberOfTotalStones();
-		matchScore1 = remainingStones * 2;
+		int remainingStones = player.getNumberOfStonesPlaced();
+		matchScore = remainingStones * 2;
 		
 		//score based on winning game
 		if (getWinner() == 1) {
-			matchScore1 += 10;
+			matchScore += 10;
 		}
-		return matchScore1;
-	}
-	
-	public int totalScoreOfEachMatch(AIPlayer player2) {
-		
-		//scored based on number of filled lines throughout match
-		if (matchNum.getWinner() != 0 && matchNum.getFilledLine(player2).isEmpty() == false) {
-			int totalLines = matchNum.getFilledLine(player2).size();
-			matchScore2 = totalLines * 5;
-		}
-		//score based on stones remaining 
-		int remainingStones = player2.getNumberOfTotalStones();
-		matchScore2 = remainingStones * 2;
-		
-		//score based on winning game
-		if (getWinner() == 2) {
-			matchScore2 += 10;
-		}
-		return matchScore2;
+		gameScore += matchScore;
+		return matchScore;
 	}
 
+	public int totalGameScore (Player player) {
+		return gameScore;
+		
+	}
 }
 //display matchScore1 and matchScore1 in two textFields or texts after one of the players has won the game 
-// if quit current game is pressed, create new object of Game to start new match.
+//if quit current game is pressed, create new object of Game to start new match.
 //store game score on main scene 
 //call totalScoreOfEachMatch method for both players after play button click
 // if quit game pressed, clear gameScore and previous matcheScores. 
