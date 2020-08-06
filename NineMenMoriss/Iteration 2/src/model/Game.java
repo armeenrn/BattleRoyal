@@ -10,15 +10,7 @@ import java.util.ArrayList;
 
 public class Game {
 	private int winner = 0;
-	private GameShared textGameConfig;
-<<<<<<< HEAD
-	
-	public Game() {		
-		textGameConfig = new GameShared();
-		textGameConfig.setGameConfig();
-	}
-	
-=======
+	private GameShared textGameConfig; // contains the methods needed to run the game
 	
 	public Game() {		
 		textGameConfig = new GameShared();
@@ -28,7 +20,6 @@ public class Game {
 	/**
 	 * Plays one whole game of Morris with AI
 	 */
->>>>>>> myBranchRoyaleIteration2
 	public void play() {
 		int firstTurn = textGameConfig.getFirstPlayer();
 		HumanPlayer player1 = textGameConfig.selectFirstPlayer();
@@ -42,7 +33,7 @@ public class Game {
 			System.out.println("The computer goes first" + "\n");
 		}
 		
-		// while winner is not decided keep taking turns
+		// while winner is not decided keep taking turns depending on who goes first
 		while (winner == 0) {
 			if (firstTurn == 1) {
 				System.out.println("Your turn" + "\n");
@@ -78,17 +69,10 @@ public class Game {
 	 * Shows score of each player such as placed stones, mills formed, and stones remaining in play
 	 */
 	public void displayScore() {
-<<<<<<< HEAD
-		System.out.println("Your score: " + "\n" + textGameConfig.selectFirstPlayer().getNumberOfTotalStones() + " stones on board");
-		System.out.println(textGameConfig.getFilledLine(textGameConfig.selectFirstPlayer()).size() + " lines formed");
-		System.out.println(textGameConfig.selectFirstPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
-		System.out.println("Computer score: " + "\n" + textGameConfig.selectSecondPlayer().getNumberOfTotalStones() + " stones on board");
-=======
 		System.out.println("Your score: " + "\n" + textGameConfig.selectFirstPlayer().getNumberOfPlacedStones() + " stones on board");
 		System.out.println(textGameConfig.getFilledLine(textGameConfig.selectFirstPlayer()).size() + " lines formed");
 		System.out.println(textGameConfig.selectFirstPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
 		System.out.println("Computer score: " + "\n" + textGameConfig.selectSecondPlayer().getNumberOfPlacedStones() + " stones on board");
->>>>>>> myBranchRoyaleIteration2
 		System.out.println(textGameConfig.getFilledLine(textGameConfig.selectSecondPlayer()).size() + " lines formed");
 		System.out.println(textGameConfig.selectSecondPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
 	}		
@@ -100,16 +84,10 @@ public class Game {
 	 */
 	public void turnHumanPlayer(HumanPlayer humanPlayer) {
 		displayPointsAsList();
-<<<<<<< HEAD
-		int filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(humanPlayer).size();
-		
-		if (humanPlayer.getNumberOfPlacedStones() < 9) {
-=======
 		ArrayList<Line> filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(humanPlayer);
 		
 		if (humanPlayer.getNumberOfPlacedStones() < 9) {
 			// can place a stone
->>>>>>> myBranchRoyaleIteration2
 			Point userPoint = humanPlayer.selectDestination(textGameConfig.getPointsAsList());
 			while (textGameConfig.checkIfPointIsUnOccupied(userPoint) != 0) {
 				System.out.println("Another user's stone is on this point. Choose another point." + "\n");
@@ -121,12 +99,8 @@ public class Game {
 			System.out.println("");			
 		}
 		
-<<<<<<< HEAD
-		else if (humanPlayer.getNumberOfPlacedStones() == 0) {
-=======
 		else if (humanPlayer.getNumberOfPlacedStones() == 9) {
 			// can only move adjacent
->>>>>>> myBranchRoyaleIteration2
 			displayFreeStones(humanPlayer);
 			Stone selectedStone = humanPlayer.selectStoneToMove(textGameConfig.getFreeStones(humanPlayer));
 			displayAdjacentPoints(selectedStone);
@@ -141,19 +115,11 @@ public class Game {
 			System.out.println("");
 		}
 		
-<<<<<<< HEAD
-		int filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(humanPlayer).size();
-		
-		if (filled_Lines_At_End_Of_Turn > filled_Lines_At_Start_Of_Turn) {
-			System.out.println("You formed a new line at: " );
-			System.out.print(textGameConfig.getFilledLine(humanPlayer).get(filled_Lines_At_End_Of_Turn-1));
-=======
 		ArrayList<Line> filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(humanPlayer);
 		
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_Start_Of_Turn))) && filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
 			// A new mill was found; prompt the user to remove opponent's stone
 			System.out.println("You formed a new line!");
->>>>>>> myBranchRoyaleIteration2
 			System.out.println("You get to remove a stone on the board from the computer." + "\n");
 			displayStonesOfOpponent(textGameConfig.selectSecondPlayer());
 			Stone removeStone = humanPlayer.selectStoneToRemove(textGameConfig.getStonesOfOpponent(textGameConfig.selectSecondPlayer()));
@@ -163,11 +129,7 @@ public class Game {
 		}
 		
 		// check AI's number of stones at the end to see if you win
-<<<<<<< HEAD
-		if (textGameConfig.selectSecondPlayer().getNumberOfTotalStones() <= 3) {
-=======
 		if (textGameConfig.selectSecondPlayer().getNumberOfTotalStones() < 3) {
->>>>>>> myBranchRoyaleIteration2
 			winner = 1;
 			System.out.println("You won");
 		}
@@ -200,15 +162,14 @@ public class Game {
 	public void turnComputer(AIPlayer compPlayer) {
 		displayPointsAsList();
 		ArrayList<Line> filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(compPlayer);
-<<<<<<< HEAD
-		Point movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
 		Stone moveStone;
-=======
-		Stone moveStone;
-		Point movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
->>>>>>> myBranchRoyaleIteration2
+		Point movePoint;
 		
+		// calls AI Player to look for the best move it can make; it will return the point the player will move to
+		// if it has no good answer it will return null, and the AI will make a random move
+		movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
 		if (compPlayer.getNumberOfPlacedStones() < 9) {
+			// can place a stone
 			if (movePoint == null) {
 				do {
 					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());					
@@ -218,7 +179,7 @@ public class Game {
 			textGameConfig.moveStone(compPlayer, null, movePoint);			
 		}		
 		else if (compPlayer.getNumberOfTotalStones() > 3) {
-			
+			// can move adjacent
 			if (movePoint == null) {
 				Stone randomStone;
 				
@@ -236,6 +197,7 @@ public class Game {
 			textGameConfig.moveStone(compPlayer, moveStone, movePoint);
 		}
 		else {
+			// can jump around with existing stones
 			if (movePoint == null) {
 				Stone randomStone;
 				
@@ -255,14 +217,8 @@ public class Game {
 		
 		ArrayList<Line> filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(compPlayer);
 		
-<<<<<<< HEAD
-		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_End_Of_Turn))) && filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_End_Of_Turn.size()) {
-			System.out.println("The computer formed a new line at: " );
-			System.out.print(textGameConfig.getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
-=======
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_Start_Of_Turn))) && filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
 			System.out.println("The computer formed a new line!");
->>>>>>> myBranchRoyaleIteration2
 			System.out.println("The computer removes one of your stones on the board." + "\n");
 			Stone removeStone = compPlayer.lookforBestRemove(textGameConfig.getGameBoard(), textGameConfig.selectFirstPlayer());
 			textGameConfig.removeStone(textGameConfig.selectFirstPlayer(), removeStone);
@@ -273,15 +229,7 @@ public class Game {
 			winner = 2;
 			System.out.println("The computer won.");
 		}
-<<<<<<< HEAD
-	}
-	
-	
-	
-	
-=======
 	}	
->>>>>>> myBranchRoyaleIteration2
 	
 	/**
 	 * Displays the list of points in console
@@ -302,14 +250,11 @@ public class Game {
 		System.out.println("");
 	}
 			
-<<<<<<< HEAD
-=======
 	/**
 	 * Displays adjacent points from the Stone object
 	 * 
 	 * @param stoneToMove Stone object to move
 	 */
->>>>>>> myBranchRoyaleIteration2
 	public void displayAdjacentPoints(Stone stoneToMove) {
 		System.out.println("Adjacent Points Available");
 		int counter = 1;
@@ -328,19 +273,12 @@ public class Game {
 	 */
 	public void displayStonesOfOpponent(Player opponent) {
 		int counter = 0;
-<<<<<<< HEAD
-		System.out.println("Opponent Stones that can be removed");
-		for (Stone eachStone : textGameConfig.getStonesOfOpponent(opponent)) {
-			System.out.println(counter + ". stone at: " + eachStone.getLocation().toString());
-			counter++;
-=======
 		System.out.println("Opponent Stones that can be removed:");
 		for (Stone eachStone : textGameConfig.getStonesOfOpponent(opponent)) {
 			if (!eachStone.getDead()) {
 				counter++;				
 				System.out.println(counter + ". stone at: " + eachStone.getLocation().toString());
 			}
->>>>>>> myBranchRoyaleIteration2
 		}
 		System.out.println("");
 	}
@@ -350,11 +288,7 @@ public class Game {
 	 */
 	public void displayStones() {
 		for (Stone eachStone : textGameConfig.selectFirstPlayer().getStones()) {
-<<<<<<< HEAD
-			if (eachStone.getLocation() != null) {
-=======
 			if (!eachStone.getDead()) {
->>>>>>> myBranchRoyaleIteration2
 				System.out.println(eachStone.getOwner().toString() + ": " + eachStone.getLocation().toString());
 			}
 		}
