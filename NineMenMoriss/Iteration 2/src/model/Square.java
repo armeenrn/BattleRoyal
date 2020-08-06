@@ -5,7 +5,9 @@ package model;
  * it.
  * 
  * @author srish
- *
+ * @version 1.0
+ * 10.00 6 August 2020
+ * Team D
  */
 public class Square {
 	private String name;
