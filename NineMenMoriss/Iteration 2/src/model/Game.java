@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class Game {
 	private int winner = 0;
+<<<<<<< HEAD
 	private GameShared textGameConfig;
 <<<<<<< HEAD
 	
@@ -19,6 +20,9 @@ public class Game {
 	}
 	
 =======
+=======
+	private GameShared textGameConfig; // contains the methods needed to run the game
+>>>>>>> myBranchRoyaleIteration2
 	
 	public Game() {		
 		textGameConfig = new GameShared();
@@ -42,7 +46,7 @@ public class Game {
 			System.out.println("The computer goes first" + "\n");
 		}
 		
-		// while winner is not decided keep taking turns
+		// while winner is not decided keep taking turns depending on who goes first
 		while (winner == 0) {
 			if (firstTurn == 1) {
 				System.out.println("Your turn" + "\n");
@@ -205,10 +209,18 @@ public class Game {
 		Stone moveStone;
 =======
 		Stone moveStone;
+<<<<<<< HEAD
 		Point movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
 >>>>>>> myBranchRoyaleIteration2
+=======
+		Point movePoint;
+>>>>>>> myBranchRoyaleIteration2
 		
+		// calls AI Player to look for the best move it can make; it will return the point the player will move to
+		// if it has no good answer it will return null, and the AI will make a random move
+		movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
 		if (compPlayer.getNumberOfPlacedStones() < 9) {
+			// can place a stone
 			if (movePoint == null) {
 				do {
 					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());					
@@ -218,7 +230,7 @@ public class Game {
 			textGameConfig.moveStone(compPlayer, null, movePoint);			
 		}		
 		else if (compPlayer.getNumberOfTotalStones() > 3) {
-			
+			// can move adjacent
 			if (movePoint == null) {
 				Stone randomStone;
 				
@@ -236,6 +248,7 @@ public class Game {
 			textGameConfig.moveStone(compPlayer, moveStone, movePoint);
 		}
 		else {
+			// can jump around with existing stones
 			if (movePoint == null) {
 				Stone randomStone;
 				
