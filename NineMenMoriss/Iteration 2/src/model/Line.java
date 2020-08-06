@@ -52,7 +52,7 @@ public class Line {
 	
 
 	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
-		if (endPoint1.getOccupiedPlayer() == player) {
+		if (endPoint1.getOccupiedPlayer() == player.getPlayerNumber()) {
 			if (endPoint1.getOccupiedPlayer() == midPoint.getOccupiedPlayer()) {
 				if (midPoint.getOccupiedPlayer() == endPoint2.getOccupiedPlayer()) {
 					return true;
@@ -73,8 +73,6 @@ public class Line {
 		}
 
 	}
-
-
 	
 	public boolean doesLineContain(Stone stoneToCheck) {
 		boolean contains = false;

@@ -7,7 +7,7 @@ public class Square {
 	private Line lineE;
 	private Line lineS;
 	private Line[] lines;
-	
+
 	public Square (String name, double size, double startX, double startY) {
 		this.name = name;
 		Point southWest = new Point(startX, startY);
@@ -19,18 +19,17 @@ public class Square {
 		Point northEast = new Point(startX + size, startY + size);
 		Point midEast = new Point(startX + size, startY + size/2);	
 	
-		lineN = new Line("lineN",northWest, midNorth, northEast);
+		lineN = new Line("lineN", northWest, midNorth, northEast);
 		lineW = new Line("lineW", southWest, midWest, northWest);
 		lineE = new Line("lineE", southEast, midEast, northEast);
 		lineS = new Line("lineS", southWest, midSouth, southEast);
 
 		lines = new Line[4];
 		
-		lines[0] = lineN;
+		lines[0] = lineS;
 		lines[1] = lineW;
 		lines[2] = lineE;
-		lines[3] = lineS;
-		
+		lines[3] = lineN;
 	}
 
 

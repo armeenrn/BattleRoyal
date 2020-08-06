@@ -9,7 +9,7 @@
 
 <Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GameController">
    <children>
-      <Pane prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #ffc371;">
+      <Pane fx:id="boardPane" prefHeight="850.0" prefWidth="850.0" style="-fx-background-color: #ffc371;">
          <children>
             <Button fx:id="exitButton" layoutX="646.0" layoutY="792.0" mnemonicParsing="false" onAction="#exitCurrentGame" text="Quit current game">
                <font>
@@ -42,7 +42,7 @@
             <Circle layoutX="426.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="750.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="100.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="outSqSouthLiEndP1" layoutX="100.0" layoutY="750.0" onMouseClicked="#outSqSouthLiEndP1Selected" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle layoutX="100.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="201.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="426.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="649.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
@@ -62,6 +62,53 @@
             <Circle layoutX="426.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="300.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle layoutX="550.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button fx:id="outSqLineSEnd1" layoutX="77.0" layoutY="730.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineSMid" layoutX="403.0" layoutY="728.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineSEnd2" layoutX="727.0" layoutY="728.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineWMid" layoutX="78.0" layoutY="403.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineNEnd1" layoutX="77.0" layoutY="78.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineNMid" layoutX="403.0" layoutY="77.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineNEnd2" layoutX="728.0" layoutY="77.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="outSqLineEMid" layoutX="727.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineEMid" layoutX="627.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineNEnd2" layoutX="627.0" layoutY="178.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineNMid" layoutX="403.0" layoutY="178.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineNEnd1" layoutX="179.0" layoutY="178.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineWMid" layoutX="178.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineSEnd2" layoutX="627.0" layoutY="628.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineSMid" layoutX="404.0" layoutY="628.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="midSqLineSEnd1" layoutX="178.0" layoutY="628.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineSEnd1" layoutX="278.0" layoutY="527.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineSMid" layoutX="404.0" layoutY="527.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineSEnd2" layoutX="527.0" layoutY="527.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineWMid" layoutX="278.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineNEnd1" layoutX="278.0" layoutY="279.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineNMid" layoutX="404.0" layoutY="278.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineNEnd2" layoutX="527.0" layoutY="279.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Button fx:id="innSqLineEMid" layoutX="527.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
+            <Circle fx:id="humanStone9" disable="true" layoutX="44.0" layoutY="90.0" onMouseClicked="#humanStone9Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone6" disable="true" layoutX="44.0" layoutY="270.0" onMouseClicked="#humanStone6Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone7" disable="true" layoutX="44.0" layoutY="210.0" onMouseClicked="#humanStone7Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone8" disable="true" layoutX="44.0" layoutY="150.0" onMouseClicked="#humanStone8Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone4" disable="true" layoutX="44.0" layoutY="390.0" onMouseClicked="#humanStone4Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone3" disable="true" layoutX="44.0" layoutY="450.0" onMouseClicked="#humanStone3Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone2" disable="true" layoutX="44.0" layoutY="510.0" onMouseClicked="#humanStone2Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone5" disable="true" layoutX="44.0" layoutY="330.0" onMouseClicked="#humanStone5Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="humanStone1" disable="true" layoutX="44.0" layoutY="570.0" onMouseClicked="#humanStone1Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone1" disable="true" fill="WHITE" layoutX="811.0" layoutY="570.0" onMouseClicked="#compStone1Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone5" disable="true" fill="WHITE" layoutX="811.0" layoutY="330.0" onMouseClicked="#compStone5Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone2" disable="true" fill="WHITE" layoutX="811.0" layoutY="510.0" onMouseClicked="#compStone2Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone3" disable="true" fill="WHITE" layoutX="811.0" layoutY="450.0" onMouseClicked="#compStone3Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone4" disable="true" fill="WHITE" layoutX="811.0" layoutY="390.0" onMouseClicked="#compStone4Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone8" disable="true" fill="WHITE" layoutX="811.0" layoutY="150.0" onMouseClicked="#compStone8Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone7" disable="true" fill="WHITE" layoutX="811.0" layoutY="210.0" onMouseClicked="#compStone7Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone6" disable="true" fill="WHITE" layoutX="811.0" layoutY="270.0" onMouseClicked="#compStone6Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="compStone9" disable="true" fill="WHITE" layoutX="811.0" layoutY="90.0" onMouseClicked="#compStone9Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
+            <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="7.0" prefHeight="60.0" prefWidth="494.0" text="TURN" textAlignment="CENTER">
+               <font>
+                  <Font name="Comic Sans MS" size="18.0" />
+               </font>
+            </Label>
          </children></Pane>
    </children>
 </Pane>

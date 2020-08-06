@@ -12,7 +12,6 @@ public class TextApplication {
 	
 	public TextApplication(Game game) {
 		gameToPlay = game;
-		
 	}
 	
 	public void run() {
@@ -23,14 +22,10 @@ public class TextApplication {
 		System.out.println("Please enter one of the following options:");
 		System.out.println("PLAY, RULES, QUIT");
 		next = input.nextLine();		
-		String names[] = new String[2];
-		names[0] = "alpha";
-		names[1] = "beta";
-		int mode = 0;
 	
 		do {
 			if (next.equalsIgnoreCase("PLAY")) {
-				game = new Game(names, mode);
+				game = new Game();
 				TextApplication app = new TextApplication(game);
 				app.gameToPlay.play(); // one game is played
 				

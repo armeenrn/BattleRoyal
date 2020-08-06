@@ -1,691 +1,708 @@
+/**
+ * Contains logic for AI to play the game
+ * 
+ * @author Daniel Kim, Armeen Rashidian
+ * @version 2.0
+ */
+
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
 
-public class AIPlayer extends Player {
-	String name;
-	private int movePriority;
-	private final static int NONE = 0;
-	private final static int FILL_LINE_THISTURN = 1;
-	private final static int STOP_OPPONENT_NEXTTURN = 2;
-	private final static int TWO_STEPS_TO_FILL = 3;
+public class AIPlayer extends Player {	
+	private Stone bestMoveStone;
 	private Point pointToMoveTo;
 	
-	public AIPlayer(String name, int num) {
-		super(name, num);
-		this.name = name;
+	public AIPlayer(String name, int num, boolean goFirst, Board gameBoard) {
+		super(name, num, goFirst, gameBoard);
 	}
 	
-	public String toString() {
-		return name;
+	/**
+	 * Getter method for the stone that will perform AI's best move possible
+	 * 
+	 * @return Stone to move
+	 */
+	public Stone getBestMoveStone() {
+		return bestMoveStone;
 	}
-
 	
+	/**
+	 * Selects a random empty point to move to
+	 * 
+	 * @param pointsList Set of points
+	 * @return Point to move to
+	 */
 	public Point getRandomPoint(ArrayList<Point> pointsList) {
 		int index = 0;
 		Random rand = new Random();
 		index = rand.nextInt(pointsList.size());
-		while (pointsList.get(index).getOccupiedStone() != null) {
+		while (pointsList.get(index).getOccupiedPlayer() != 0) {
 			index = rand.nextInt(pointsList.size());
 		}
 		
 		return pointsList.get(index);
 	}
 	
-	
+	/**
+	 * Selects a random alive stone to move to
+	 * 
+	 * @param stonesList Set of stones player owns
+	 * @return Stone to move
+	 */
 	public Stone selectRandomStone(ArrayList<Stone> stonesList) {
-		int index = 0;
 		Random rand = new Random();
-		index = rand.nextInt(stonesList.size());
+		int index;
+		do {
+			index = rand.nextInt(stonesList.size());
+		} while (stonesList.get(index).getDead());
+		
 		return stonesList.get(index);
 	}
 	
-	
+	/**
+	 * Selects a random alive opponent stone to remove
+	 * 
+	 * @param stonesOfOpponent Set of stones the opponent owns
+	 * @return Stone to remove
+	 */
 	public Stone selectRandomStoneToRemove(ArrayList<Stone> stonesOfOpponent) {
-		int index;
 		Random rand = new Random();
-		index = rand.nextInt(stonesOfOpponent.size());
+		int index;
+		do {
+			index = rand.nextInt(stonesOfOpponent.size());
+		} while (stonesOfOpponent.get(index).getDead());
+		
 		return stonesOfOpponent.get(index);
 	}
 	
+	/**
+	 * The AI goes through a set of logic to select which opponent stone to remove
+	 * 
+	 * @param board Gameboard
+	 * @param opponentPlayer
+	 * @return Stone to remove
+	 */
+	public Stone lookforBestRemove(Board board, Player opponentPlayer) {
+		Stone bestStoneToRemove;
+		
+		// check if there is a stone the opponent can move to make a mill next turn
+		bestStoneToRemove = findStopMillByRemove(board, opponentPlayer);
+
+		if (bestStoneToRemove == null) {
+			// if not, remove a random stone as there is no priority
+			bestStoneToRemove = selectRandomStoneToRemove(opponentPlayer.getStones());
+		}
+		
+		return bestStoneToRemove;			
+	}
 	
 	/**
-	 * Called by Game class to place stone on the board. Can be used in phase 1 (place) or phase 3 (jump)
+	 * Logic that checks if the AI can prevent the opponent from forming a mill by removing a stone.
 	 * 
-	 * @param stone stone to place
-	 * @param board board
+	 * @param board Gameboard
+	 * @param opponentPlayer
+	 * @return Stone to remove
 	 */
-//	public void placeStone(Stone stone, Board board) {
-//		boolean placeSuccessful = false;
-//
-//		while(!placeSuccessful) {
-//			switch ((int)(Math.random() * 24)) {
-//				case 0:
-//					if (board.getSquares()[0].getSouthLine().getEndPoint1().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getSouthLine().getEndPoint1(), 1);
-//						placeSuccessful = true;
-//					}
-//					break;
-//				case 1:
-//					if (board.getSquares()[0].getSouthLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getSouthLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 2:
-//					if (board.getSquares()[0].getSouthLine().getEndPoint2().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getSouthLine().getEndPoint2(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 3:
-//					if (board.getSquares()[0].getWestLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getWestLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 4:
-//					if (board.getSquares()[0].getEastLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getEastLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 5:
-//					if (board.getSquares()[0].getNorthLine().getEndPoint1().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getNorthLine().getEndPoint1(), 1);
-//						placeSuccessful = true;
-//					}
-//					break;
-//				case 6:
-//					if (board.getSquares()[0].getNorthLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getNorthLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 7:
-//					if (board.getSquares()[0].getNorthLine().getEndPoint2().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[0].getNorthLine().getEndPoint2(), 1);
-//						placeSuccessful = true;
-//					} // end of outersquare
-//				case 8:
-//					if (board.getSquares()[1].getSouthLine().getEndPoint1().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getSouthLine().getEndPoint1(), 1);
-//						placeSuccessful = true;
-//					}
-//					break;
-//				case 9:
-//					if (board.getSquares()[1].getSouthLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getSouthLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 10:
-//					if (board.getSquares()[1].getSouthLine().getEndPoint2().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getSouthLine().getEndPoint2(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 11:
-//					if (board.getSquares()[1].getWestLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getWestLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 12:
-//					if (board.getSquares()[1].getEastLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getEastLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 13:
-//					if (board.getSquares()[1].getNorthLine().getEndPoint1().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getNorthLine().getEndPoint1(), 1);
-//						placeSuccessful = true;
-//					}
-//					break;
-//				case 14:
-//					if (board.getSquares()[1].getNorthLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getNorthLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 15:
-//					if (board.getSquares()[1].getNorthLine().getEndPoint2().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[1].getNorthLine().getEndPoint2(), 1);
-//						placeSuccessful = true;
-//					} // end of midsquare
-//				case 16:
-//					if (board.getSquares()[2].getSouthLine().getEndPoint1().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getSouthLine().getEndPoint1(), 1);
-//						placeSuccessful = true;
-//					}
-//					break;
-//				case 17:
-//					if (board.getSquares()[2].getSouthLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getSouthLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 18:
-//					if (board.getSquares()[2].getSouthLine().getEndPoint2().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getSouthLine().getEndPoint2(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 19:
-//					if (board.getSquares()[2].getWestLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getWestLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 20:
-//					if (board.getSquares()[2].getEastLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getEastLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 21:
-//					if (board.getSquares()[2].getNorthLine().getEndPoint1().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getNorthLine().getEndPoint1(), 1);
-//						placeSuccessful = true;
-//					}
-//					break;
-//				case 22:
-//					if (board.getSquares()[2].getNorthLine().getMidPoint().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getNorthLine().getMidPoint(), 1);
-//						placeSuccessful = true;
-//					}
-//				case 23:
-//					if (board.getSquares()[2].getNorthLine().getEndPoint2().getOccupyingPlayerNumber() == 0) {
-//						moveStone(stone, board.getSquares()[2].getNorthLine().getEndPoint2(), 1);
-//						placeSuccessful = true;
-//					} // end of innersquare
-//				default:
-//					// nothing happens
-//					break;
-//			}			
-//		}	
-//	}
-//	
-//	/**
-//	 * Called by Game class to move one Stone to an adjacent empty point. Can be used in phase 2
-//	 * 
-//	 * @param stone stone to move
-//	 * @param board board
-//	 */
-//	public boolean moveStoneAdjacent(Stone stone, Board board) {
-//		boolean moveSuccessful = true;
-//		Point currentPoint;
-//		Point[] allPoints = new Point[24];
-//		
-//		allPoints[0] = board.getSquares()[0].getSouthLine().getEndPoint1();
-//		allPoints[1] = board.getSquares()[0].getSouthLine().getMidPoint();
-//		allPoints[2] = board.getSquares()[0].getSouthLine().getEndPoint2();
-//		allPoints[3] = board.getSquares()[0].getWestLine().getMidPoint();
-//		allPoints[4] = board.getSquares()[0].getEastLine().getMidPoint();
-//		allPoints[5] = board.getSquares()[0].getNorthLine().getEndPoint1();
-//		allPoints[6] = board.getSquares()[0].getNorthLine().getMidPoint();
-//		allPoints[7] = board.getSquares()[0].getNorthLine().getEndPoint2();
-//		allPoints[8] = board.getSquares()[1].getSouthLine().getEndPoint1();
-//		allPoints[9] = board.getSquares()[1].getSouthLine().getMidPoint();
-//		allPoints[10] = board.getSquares()[1].getSouthLine().getEndPoint2();
-//		allPoints[11] = board.getSquares()[1].getWestLine().getMidPoint();
-//		allPoints[12] = board.getSquares()[1].getEastLine().getMidPoint();
-//		allPoints[13] = board.getSquares()[1].getNorthLine().getEndPoint1();
-//		allPoints[14] = board.getSquares()[1].getNorthLine().getMidPoint();
-//		allPoints[15] = board.getSquares()[1].getNorthLine().getEndPoint2();
-//		allPoints[16] = board.getSquares()[2].getSouthLine().getEndPoint1();
-//		allPoints[17] = board.getSquares()[2].getSouthLine().getMidPoint();
-//		allPoints[18] = board.getSquares()[2].getSouthLine().getEndPoint2();
-//		allPoints[19] = board.getSquares()[2].getWestLine().getMidPoint();
-//		allPoints[20] = board.getSquares()[2].getEastLine().getMidPoint();
-//		allPoints[21] = board.getSquares()[2].getNorthLine().getEndPoint1();
-//		allPoints[22] = board.getSquares()[2].getNorthLine().getMidPoint();
-//		allPoints[23] = board.getSquares()[2].getNorthLine().getEndPoint2();
-//		
-//		currentPoint = stone.getLocation();
-//		
-//		if (currentPoint == allPoints[0]) {
-//			if (allPoints[1].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[1];
-//			}
-//			else if (allPoints[3].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[3];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}
-//		}
-//		else if (currentPoint == allPoints[1]) {
-//			if (allPoints[0].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[0];
-//			}
-//			else if (allPoints[2].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[2];
-//			}
-//			else if (allPoints[9].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[9];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}			
-//		}
-//		else if (currentPoint == allPoints[2]) {
-//			if (allPoints[1].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[1];
-//			}
-//			else if (allPoints[4].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[4];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[3]) {
-//			if (allPoints[0].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[0];
-//			}
-//			else if (allPoints[5].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[5];
-//			}
-//			else if (allPoints[11].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[11];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[4]) {
-//			if (allPoints[2].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[2];
-//			}
-//			else if (allPoints[7].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[7];
-//			}
-//			else if (allPoints[12].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[12];
-//			}			
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[5]) {
-//			if (allPoints[3].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[3];
-//			}
-//			else if (allPoints[6].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[6];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[6]) {
-//			if (allPoints[5].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[5];
-//			}
-//			else if (allPoints[7].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[7];
-//			}
-//			else if (allPoints[14].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[14];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[7]) {
-//			if (allPoints[4].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[4];
-//			}
-//			else if (allPoints[6].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[6];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[8]) {
-//			if (allPoints[9].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[9];
-//			}
-//			else if (allPoints[11].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[11];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[9]) {
-//			if (allPoints[1].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[1];
-//			}
-//			else if (allPoints[8].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[8];
-//			}
-//			else if (allPoints[10].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[10];
-//			}						
-//			else if (allPoints[17].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[17];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[10]) {
-//			if (allPoints[9].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[9];
-//			}
-//			else if (allPoints[12].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[12];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[11]) {
-//			if (allPoints[3].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[3];
-//			}
-//			else if (allPoints[8].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[8];
-//			}
-//			else if (allPoints[13].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[13];
-//			}						
-//			else if (allPoints[19].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[19];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[12]) {
-//			if (allPoints[4].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[4];
-//			}
-//			else if (allPoints[10].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[10];
-//			}
-//			else if (allPoints[13].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[13];
-//			}						
-//			else if (allPoints[20].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[20];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[13]) {
-//			if (allPoints[11].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[11];
-//			}
-//			else if (allPoints[14].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[14];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[14]) {
-//			if (allPoints[6].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[6];
-//			}
-//			else if (allPoints[13].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[13];
-//			}
-//			else if (allPoints[15].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[15];
-//			}						
-//			else if (allPoints[22].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[22];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[15]) {
-//			if (allPoints[12].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[12];
-//			}
-//			else if (allPoints[14].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[14];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[16]) {
-//			if (allPoints[17].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[17];
-//			}
-//			else if (allPoints[19].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[19];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[17]) {
-//			if (allPoints[9].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[9];
-//			}
-//			else if (allPoints[16].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[16];
-//			}
-//			else if (allPoints[18].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[18];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[18]) {
-//			if (allPoints[17].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[17];
-//			}
-//			else if (allPoints[20].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[20];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[19]) {
-//			if (allPoints[11].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[11];
-//			}
-//			else if (allPoints[16].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[16];
-//			}
-//			else if (allPoints[21].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[21];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[20]) {
-//			if (allPoints[12].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[12];
-//			}
-//			else if (allPoints[18].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[18];
-//			}
-//			else if (allPoints[23].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[23];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[21]) {
-//			if (allPoints[19].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[19];
-//			}
-//			else if (allPoints[22].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[22];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[22]) {
-//			if (allPoints[14].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[14];
-//			}
-//			else if (allPoints[21].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[21];
-//			}
-//			else if (allPoints[23].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[23];
-//			}						
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else if (currentPoint == allPoints[23]) {
-//			if (allPoints[20].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[20];
-//			}
-//			else if (allPoints[22].getOccupyingPlayerNumber() == 0) {
-//				moveSuccessful = true;
-//				pointToMoveTo = allPoints[22];
-//			}
-//			else {
-//				moveSuccessful = false;
-//			}						
-//		}
-//		else {
-//			// Invalid point
-//			System.out.println("Invalid move.");
-//			moveSuccessful = false;
-//		}
-//		
-//		
-//		if (moveSuccessful) {
-//			moveStone(stone, pointToMoveTo, 2);
-//		}
-//		
-//		return moveSuccessful;
-//	}
-//	
-//	/**
-//	 * Check and see which move the computer should make.
-//	 * 
-//	 * @param board Board
-//	 * @return Point the computer's stone should move to
-//	 */
-//	public Point checkPriorityMove(Board board) {
-//		return pointToMoveTo;
-//	}
-//		
-//	/**
-//	 * Check which movement options are available and should be carried out by the computer
-//	 * 
-//	 * @param stones List of stones the player owns
-//	 * @param board Board
-//	 * @return Indication of which move the computer should make
-//	 */
-//	public int checkMovement(ArrayList<Stone> stones, Board board) {
-//		return 0;
-//	}
-//
-//	/**
-//	 * Check if the computer can fill a line to form a mill
-//	 * 
-//	 * @param stones List of stones the player owns
-//	 * @param board Board
-//	 * @return Can/cannot fill a line
-//	 */
-//	public boolean checkFill(ArrayList<Stone> stones, Board board) {
-//		return true;
-//	}
-//
-//	/**
-//	 * Check if the computer should stop the opponent from forming a mill
-//	 * 
-//	 * @param stones List of stones the player owns
-//	 * @param board Board
-//	 * @return Can/cannot stop the opponent
-//	 */
-//	public boolean checkStopFill(ArrayList<Stone> stones, Board board) {
-//		return true;
-//	}
-//
-//	/**
-//	 * Check if the computer can take 2 moves to form a mill
-//	 * 
-//	 * @param stones List of stones the player owns
-//	 * @param board Board
-//	 * @return Two turns away from filling a line and forming a mill
-//	 */
-//	public boolean checkGoForFill(ArrayList<Stone> stones, Board board) {
-//		return true;
-//	}
-//	
-//	/**
-//	 * Decide which stone the computer should remove after forming a mill
-//	 */
-//	public void checkRemove() {
-//		
-//	}
-//	
-//	
-//
+	public Stone findStopMillByRemove(Board board, Player opponentPlayer) {
+		int numEmptyPoint;
+		int numHumanPoint;
+		Point pointToTest = null;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numHumanPoint = 0;
+
+				// checks if the line has exactly 1 empty point and 2 points occupied by Human Player
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 1) {
+						numHumanPoint++;
+					}
+				}
+				
+				if (numEmptyPoint == 1 && numHumanPoint == 2) {
+					if ((opponentPlayer.getNumberOfPlacedStones() < 9) || opponentPlayer.getNumberOfTotalStones() == 3) {
+						// the opponent can place or jump; remove any two of the stones to prevent a mill
+						for (Point point : line.getPoints()) {
+							if (point.getOccupiedPlayer() == 1) {
+								return point.getOccupiedStone();
+							}
+						}
+					}
+					else {
+						// the opponent can only move adjacent; remove only if the opponent can form a mill in one turn
+						ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
+						
+						for (Point adjacentPoint : adjacentPoints) {						
+							if (adjacentPoint.getOccupiedPlayer() == 1) {
+								if(line.doesLineContain(adjacentPoint.getOccupiedStone())) {								
+									return adjacentPoint.getOccupiedStone();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		// couldn't find a logical stone to remove
+		return null;
+	}
+
+	/**
+	 * The AI goes through a set of logic to select which move to make
+	 * 
+	 * @param board Gameboard
+	 * @return Point to move to
+	 */
+	public Point lookForBestMove(Board board) {
+		boolean foundMove;
+		
+		// check if the AI can move a stone to any empty point
+		if ((getNumberOfPlacedStones() < 9) || (getNumberOfTotalStones() == 3)) {
+			// check if the AI can form a mill by moving
+			foundMove = checkMillByPlace(board);
+			
+			if (!foundMove) {
+				// couldn't find mill; check if the AI can prevent opponent mill by moving
+				foundMove = checkStopMillByPlace(board);
+
+				if (!foundMove) {
+					// cannot stop opponent from forming a mill, or opponent cannot form a mill next turn
+					// check if two turns can be taken to form a mill
+					foundMove = checkTwoStepsFromMillByPlace(board);
+
+					// no good answer for computer;
+					if (!foundMove) {
+						pointToMoveTo = null;
+					}
+				}
+			}
+		}
+		// the AI can only move a stone to its adjacent point
+		else {
+			// Priority 1: check if the AI can form a mill by moving
+			foundMove = checkMillByMove(board);
+
+			if (!foundMove) {
+				// Priority 2: check if the AI can prevent opponent mill by moving
+				foundMove = checkStopMillByMove(board);
+
+				if (!foundMove) {
+					// cannot stop opponent from forming a mill, or opponent cannot form a mill next turn
+					// Priority 3: check if two turns can be taken to form a mill
+					foundMove = checkTwoStepsFromMillByMove(board);
+
+					// no good answer for computer;
+					if (!foundMove) {
+						pointToMoveTo = null;
+					}
+				}
+			}
+		}
+		
+		return pointToMoveTo;
+	}
+
+	/**
+	 * Logic that checks if the AI can form a mill by moving a stone
+	 * The AI does not have restrictions on movement
+	 * 
+	 * @param board Gameboard
+	 * @return Indicates whether a move was found
+	 */
+	public boolean checkMillByPlace(Board board) {
+		int numEmptyPoint;
+		int numCompPoint;
+		Point pointToTest = null;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numCompPoint = 0;
+
+				// check if the line has exactly 1 empty point and 2 points occupied by AI Player
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 2) {
+						numCompPoint++;
+					}
+				}
+				
+				if (numEmptyPoint == 1 && numCompPoint == 2) {
+					if (getNumberOfPlacedStones() < 9) {
+						// placing stage; there is no need to check for moving stones on current line
+						pointToMoveTo = pointToTest;
+						return true;
+					}
+					else {
+						// jumping stage; make sure the stone is alive
+						boolean wasStoneOnLine;
+						
+						for (Stone currentStone : getStones()) {
+							if (!currentStone.getDead()) {
+								wasStoneOnLine = line.doesLineContain(currentStone);
+								
+								// if the live stone tested was not on the current line it will move to the point
+								if (!wasStoneOnLine) {
+									bestMoveStone = currentStone;
+									pointToMoveTo = pointToTest;
+									return true;
+								}								
+							}
+						}					
+					}
+				}
+			}
+		}
+		
+		// all tests were done and the move was not found
+		return false;
+	}
 	
+	/**
+	 * Logic that checks if the AI can prevent an opponent mill by moving a stone
+	 * The AI does not have restrictions on movement
+	 * 
+	 * @param board Gameboard
+	 * @return Indicates whether a move was found
+	 */
+	public boolean checkStopMillByPlace(Board board) {
+		int numEmptyPoint;
+		int numHumanPoint;
+		Point pointToTest = null;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numHumanPoint = 0;
+				
+				// check if the line has exactly 1 empty point and 2 points occupied by Human Player
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 1) {
+						numHumanPoint++;
+					}
+				}
+				
+				if (numEmptyPoint == 1 && numHumanPoint == 2) {
+					// if this is placing stage there is no need to check for moving stones on current line
+					if (getNumberOfPlacedStones() < 9) {
+						pointToMoveTo = pointToTest;
+						return true;
+					}
+					else {
+						// jumping stage; make sure the stone is alive
+						for (Stone currentStone : getStones()) {
+							if (!currentStone.getDead()) {
+								bestMoveStone = currentStone;
+								pointToMoveTo = pointToTest;
+								return true;
+							}
+						}					
+					}
+				}
+			}
+		}
+		
+		// all tests were done and the move was not found	
+		return false;
+	}
+	
+	/**
+	 * Logic that checks if the AI can move a stone to prepare for a mill the turn after
+	 * The AI does not have restrictions on movement
+	 * 
+	 * @param board Gameboard
+	 * @return Indicates whether a move was found
+	 */
+	public boolean checkTwoStepsFromMillByPlace(Board board) {
+		int numEmptyPoint;
+		int numCompPoint;
+		Point pointToTest = null;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numCompPoint = 0;
+				
+				// check if the line has exactly 1 empty point and 2 points occupied by AI Player
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 2) {
+						numCompPoint++;
+					}
+				}
+				
+				if (numEmptyPoint == 2 && numCompPoint == 1) {
+					if (getNumberOfPlacedStones() < 9) {
+						// placing stage; place a stone on the same line, prefer midpoint
+						if (line.getMidPoint().getOccupiedPlayer() == 0) {
+							pointToMoveTo = line.getMidPoint();
+							return true;
+						}
+						else {
+							pointToMoveTo = pointToTest;
+							return true;
+						}
+					}
+					else {
+						// jumping stage; make sure the stone is alive
+						for (Stone currentStone : getStones()) {
+							if (!currentStone.getDead()) {
+								bestMoveStone = currentStone;
+
+								if (line.getMidPoint().getOccupiedPlayer() == 0) {
+									pointToMoveTo = line.getMidPoint();
+									return true;
+								}
+								else {
+									pointToMoveTo = pointToTest;
+									return true;
+								}
+							}
+						}					
+					}
+				}
+			}
+		}
+		
+		// all tests were done and the move was not found
+		return false;
+	}
+	
+	/**
+	 * Logic that checks if the AI can form a mill by moving a stone
+	 * The AI can only move a stone to its adjacent point
+	 * 
+	 * @param board Gameboard
+	 * @return Indicates whether a move was found
+	 */
+	public boolean checkMillByMove(Board board) {
+		int numEmptyPoint;
+		int numCompPoint;
+		Point pointToTest = null;
+		ArrayList<Point> adjacentPoints;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numCompPoint = 0;
+
+				// check if the line has exactly 1 empty point and 2 points occupied by AI Player
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 2) {
+						numCompPoint++;
+					}
+				}
+				
+				
+				if (numEmptyPoint == 1 && numCompPoint == 2) {
+					adjacentPoints = getAdjacentPoints(pointToTest);
+					
+					for (Point adjacentPoint : adjacentPoints) {
+						// check if an adjacent point has a stone occupied by AI Player
+						if (adjacentPoint.getOccupiedPlayer() == 2) {
+							// check if the stone is not on the current line; if it is not, it moves to the empty point
+							if(!(line.doesLineContain(adjacentPoint.getOccupiedStone()))) {								
+								bestMoveStone = adjacentPoint.getOccupiedStone();
+								pointToMoveTo = pointToTest;
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		// all tests were done and the move was not found
+		return false;
+	}
+
+	/**
+	 * Logic that checks if the AI can prevent an opponent mill by moving a stone
+	 * The AI can only move a stone to its adjacent point
+	 * 
+	 * @param board Gameboard
+	 * @return Indicates whether a move was found
+	 */
+	public boolean checkStopMillByMove(Board board) {
+		int numEmptyPoint;
+		int numHumanPoint;
+		Point pointToTest = null;
+		ArrayList<Point> adjacentPoints;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numHumanPoint = 0;
+				
+				// check if the line has exactly 1 empty point and 2 points occupied by Human Player
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 1) {
+						numHumanPoint++;
+					}
+				}
+				
+				if (numEmptyPoint == 1 && numHumanPoint == 2) {
+					adjacentPoints = getAdjacentPoints(pointToTest);
+					
+					for (Point adjacentPoint : adjacentPoints) {						
+						// check if an adjacent point has a stone occupied by AI Player
+						if (adjacentPoint.getOccupiedPlayer() == 2) {
+							// the stone can move to the empty point to stop mill
+							bestMoveStone = adjacentPoint.getOccupiedStone();
+							pointToMoveTo = pointToTest;
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		// all tests were done and the move was not found
+		return false;
+	}
+
+	/**
+	 * Logic that checks if the AI can move a stone to prepare for a mill the turn after
+	 * The AI can only move a stone to its adjacent point
+	 * 
+	 * @param board Gameboard
+	 * @return Indicates whether a move was found
+	 */
+	public boolean checkTwoStepsFromMillByMove(Board board) {
+		int numEmptyPoint;
+		int numCompPoint;
+		boolean moveWasFound = false;
+		Point pointToTest = null;
+		
+		for (Square square : board.getSquares()) {
+			for (Line line : square.getLines()) {
+				numEmptyPoint = 0;
+				numCompPoint = 0;
+				for (Point point : line.getPoints()) {
+					if (point.getOccupiedPlayer() == 0) {
+						pointToTest = point;
+						numEmptyPoint++;
+					}
+					else if (point.getOccupiedPlayer() == 2) {
+						numCompPoint++;
+					}
+				}
+				
+				if (numEmptyPoint == 1 && numCompPoint == 2) {
+					// Case 1; there are two computer stones and one empty point on the line
+					moveWasFound = TwoStepsFromMillCaseOne(pointToTest, line);
+				}
+				else if (numEmptyPoint == 2 && numCompPoint == 1) {
+					// case 2; there are one computer stone and two empty points on the line
+					moveWasFound = TwoStepsFromMillCaseTwo(pointToTest, line);
+
+				}
+				else if (numCompPoint == 3) {
+					// case 3; the computer has a mill
+					moveWasFound = TwoStepsFromMillCaseThree(pointToTest, line);
+				}
+			}
+		}
+		
+		// tests are done; return if move was found
+		return moveWasFound;
+	}
+	
+	/**
+	 * Case 1 of "two steps from mill" when AI can only move adjacent
+	 * When there are two computer stones and one empty point on the line, check adjacent points of the empty point
+
+	 * Case 1-1: The adjacent point is empty, and the adjacent of that adjacent point is occupied by AI
+	 * The AI Player can move that stone to the adjacent point to form a mill the turn after by moving the stone to the empty point.
+	 * 
+	 * Case 1-2: The adjacent point is occupied by AI, and the adjacent of the adjacent point is occupied by AI
+	 * Case 1-2-1: The empty point was the midpoint of the line
+	 * The stone in the adjacent point was in an endpoint of the line; move that to midpoint
+	 * AI can form a mill the turn after by moving the stone in the adjacent to adjacent point to the now empty endpoint
+	 * 
+	 * Case 1-2-2: The empty point was an endpoint of the line
+	 * Check if the stone in the adjacent to adjacent point was on the line.
+	 * If not, the stone in the adjacent point can move to the empty endpoint.
+	 * AI can form a mill the turn after by moving the stone in the adjacent to adjacent point to the now empty midpoint
+	 * 
+	 * @param pointToTest Point to check if a stone can make a logical choice to move here
+	 * @param line Line that pointToTest belongs to and will be called to test
+	 * @return Indicates whether a move was found
+	 */
+	public boolean TwoStepsFromMillCaseOne(Point pointToTest, Line line) {
+		ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
+		ArrayList<Point> adjacentsToAdjacentPoint;
+		
+		for (Point adjacentPoint : adjacentPoints) {
+			adjacentsToAdjacentPoint = getAdjacentPoints(adjacentPoint);
+			
+			if (adjacentPoint.getOccupiedPlayer() == 0) {
+				// Case 1-1
+				for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
+					if (adjacentAdjacent.getOccupiedPlayer() == 2) {
+						bestMoveStone = adjacentAdjacent.getOccupiedStone();
+						pointToMoveTo = adjacentPoint;
+						return true;
+					}
+				}	
+			}
+			
+			else if (adjacentPoint.getOccupiedPlayer() == 2) {
+				// Case 1-2
+				for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
+					if (adjacentAdjacent.getOccupiedPlayer() == 2) {
+						if (pointToTest == line.getMidPoint()) {
+							// Case 1-2-1
+							bestMoveStone = adjacentPoint.getOccupiedStone();
+							pointToMoveTo = pointToTest;
+							return true;
+						}
+						else {
+							// Case 1-2-2
+							if (!(line.doesLineContain(adjacentAdjacent.getOccupiedStone()))) {
+								bestMoveStone = adjacentPoint.getOccupiedStone();
+								pointToMoveTo = pointToTest;
+								return true;
+							}
+						}							
+					}
+				}
+			}
+		}
+
+		// all tests were done and the move was not found
+		return false;
+	}
+	
+	/**
+	 * Case 2 of "two steps from mill" when AI can only move adjacent
+	 * When there are one computer stone and two empty points on the line,
+	 * check adjacent points of the point occupied by AI
+	 * 
+	 * Test 1: An adjacent to adjacent point has a stone occupied by AI
+	 * Test 2-1: There is an adjacent to adjacent point that is empty
+	 * Test 2-2: The adjacent point to that empty adjacent to adjacent point has a stone occupied by AI
+	 * When all tests are passed, any of the two AI stones found can move to an empty point on the line
+	 * AI can form a mill the turn after by moving the other stone to the last empty point on the line
+	 * 
+	 * @param pointToTest Point to check if a stone can make a logical choice to move here
+	 * @param line Line that pointToTest belongs to and will be called to test
+	 * @return Indicates whether a move was found
+	 */
+	public boolean TwoStepsFromMillCaseTwo(Point pointToTest, Line line) {
+		ArrayList<Point> adjacentPoints = getAdjacentPoints(pointToTest);
+		ArrayList<Point> adjacentsToAdjacentPoint;
+		boolean adjacentToAdjacentHasStone;
+		ArrayList<Point> emptyDoubleAdjacent = new ArrayList<Point>();
+		ArrayList<Point> tripleAdjacent;
+
+		// start from the point with stone
+		for (Point point : line.getPoints()) {
+			if (point.getOccupiedPlayer() == 2) {
+				pointToTest = point;
+			}
+		}
+		
+		for (Point adjacentPoint : adjacentPoints) {
+			adjacentsToAdjacentPoint = getAdjacentPoints(adjacentPoint);
+			
+			// Test 1
+			if (adjacentPoint.getOccupiedPlayer() == 0) {
+				adjacentToAdjacentHasStone = false;
+
+				for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
+					if (adjacentAdjacent.getOccupiedPlayer() == 2) {
+						// Test 1 passed here
+						adjacentToAdjacentHasStone = true;
+					}
+					else if (adjacentAdjacent.getOccupiedPlayer() == 0) {
+						// Add all points that passes Test 2-1
+						emptyDoubleAdjacent.add(adjacentAdjacent);
+					}
+					
+					if (adjacentToAdjacentHasStone) {
+						for (Point doubleAdjacentPoint : emptyDoubleAdjacent) {
+							// Test 2-2
+							tripleAdjacent = getAdjacentPoints(doubleAdjacentPoint);
+							for (Point tripleAdjacentPoint : tripleAdjacent) {
+								if (tripleAdjacentPoint.getOccupiedPlayer() == 2) {
+									// all tests are passed; a move was found
+									Random rand = new Random();
+									int random = rand.nextInt(2);
+									
+									if (random == 0) {
+										bestMoveStone = adjacentAdjacent.getOccupiedStone();
+										pointToMoveTo = adjacentPoint;
+									}
+									else {
+										bestMoveStone = tripleAdjacentPoint.getOccupiedStone();
+										pointToMoveTo = doubleAdjacentPoint;
+									}
+									
+									return true;
+								}
+							}
+						}
+					}
+				}	
+			}
+		}
+
+		// all tests were done and the move was not found
+		return false;
+	}
+	
+	/**
+	 * Case 3 of "two steps from mill" when AI can only move adjacent
+	 * AI can move any stone on the mill to an adjacent empty point
+	 * It can form a mill the turn after by moving the stone back to the line
+	 * 
+	 * @param pointToTest Point to check if a stone can make a logical choice to move here
+	 * @param line Line that pointToTest belongs to and will be called to test
+	 * @return Indicates whether a move was found
+	 */
+	public boolean TwoStepsFromMillCaseThree(Point pointToTest, Line line) {
+		ArrayList<Point> adjacentPoints;
+		
+		for (Point point : line.getPoints()) {
+			bestMoveStone = point.getOccupiedStone();
+
+			adjacentPoints = getAdjacentPoints(bestMoveStone.getLocation());
+			
+			for (Point adjacentPoint : adjacentPoints) {
+				if (adjacentPoint.getOccupiedPlayer() == 0) {
+					pointToMoveTo = adjacentPoint;
+					return true;
+				}
+			}
+		}
+
+		// all tests were done and the move was not found
+		return false;
+	}
 }

@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.stage.StageStyle;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-
-
 
 public class MainController {
 	private Stage ruleStage;
@@ -28,7 +26,7 @@ public class MainController {
 
     @FXML
     private Button playButton;
-
+    
     @FXML
     public void playGame(ActionEvent event) {
     	MainApp.changeScreen("src/view/Board.fxml");
@@ -46,13 +44,13 @@ public class MainController {
     			ruleStage = new Stage();
     			FXMLLoader loader = new FXMLLoader();
     			Scene scene = new Scene(loader.load(new FileInputStream("src/view/Rules.fxml")),600,365);
-    			ruleStage.setResizable(false);
+    			ruleStage.initStyle(StageStyle.UTILITY);
     			ruleStage.setTitle("Rules");
     			ruleStage.setScene(scene);
     			firstTutOpen = true;
     		} catch (IOException e) {
     			// TODO Auto-generated catch block
-    			System.out.println("Problem loading Game.fxml");
+    			System.out.println("Problem loading Rules.fxml");
     		}    		
     	}
 
@@ -65,5 +63,9 @@ public class MainController {
         assert rulesButton != null : "fx:id=\"rulesButton\" was not injected: check your FXML file 'Main.fxml'.";
         assert tutorialButton != null : "fx:id=\"tutorialButton\" was not injected: check your FXML file 'Main.fxml'.";
         assert playButton != null : "fx:id=\"playButton\" was not injected: check your FXML file 'Main.fxml'.";
+    }
+
+    public boolean getTutOpen() {
+    	return firstTutOpen;
     }
 }

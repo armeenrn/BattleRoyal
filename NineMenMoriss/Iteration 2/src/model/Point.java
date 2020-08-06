@@ -5,8 +5,7 @@ public class Point {
 	private double x;
 	private double y;
 	private Stone occupiedStone;
-	private Player occupiedPlayer;
-
+	private int occupiedPlayer;
 	
 	public Point(double xCoord, double yCoord) {
 		x = xCoord;
@@ -21,42 +20,21 @@ public class Point {
 		return y;
 	}
 	
-	public Stone getOccupiedStone( ){
+	public Stone getOccupiedStone() {
 		return occupiedStone;
 	}
 	
-	public void setOccupiedStone(Stone stoneToOccupy) {
-		if (stoneToOccupy == null) {
-			occupiedStone = null;
-		}
-		
-		else {
-			occupiedStone = stoneToOccupy; 	
-		}
+	public void setOccupiedStone(Stone stone) {
+		occupiedStone = stone;
 	}
 	
+	public int getOccupiedPlayer() {
+		return occupiedPlayer;
+	}	
 	
-	public Player getOccupiedPlayer() {
-		if (occupiedPlayer == null) {
-			return null;
-		}
-		
-		else {
-			return occupiedPlayer;	
-		}
+	public void setOccupiedPlayer(int occupiedPlayer) {
+		this.occupiedPlayer = occupiedPlayer;
 	}
-	
-	
-	public void setOccupiedPlayer(Player playerToOccupy) {
-		if (playerToOccupy == null) {
-			occupiedPlayer = null;
-		}
-		
-		else {
-			occupiedPlayer = playerToOccupy; 	
-		}
-	}
-	
 	
 	public String toString() {
 		return "(" + x + ", " + y + ")";
