@@ -373,12 +373,12 @@ public class GameController extends GameShared {
     		// stage 2 or 3; select stone first; disable all buttons; enable all human stones for click
     		statusLabel.setText("Choose a stone to move");
 
-    		for (Button point : allPoints) {
-    			point.setDisable(true);
-    		}
-    		
     		for (Circle humanStone : humanStones) {
     			humanStone.setDisable(false);
+    		}
+
+    		for (Button point : allPoints) {
+    			point.setDisable(true);
     		}
     	}
     	else {
@@ -649,12 +649,12 @@ public class GameController extends GameShared {
         }
         
     	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
-		for (Button point : allPoints) {
-			point.setDisable(true);
-		}
-		
 		for (Circle humanStone : humanStones) {
 			humanStone.setDisable(false);
+		}
+
+		for (Button point : allPoints) {
+			point.setDisable(true);
 		}
 
         return moveWasValid;
@@ -683,12 +683,12 @@ public class GameController extends GameShared {
 		}
 
     	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
-		for (Button point : allPoints) {
-			point.setDisable(true);
-		}
-		
 		for (Circle humanStone : humanStones) {
 			humanStone.setDisable(false);
+		}
+		
+		for (Button point : allPoints) {
+			point.setDisable(true);
 		}
 		
 		return moveWasValid;
@@ -708,17 +708,17 @@ public class GameController extends GameShared {
 	    	statusLabel.setText("You formed a line!\nSelect a stone to remove");
 	    	
 			// A new mill was found; only computer stones will be selectable
-    		for (Button point : allPoints) {
-    			point.setDisable(true);
+    		for (Circle compStone : compStones) {
+    			compStone.setDisable(false);
     		}
-    		
+
     		for (Circle humanStone : humanStones) {
     			humanStone.setDisable(true);
     		}
 
-    		for (Circle compStone : compStones) {
-    			compStone.setDisable(false);
-    		}
+    		for (Button point : allPoints) {
+    			point.setDisable(true);
+    		}    		
 		}
 		else {
 			// A mill was not found. It is the computer's turn
@@ -996,14 +996,13 @@ public class GameController extends GameShared {
      * Activates when a human stone is clicked; prompt to click a point to move to.
      */
     private void moveFromChosenStone(Point stoneLocation) {
-    	stopAnimationPoints();
-    	statusLabel.setText("Choose a destination point");
-    	
-    	// All points are clickable
 		for (Button point : allPoints) {
 			point.setDisable(false);
 		}
 
+		stopAnimationPoints();
+    	statusLabel.setText("Choose a destination point");
+    	
 		if (selectFirstPlayer().getNumberOfTotalStones() > 3) {
 	    	setAnimationAvailablePoints(stoneLocation);			
 		}
