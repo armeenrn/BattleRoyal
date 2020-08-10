@@ -3,7 +3,7 @@ package model;
 /**
  * The board class uses Square and Line classes to create the game board.
  * 
- * @author srish
+ * @author Srishti
  *
  */
 public class Board {
