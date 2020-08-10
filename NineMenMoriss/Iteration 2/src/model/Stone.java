@@ -4,7 +4,7 @@ package model;
  * The class can be accessed to view details about any and all stones of any
  * player.
  * 
- * @author srish
+ * @author Srishti
  *
  */
 public class Stone {

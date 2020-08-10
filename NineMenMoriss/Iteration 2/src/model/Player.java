@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * This class keeps track of the player's name, stones, first or second turn.
  * All the details about the player during the game can be extracted from here.
  * 
- * @author srish
+ * @author Srishti
  *
  */
 public class Player {
@@ -27,8 +27,7 @@ public class Player {
 	 * @param gameBoard a new object created for type game every time a new game is
 	 *                  started
 	 */
-	public Player(String name, int num, boolean goFirst, Board gameBoard)
-			throws Exception {
+	public Player(String name, int num, boolean goFirst, Board gameBoard) throws Exception {
 
 		try {
 			stones = new ArrayList<Stone>();

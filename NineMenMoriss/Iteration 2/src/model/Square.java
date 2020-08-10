@@ -4,7 +4,7 @@ package model;
  * This class is used to built one square on the bases of 4 lines constructing
  * it.
  * 
- * @author srish
+ * @author Srishti
  * @version 1.0 10.00 6 August 2020 Team D
  */
 public class Square {
@@ -51,7 +51,7 @@ public class Square {
 			lines[2] = lineE;
 			lines[3] = lineN;
 		} catch (Exception cnf) {
-			System.out.println("Classes used do not exist: "+ cnf);
+			System.out.println("Classes used do not exist: " + cnf);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class Square {
 			lines[2] = lineE;
 			lines[3] = lineS;
 		} catch (Exception cnf) {
-			System.out.println("Classes used do not exist: "+ cnf);
+			System.out.println("Classes used do not exist: " + cnf);
 		}
 
 	}

@@ -197,8 +197,8 @@ public class GameShared {
 	}
 
 	/**
-	 * moveStone is a genral function that either places a new stone on the board or
-	 * moves a stone already on the board
+	 * moveStone is a general function that either places a new stone on the board
+	 * or moves a stone already on the board
 	 * 
 	 * @param player, the player who's turn it is
 	 * @param stone,  the stone that potentially may be moved

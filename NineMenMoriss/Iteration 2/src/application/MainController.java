@@ -56,15 +56,16 @@ public class MainController {
 	}
 
 	/**
-	 * When the rules button is clicked then a separate window is opened with 
-	 * all the rules and restrictions of the game.
+	 * When the rules button is clicked then a separate window is opened with all
+	 * the rules and restrictions of the game.
 	 * 
 	 * @param event
 	 */
 	@FXML
 	public void displayRules(ActionEvent event) {
 		if (!firstRulesOpen) {
-			// only create a new rule stage when it is loaded for the first time. Otherwise simply show the stage.
+			// only create a new rule stage when it is loaded for the first time. Otherwise
+			// simply show the stage.
 			try {
 				ruleStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();

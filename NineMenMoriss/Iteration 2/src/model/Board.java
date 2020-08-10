@@ -8,9 +8,9 @@ package model;
  */
 public class Board {
 
-	//private Square outerSquare;
-	//private Square midSquare;
-	//private Square innerSquare;
+	// private Square outerSquare;
+	// private Square midSquare;
+	// private Square innerSquare;
 	private Line northMidLine;
 	private Line westMidLine;
 	private Line eastMidLine;
@@ -35,7 +35,7 @@ public class Board {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//squares[0] = outerSquare;
+		// squares[0] = outerSquare;
 		range = range * (2.0 / 3);
 
 		try {
@@ -43,7 +43,7 @@ public class Board {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//squares[1] = midSquare;
+		// squares[1] = midSquare;
 		range = range * 0.5;
 
 		try {
@@ -51,7 +51,7 @@ public class Board {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//squares[2] = innerSquare;
+		// squares[2] = innerSquare;
 
 		try {
 			northMidLine = new Line("North Mid Line", squares[2].getNorthLine().getMidPoint(),
@@ -77,13 +77,13 @@ public class Board {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//Square linesOnBoard = null;
+		// Square linesOnBoard = null;
 		try {
 			squares[3] = new Square(northMidLine, westMidLine, eastMidLine, southMidLine);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		//squares[3] = linesOnBoard;
+		// squares[3] = linesOnBoard;
 	}
 
 	/**

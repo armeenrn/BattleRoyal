@@ -6,7 +6,7 @@
  * print appropriate message based on the information gathered about the stones
  * and their relative position on the board.
  * 
- * @author srish
+ * @author Srishti
  * @version 1.1
  * 10.00 6 August 2020
  * Team D
