@@ -14,27 +14,26 @@ import java.util.ArrayList;
  * @author Armeen Rashidian, Daniel Kim Team D
  */
 
-public class Game {
+public class Game extends GameShared {
 	private int winner = 0; // initialized to 0, set to 1 or 2 depending on if player1 or player2 wins,
 							// respectively
-	private GameShared textGameConfig; // contains the methods needed to run the game
+	
 
 	/**
 	 * the constructor creates a new object of GameShared and sets it to the
 	 * instance of variable of the new Game object
 	 */
 	public Game() {
-		textGameConfig = new GameShared();
-		textGameConfig.setGameConfig();
+		
 	}
 
 	/**
 	 * play runs the game
 	 */
 	public void play() {
-		int firstTurn = textGameConfig.getFirstPlayer();
-		HumanPlayer player1 = textGameConfig.selectFirstPlayer();
-		AIPlayer player2 = textGameConfig.selectSecondPlayer();
+		int firstTurn = getFirstPlayer();
+		HumanPlayer player1 = selectFirstPlayer();
+		AIPlayer player2 = selectSecondPlayer();
 
 		if (firstTurn == 1) {
 			System.out.println("You go first." + "\n");
@@ -80,14 +79,14 @@ public class Game {
 	 * displayScore displays as text the score of each player after a turn
 	 */
 	public void displayScore() {
-		System.out.println("Your score: " + "\n" + textGameConfig.selectFirstPlayer().getNumberOfTotalStones()
+		System.out.println("Your score: " + "\n" + selectFirstPlayer().getNumberOfTotalStones()
 				+ " stones on board");
-		System.out.println(textGameConfig.getFilledLine(textGameConfig.selectFirstPlayer()).size() + " lines formed");
-		System.out.println(textGameConfig.selectFirstPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
-		System.out.println("Computer score: " + "\n" + textGameConfig.selectSecondPlayer().getNumberOfTotalStones()
+		System.out.println(getFilledLine(selectFirstPlayer()).size() + " lines formed");
+		System.out.println(selectFirstPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
+		System.out.println("Computer score: " + "\n" + selectSecondPlayer().getNumberOfTotalStones()
 				+ " stones on board");
-		System.out.println(textGameConfig.getFilledLine(textGameConfig.selectSecondPlayer()).size() + " lines formed");
-		System.out.println(textGameConfig.selectSecondPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
+		System.out.println(getFilledLine(selectSecondPlayer()).size() + " lines formed");
+		System.out.println(selectSecondPlayer().getNumberOfTotalStones() + " stones remaining." + "\n");
 	}
 
 	/**
@@ -97,19 +96,19 @@ public class Game {
 	 */
 	public void turnHumanPlayer(HumanPlayer humanPlayer) {
 		displayPointsAsList();
-		ArrayList<Line> filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(humanPlayer);
+		ArrayList<Line> filled_Lines_At_Start_Of_Turn = getFilledLine(humanPlayer);
 
 		if (humanPlayer.getNumberOfPlacedStones() < 9) {
 			// can place a stone
-			Point userPoint = humanPlayer.selectDestination(textGameConfig.getPointsAsList());
+			Point userPoint = humanPlayer.selectDestination(getPointsAsList());
 
-			while (textGameConfig.checkIfPointIsUnOccupied(userPoint) != 0) {
+			while (checkIfPointIsUnOccupied(userPoint) != 0) {
 				System.out.println("Another user's stone is on this point. Choose another point." + "\n");
-				userPoint = humanPlayer.selectDestination(textGameConfig.getPointsAsList());
+				userPoint = humanPlayer.selectDestination(getPointsAsList());
 			}
 
-			textGameConfig.moveStone(textGameConfig.selectFirstPlayer(), null, userPoint);
-			System.out.println("Player " + textGameConfig.selectFirstPlayer().getPlayerNumber()
+			moveStone(selectFirstPlayer(), null, userPoint);
+			System.out.println("Player " + selectFirstPlayer().getPlayerNumber()
 					+ ": New stone placed at: " + userPoint.toString());
 			System.out.println("");
 		}
@@ -117,21 +116,21 @@ public class Game {
 		else if (humanPlayer.getNumberOfPlacedStones() == 0) {
 			// can only move adjacent
 			displayFreeStones(humanPlayer);
-			Stone selectedStone = humanPlayer.selectStoneToMove(textGameConfig.getFreeStones(humanPlayer));
+			Stone selectedStone = humanPlayer.selectStoneToMove(getFreeStones(humanPlayer));
 			displayAdjacentPoints(selectedStone);
-			Point userPoint = humanPlayer.selectDestination(textGameConfig.getAdjacentPoints(selectedStone));
+			Point userPoint = humanPlayer.selectDestination(getAdjacentPoints(selectedStone));
 
-			while (textGameConfig.checkIfAjdacent(selectedStone, userPoint) == false) {
+			while (checkIfAjdacent(selectedStone, userPoint) == false) {
 				System.out.println("Invalid Point. Choose adjcaent point." + "\n");
-				userPoint = humanPlayer.selectDestination(textGameConfig.getPointsAsList());
+				userPoint = humanPlayer.selectDestination(getPointsAsList());
 			}
 
-			textGameConfig.moveStone(humanPlayer, selectedStone, userPoint);
+			moveStone(humanPlayer, selectedStone, userPoint);
 			System.out.println(this.toString() + ": stone moved to: " + userPoint.toString());
 			System.out.println("");
 		}
 
-		ArrayList<Line> filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(humanPlayer);
+		ArrayList<Line> filled_Lines_At_End_Of_Turn = getFilledLine(humanPlayer);
 
 		/*
 		 * checking to see if the player formed a new line during their turn
@@ -141,11 +140,11 @@ public class Game {
 				&& filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
 			System.out.println("You formed a new line!");
 			System.out.println("You get to remove a stone on the board from the computer." + "\n");
-			displayStonesOfOpponent(textGameConfig.selectSecondPlayer());
+			displayStonesOfOpponent(selectSecondPlayer());
 			Stone removeStone = humanPlayer
-					.selectStoneToRemove(textGameConfig.getStonesOfOpponent(textGameConfig.selectSecondPlayer()));
-			textGameConfig.removeStone(textGameConfig.selectSecondPlayer(), removeStone);
-			System.out.println(textGameConfig.selectSecondPlayer().toString() + "'s stone removed");
+					.selectStoneToRemove(getStonesOfOpponent(selectSecondPlayer()));
+			removeStone(selectSecondPlayer(), removeStone);
+			System.out.println(selectSecondPlayer().toString() + "'s stone removed");
 			System.out.println("");
 		}
 
@@ -153,7 +152,7 @@ public class Game {
 		 * check AI's number of stones at the end to see if you win
 		 */
 
-		if (textGameConfig.selectSecondPlayer().getNumberOfTotalStones() <= 3) {
+		if (selectSecondPlayer().getNumberOfTotalStones() <= 3) {
 			winner = 1;
 			System.out.println("You won");
 		}
@@ -166,7 +165,7 @@ public class Game {
 	 */
 	public void turnComputer(AIPlayer compPlayer) {
 		displayPointsAsList();
-		ArrayList<Line> filled_Lines_At_Start_Of_Turn = textGameConfig.getFilledLine(compPlayer);
+		ArrayList<Line> filled_Lines_At_Start_Of_Turn = getFilledLine(compPlayer);
 		Point movePoint;
 		Stone moveStone;
 
@@ -174,15 +173,15 @@ public class Game {
 		// point the player will move to
 		// if it has no good answer it will return null, and the AI will make a random
 		// move
-		movePoint = compPlayer.lookForBestMove(textGameConfig.getGameBoard());
+		movePoint = compPlayer.lookForBestMove(getGameBoard());
 		if (compPlayer.getNumberOfPlacedStones() < 9) {
 			// can place a stone
 			if (movePoint == null) {
 				do {
-					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
-				} while (textGameConfig.checkIfPointIsUnOccupied(movePoint) != 0);
+					movePoint = compPlayer.getRandomPoint(getPointsAsList());
+				} while (checkIfPointIsUnOccupied(movePoint) != 0);
 			}
-			textGameConfig.moveStone(compPlayer, null, movePoint);
+			moveStone(compPlayer, null, movePoint);
 		}
 
 		else if (compPlayer.getNumberOfTotalStones() > 3) {
@@ -192,9 +191,9 @@ public class Game {
 				Stone randomStone;
 
 				do {
-					randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
-					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
-				} while (textGameConfig.checkIfAjdacent(randomStone, movePoint) == false);
+					randomStone = compPlayer.selectRandomStone(getFreeStones(compPlayer));
+					movePoint = compPlayer.getRandomPoint(getPointsAsList());
+				} while (checkIfAjdacent(randomStone, movePoint) == false);
 
 				moveStone = randomStone;
 			}
@@ -203,7 +202,7 @@ public class Game {
 				moveStone = compPlayer.getBestMoveStone();
 			}
 
-			textGameConfig.moveStone(compPlayer, moveStone, movePoint);
+			moveStone(compPlayer, moveStone, movePoint);
 		}
 
 		else {
@@ -212,8 +211,8 @@ public class Game {
 				Stone randomStone;
 
 				do {
-					randomStone = compPlayer.selectRandomStone(textGameConfig.getFreeStones(compPlayer));
-					movePoint = compPlayer.getRandomPoint(textGameConfig.getPointsAsList());
+					randomStone = compPlayer.selectRandomStone(getFreeStones(compPlayer));
+					movePoint = compPlayer.getRandomPoint(getPointsAsList());
 				} while (movePoint.getOccupiedPlayer() != 0);
 
 				moveStone = randomStone;
@@ -221,10 +220,10 @@ public class Game {
 				moveStone = compPlayer.getBestMoveStone();
 			}
 
-			textGameConfig.moveStone(compPlayer, moveStone, movePoint);
+			moveStone(compPlayer, moveStone, movePoint);
 		}
 
-		ArrayList<Line> filled_Lines_At_End_Of_Turn = textGameConfig.getFilledLine(compPlayer);
+		ArrayList<Line> filled_Lines_At_End_Of_Turn = getFilledLine(compPlayer);
 
 		/*
 		 * check if the AI player formed a new line during their turn
@@ -233,18 +232,18 @@ public class Game {
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_Start_Of_Turn)))
 				&& filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
 			System.out.println("The computer formed a new line at: ");
-			System.out.print(textGameConfig.getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
+			System.out.print(getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
 			System.out.println("The computer removes one of your stones on the board." + "\n");
-			Stone removeStone = compPlayer.lookforBestRemove(textGameConfig.getGameBoard(),
-					textGameConfig.selectFirstPlayer());
-			textGameConfig.removeStone(textGameConfig.selectFirstPlayer(), removeStone);
+			Stone removeStone = compPlayer.lookforBestRemove(getGameBoard(),
+					selectFirstPlayer());
+			removeStone(selectFirstPlayer(), removeStone);
 		}
 
 		/*
 		 * check human player's number of stones at the end to see if you win
 		 */
 
-		if (textGameConfig.selectFirstPlayer().getNumberOfTotalStones() <= 3) {
+		if (selectFirstPlayer().getNumberOfTotalStones() <= 3) {
 			winner = 2;
 			System.out.println("The computer won.");
 		}
@@ -257,7 +256,7 @@ public class Game {
 		System.out.println("GAME BOARD");
 		int counter = 0;
 
-		for (Point eachPoint : textGameConfig.getPointsAsList()) {
+		for (Point eachPoint : getPointsAsList()) {
 			String write = "";
 			write = write + counter + eachPoint.toString() + " ";
 			if (eachPoint.getOccupiedPlayer() != 0) {
@@ -281,7 +280,7 @@ public class Game {
 		System.out.println("Adjacent Points Available");
 		int counter = 1;
 
-		for (Point eachPoint : textGameConfig.getAdjacentPoints(stoneToMove)) {
+		for (Point eachPoint : getAdjacentPoints(stoneToMove)) {
 			System.out.println(counter + ". " + eachPoint.toString());
 			counter++;
 		}
@@ -300,7 +299,7 @@ public class Game {
 		int counter = 0;
 		System.out.println("Opponent Stones that can be removed");
 
-		for (Stone eachStone : textGameConfig.getStonesOfOpponent(opponent)) {
+		for (Stone eachStone : getStonesOfOpponent(opponent)) {
 			if (!eachStone.getDead()) {
 				counter++;
 				System.out.println(counter + ". stone at: " + eachStone.getLocation().toString());
@@ -314,7 +313,7 @@ public class Game {
 	 * displays a generic list of stones of the first player
 	 */
 	public void displayStones() {
-		for (Stone eachStone : textGameConfig.selectFirstPlayer().getStones()) {
+		for (Stone eachStone : selectFirstPlayer().getStones()) {
 			if (!eachStone.getDead()) {
 				System.out.println(eachStone.getOwner().toString() + ": " + eachStone.getLocation().toString());
 			}
@@ -331,7 +330,7 @@ public class Game {
 		System.out.println("Stones that can be removed");
 		int counter = 0;
 
-		for (Stone eachStone : textGameConfig.getFreeStones(player)) {
+		for (Stone eachStone : getFreeStones(player)) {
 			System.out.println(
 					counter + ". " + eachStone.getOwner().toString() + ": " + eachStone.getLocation().toString());
 			counter++;
