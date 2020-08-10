@@ -8,9 +8,9 @@ package model;
  */
 public class Board {
 
-	private Square outerSquare;
-	private Square midSquare;
-	private Square innerSquare;
+	//private Square outerSquare;
+	//private Square midSquare;
+	//private Square innerSquare;
 	private Line northMidLine;
 	private Line westMidLine;
 	private Line eastMidLine;
@@ -30,27 +30,60 @@ public class Board {
 	public Board(double range, double centreXCoord, double centreYCoord) {
 		squares = new Square[4];
 
-		outerSquare = new Square("Outer Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
-		squares[0] = outerSquare;
+		try {
+			squares[0] = new Square("Outer Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//squares[0] = outerSquare;
 		range = range * (2.0 / 3);
 
-		midSquare = new Square("Middle Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
-		squares[1] = midSquare;
+		try {
+			squares[1] = new Square("Middle Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//squares[1] = midSquare;
 		range = range * 0.5;
 
-		innerSquare = new Square("Inner Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
-		squares[2] = innerSquare;
+		try {
+			squares[2] = new Square("Inner Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//squares[2] = innerSquare;
 
-		northMidLine = new Line("North Mid Line", innerSquare.getNorthLine().getMidPoint(),
-				midSquare.getNorthLine().getMidPoint(), outerSquare.getNorthLine().getMidPoint());
-		westMidLine = new Line("West Mid Line", innerSquare.getWestLine().getMidPoint(),
-				midSquare.getWestLine().getMidPoint(), outerSquare.getWestLine().getMidPoint());
-		eastMidLine = new Line("East Mid Line", innerSquare.getEastLine().getMidPoint(),
-				midSquare.getEastLine().getMidPoint(), outerSquare.getEastLine().getMidPoint());
-		southMidLine = new Line("South Mid Line", innerSquare.getSouthLine().getMidPoint(),
-				midSquare.getSouthLine().getMidPoint(), outerSquare.getSouthLine().getMidPoint());
-		Square linesOnBoard = new Square(northMidLine, westMidLine, eastMidLine, southMidLine);
-		squares[3] = linesOnBoard;
+		try {
+			northMidLine = new Line("North Mid Line", squares[2].getNorthLine().getMidPoint(),
+					squares[1].getNorthLine().getMidPoint(), squares[0].getNorthLine().getMidPoint());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			westMidLine = new Line("West Mid Line", squares[2].getWestLine().getMidPoint(),
+					squares[1].getWestLine().getMidPoint(), squares[0].getWestLine().getMidPoint());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			eastMidLine = new Line("East Mid Line", squares[2].getEastLine().getMidPoint(),
+					squares[1].getEastLine().getMidPoint(), squares[0].getEastLine().getMidPoint());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			southMidLine = new Line("South Mid Line", squares[2].getSouthLine().getMidPoint(),
+					squares[1].getSouthLine().getMidPoint(), squares[0].getSouthLine().getMidPoint());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//Square linesOnBoard = null;
+		try {
+			squares[3] = new Square(northMidLine, westMidLine, eastMidLine, southMidLine);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		//squares[3] = linesOnBoard;
 	}
 
 	/**
