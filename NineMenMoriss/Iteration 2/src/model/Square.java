@@ -5,9 +5,7 @@ package model;
  * it.
  * 
  * @author srish
- * @version 1.0
- * 10.00 6 August 2020
- * Team D
+ * @version 1.0 10.00 6 August 2020 Team D
  */
 public class Square {
 	private String name;
@@ -28,28 +26,33 @@ public class Square {
 	 * @param startY y coordinate starting point for each line that makes up the
 	 *               square
 	 */
-	public Square(String name, double size, double startX, double startY) {
-		this.name = name;
-		Point southWest = new Point(startX, startY);
-		Point midSouth = new Point((startX + size / 2), startY);
-		Point southEast = new Point((startX + size), startY);
-		Point midWest = new Point(startX, (startY + size / 2));
-		Point northWest = new Point(startX, startY + size);
-		Point midNorth = new Point(startX + size / 2, startY + size);
-		Point northEast = new Point(startX + size, startY + size);
-		Point midEast = new Point(startX + size, startY + size / 2);
+	public Square(String name, double size, double startX, double startY) throws ClassNotFoundException {
 
-		lineN = new Line("lineN", northWest, midNorth, northEast);
-		lineW = new Line("lineW", southWest, midWest, northWest);
-		lineE = new Line("lineE", southEast, midEast, northEast);
-		lineS = new Line("lineS", southWest, midSouth, southEast);
+		try {
+			this.name = name;
+			Point southWest = new Point(startX, startY);
+			Point midSouth = new Point((startX + size / 2), startY);
+			Point southEast = new Point((startX + size), startY);
+			Point midWest = new Point(startX, (startY + size / 2));
+			Point northWest = new Point(startX, startY + size);
+			Point midNorth = new Point(startX + size / 2, startY + size);
+			Point northEast = new Point(startX + size, startY + size);
+			Point midEast = new Point(startX + size, startY + size / 2);
 
-		lines = new Line[4];
+			lineN = new Line("lineN", northWest, midNorth, northEast);
+			lineW = new Line("lineW", southWest, midWest, northWest);
+			lineE = new Line("lineE", southEast, midEast, northEast);
+			lineS = new Line("lineS", southWest, midSouth, southEast);
 
-		lines[0] = lineS;
-		lines[1] = lineW;
-		lines[2] = lineE;
-		lines[3] = lineN;
+			lines = new Line[4];
+
+			lines[0] = lineS;
+			lines[1] = lineW;
+			lines[2] = lineE;
+			lines[3] = lineN;
+		} catch (Exception cnf) {
+			System.out.println("Classes used do not exist: "+ cnf);
+		}
 	}
 
 	/**
@@ -61,19 +64,25 @@ public class Square {
 	 * @param eastMidLine  eastMidLine
 	 * @param southMidLine southMidLine
 	 */
-	public Square(Line northMidLine, Line westMidLine, Line eastMidLine, Line southMidLine) {
+	public Square(Line northMidLine, Line westMidLine, Line eastMidLine, Line southMidLine)
+			throws ClassNotFoundException {
 		name = "pseudo-square";
-		lineN = northMidLine;
-		lineW = westMidLine;
-		lineE = eastMidLine;
-		lineS = southMidLine;
+		try {
+			lineN = northMidLine;
+			lineW = westMidLine;
+			lineE = eastMidLine;
+			lineS = southMidLine;
 
-		lines = new Line[4];
+			lines = new Line[4];
 
-		lines[0] = lineN;
-		lines[1] = lineW;
-		lines[2] = lineE;
-		lines[3] = lineS;
+			lines[0] = lineN;
+			lines[1] = lineW;
+			lines[2] = lineE;
+			lines[3] = lineS;
+		} catch (Exception cnf) {
+			System.out.println("Classes used do not exist: "+ cnf);
+		}
+
 	}
 
 	/**
