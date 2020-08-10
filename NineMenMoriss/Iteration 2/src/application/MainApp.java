@@ -38,7 +38,6 @@ public class MainApp extends Application {
 	        primaryStage.setScene(scene);
 	        primaryStage.show();		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Problem loading Main.fxml");
 		}
 	}
@@ -54,7 +53,6 @@ public class MainApp extends Application {
 			Scene scene = new Scene(loader.load(new FileInputStream(fxmlFile)));
 	        stage.setScene(scene);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Problem loading " + fxmlFile);
 		}		
 	}

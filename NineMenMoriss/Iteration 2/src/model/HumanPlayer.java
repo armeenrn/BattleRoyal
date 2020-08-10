@@ -19,13 +19,14 @@ public class HumanPlayer extends Player {
 	private String name;	// the name of the player
 	
 	/**
-	 * Constructor creats an object of HumanPlayer as an extension of the PlayerClass
+	 * Constructor creates an object of HumanPlayer as an extension of the PlayerClass
 	 * 	@param name, the name of the player
 	 * 	@param num, the number associated with the player
 	 * 	@param goFirst, a boolean, true if the player goes first
 	 * 	@param gameBoard, the board created
+	 * @throws Exception 
 	 */
-	public HumanPlayer(String name, int num, boolean goFirst, Board gameBoard) {
+	public HumanPlayer(String name, int num, boolean goFirst, Board gameBoard) throws Exception {
 		super(name, num, goFirst, gameBoard);
 		this.name = name;
 	}
@@ -69,7 +70,7 @@ public class HumanPlayer extends Player {
 	}
 	
 	/**
-	 * selectStoneToRemove promopts the player for a stone from the opponent player to be removed from the board
+	 * selectStoneToRemove prompts the player for a stone from the opponent player to be removed from the board
 	 * 	@param stonesOfOpponent, the list of the opponent stones on the board that the player chooses from
 	 * 	@return the stone selected to be moved
 	 */

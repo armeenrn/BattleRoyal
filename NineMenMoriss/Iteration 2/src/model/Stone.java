@@ -25,7 +25,8 @@ public class Stone {
 
 	/**
 	 * Constructor of Stone object
-	 * @param owner owner of the stone
+	 * 
+	 * @param owner    owner of the stone
 	 * @param location location of the stone.
 	 */
 	public Stone(Player owner, Point location) {
@@ -36,6 +37,7 @@ public class Stone {
 
 	/**
 	 * Setter method to set location of where the stone will be placed.
+	 * 
 	 * @param location
 	 */
 	public void setLocation(Point location) {
@@ -44,22 +46,26 @@ public class Stone {
 
 	/**
 	 * get the location of the stone as type point
-	 * @return location of type point 
+	 * 
+	 * @return location of type point
 	 */
 	public Point getLocation() {
 		return location;
 	}
 
 	/**
-	 * Getter method to get player who the stone belongs to 
-	 * @return owner of the stone as player type 
+	 * Getter method to get player who the stone belongs to
+	 * 
+	 * @return owner of the stone as player type
 	 */
 	public Player getOwner() {
 		return owner;
 	}
 
 	/**
-	 * Getter method for all stones that are dead (removed from the game by opponent)
+	 * Getter method for all stones that are dead (removed from the game by
+	 * opponent)
+	 * 
 	 * @return boolean statement of true or false for a stone is dead
 	 */
 	public boolean getDead() {

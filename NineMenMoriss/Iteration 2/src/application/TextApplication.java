@@ -12,9 +12,10 @@ import java.util.Scanner;
 import model.Game;
 
 public class TextApplication {
-	/** 
-	 *  Once the game is run, it will run for one game and these are all the prompts for the rule window and
-	 * play window depending on the events that occur during the game.
+	/**
+	 * Once the game is run, it will run for one game and these are all the prompts
+	 * for the rule window and play window depending on the events that occur during
+	 * the game.
 	 */
 	public void run() {
 		Game game;
@@ -62,10 +63,12 @@ public class TextApplication {
 
 			next = input.nextLine();
 		} while (!next.equalsIgnoreCase("QUIT"));
+		input.close();
 	}
-	
+
 	/**
 	 * A run of the game is initialized.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
