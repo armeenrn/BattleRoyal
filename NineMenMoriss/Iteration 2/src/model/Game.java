@@ -28,6 +28,7 @@ public class Game extends GameShared {
 	 * play runs the game
 	 */
 	public void play() {
+		setGameConfig();
 		int firstTurn = getFirstPlayer();
 		HumanPlayer player1 = selectFirstPlayer();
 		AIPlayer player2 = selectSecondPlayer();
