@@ -1,13 +1,9 @@
-/*
- * Game runs the overall game 
- */
-
 package model;
 
 import java.util.ArrayList;
 
 /**
- * public class Game runs the game program
+ * public class GameText runs the game program in text
  * 
  * 10.00 6 August 2020
  * 

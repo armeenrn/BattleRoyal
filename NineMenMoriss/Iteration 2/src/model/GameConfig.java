@@ -1,14 +1,10 @@
-/*
- * GameShared runs the GUI version of the game 
- */
-
 package model;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /** 
- * public class GameShared runs the GUI program
+ * public class GameConfig runs the GUI program
  * 
  * 	10.00 6 August 2020
  * 	@author Daniel Kim, Armeen Rashidian

@@ -1,5 +1,5 @@
 /**
- * Controller for GUI of the Game
+ * GameGUI is for GUI of the Game
  * 
  * @author Daniel Kim, Armeen Rashidian
  * @version 2.0
