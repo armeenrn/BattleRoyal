@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * This class keeps track of the player's name, stones, first or second turn.
  * All the details about the player during the game can be extracted from here.
  * 
- * @author srish
+ * @author Srishti
  *
  */
 public class Player {
@@ -24,39 +24,45 @@ public class Player {
 	 * @param num       symbolizes player turn's ( 1 if plays first move, second
 	 *                  otherwise)
 	 * @param goFirst   true or false value based on player's turn chosen randomly
-	 * @param gameBoard a new object cretaed for type game every time a new game is
+	 * @param gameBoard a new object created for type game every time a new game is
 	 *                  started
 	 */
-	public Player(String name, int num, boolean goFirst, Board gameBoard) {
-		stones = new ArrayList<Stone>();
-		this.name = name;
-		playerNumber = num;
-		board = gameBoard;
+	public Player(String name, int num, boolean goFirst, Board gameBoard) throws Exception {
 
-		allPoints[0] = board.getSquares()[0].getSouthLine().getEndPoint1();
-		allPoints[1] = board.getSquares()[0].getSouthLine().getMidPoint();
-		allPoints[2] = board.getSquares()[0].getSouthLine().getEndPoint2();
-		allPoints[3] = board.getSquares()[0].getWestLine().getMidPoint();
-		allPoints[4] = board.getSquares()[0].getEastLine().getMidPoint();
-		allPoints[5] = board.getSquares()[0].getNorthLine().getEndPoint1();
-		allPoints[6] = board.getSquares()[0].getNorthLine().getMidPoint();
-		allPoints[7] = board.getSquares()[0].getNorthLine().getEndPoint2();
-		allPoints[8] = board.getSquares()[1].getSouthLine().getEndPoint1();
-		allPoints[9] = board.getSquares()[1].getSouthLine().getMidPoint();
-		allPoints[10] = board.getSquares()[1].getSouthLine().getEndPoint2();
-		allPoints[11] = board.getSquares()[1].getWestLine().getMidPoint();
-		allPoints[12] = board.getSquares()[1].getEastLine().getMidPoint();
-		allPoints[13] = board.getSquares()[1].getNorthLine().getEndPoint1();
-		allPoints[14] = board.getSquares()[1].getNorthLine().getMidPoint();
-		allPoints[15] = board.getSquares()[1].getNorthLine().getEndPoint2();
-		allPoints[16] = board.getSquares()[2].getSouthLine().getEndPoint1();
-		allPoints[17] = board.getSquares()[2].getSouthLine().getMidPoint();
-		allPoints[18] = board.getSquares()[2].getSouthLine().getEndPoint2();
-		allPoints[19] = board.getSquares()[2].getWestLine().getMidPoint();
-		allPoints[20] = board.getSquares()[2].getEastLine().getMidPoint();
-		allPoints[21] = board.getSquares()[2].getNorthLine().getEndPoint1();
-		allPoints[22] = board.getSquares()[2].getNorthLine().getMidPoint();
-		allPoints[23] = board.getSquares()[2].getNorthLine().getEndPoint2();
+		try {
+			stones = new ArrayList<Stone>();
+			this.name = name;
+			playerNumber = num;
+			board = gameBoard;
+
+			allPoints[0] = board.getSquares()[0].getSouthLine().getEndPoint1();
+			allPoints[1] = board.getSquares()[0].getSouthLine().getMidPoint();
+			allPoints[2] = board.getSquares()[0].getSouthLine().getEndPoint2();
+			allPoints[3] = board.getSquares()[0].getWestLine().getMidPoint();
+			allPoints[4] = board.getSquares()[0].getEastLine().getMidPoint();
+			allPoints[5] = board.getSquares()[0].getNorthLine().getEndPoint1();
+			allPoints[6] = board.getSquares()[0].getNorthLine().getMidPoint();
+			allPoints[7] = board.getSquares()[0].getNorthLine().getEndPoint2();
+			allPoints[8] = board.getSquares()[1].getSouthLine().getEndPoint1();
+			allPoints[9] = board.getSquares()[1].getSouthLine().getMidPoint();
+			allPoints[10] = board.getSquares()[1].getSouthLine().getEndPoint2();
+			allPoints[11] = board.getSquares()[1].getWestLine().getMidPoint();
+			allPoints[12] = board.getSquares()[1].getEastLine().getMidPoint();
+			allPoints[13] = board.getSquares()[1].getNorthLine().getEndPoint1();
+			allPoints[14] = board.getSquares()[1].getNorthLine().getMidPoint();
+			allPoints[15] = board.getSquares()[1].getNorthLine().getEndPoint2();
+			allPoints[16] = board.getSquares()[2].getSouthLine().getEndPoint1();
+			allPoints[17] = board.getSquares()[2].getSouthLine().getMidPoint();
+			allPoints[18] = board.getSquares()[2].getSouthLine().getEndPoint2();
+			allPoints[19] = board.getSquares()[2].getWestLine().getMidPoint();
+			allPoints[20] = board.getSquares()[2].getEastLine().getMidPoint();
+			allPoints[21] = board.getSquares()[2].getNorthLine().getEndPoint1();
+			allPoints[22] = board.getSquares()[2].getNorthLine().getMidPoint();
+			allPoints[23] = board.getSquares()[2].getNorthLine().getEndPoint2();
+		} catch (Exception e) {
+			System.out.println("Exception " + e + " is thrown.");
+
+		}
 	}
 
 	/**
@@ -230,6 +236,8 @@ public class Player {
 			adjacentPoints.add(allPoints[22]);
 		} else {
 			// shouldn't happen.
+			System.out.println(
+					"ArrayList currentPoint contains an error. It is either empty or some index values do not exist.");
 		}
 
 		return adjacentPoints;

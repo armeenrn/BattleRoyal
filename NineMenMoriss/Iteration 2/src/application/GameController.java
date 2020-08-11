@@ -6,7 +6,6 @@
  * 10.00 6 August 2020
  * Team D
  */
-
 package application;
 
 import javafx.fxml.FXML;
@@ -21,6 +20,13 @@ import javafx.scene.layout.Pane;
 
 import javafx.scene.shape.Circle;
 
+import javafx.animation.PauseTransition;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 import model.Point;
@@ -29,9 +35,12 @@ import model.Stone;
 import model.GameShared;
 import model.AIPlayer;
 
-public class GameController extends MainController {
+public class GameController extends GameShared {
 	@FXML
 	private Pane boardPane;
+	
+	@FXML
+	private Button hintButton;
 	
     @FXML
     private Button exitButton;
@@ -173,14 +182,24 @@ public class GameController extends MainController {
 
     @FXML
     private Circle compStone9;
+    
+    // button specifically set for animation
+    // idea of FadeTransition retrieved from https://docs.oracle.com/javase/9/docs/api/javafx/animation/FadeTransition.html
+    @FXML
+    private Button animationButton;
 
 	private int winner = 0;
 	
 	private final double MARGIN_LAYOUT_X_AND_Y = 22.5;
 	
+	private PauseTransition pauseTimer = new PauseTransition(Duration.millis(2000));
+	private PauseTransition pauseTimer2 = new PauseTransition(Duration.millis(1500));
+	private PauseTransition pauseTimer3 = new PauseTransition(Duration.millis(1500));
+	private FadeTransition fadeTransition = new FadeTransition(Duration.millis(1200));
+	private TranslateTransition moveTransition = new TranslateTransition();
+	
 	private Stone chosenStone;
 	private Point destination;
-	private GameShared configGUI;
 	private double clickedX;
 	private double clickedY;
 	
@@ -214,7 +233,6 @@ public class GameController extends MainController {
      */
     @FXML
     public void rulesPressed(ActionEvent event) {
-    	displayRules(event);
     }
 
     /**
@@ -224,56 +242,56 @@ public class GameController extends MainController {
      */
     @FXML
     public void humanStone1Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(0);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(0);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone2Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(1);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(1);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone3Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(2);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(2);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone4Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(3);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(3);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone5Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(4);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(4);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone6Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(5);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(5);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone7Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(6);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(6);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone8Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(7);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(7);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     @FXML
     public void humanStone9Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectFirstPlayer().getStones().get(8);
-    	moveFromChosenStone();
+    	chosenStone = selectFirstPlayer().getStones().get(8);
+    	moveFromChosenStone(chosenStone.getLocation());
     }
 
     /**
@@ -283,81 +301,84 @@ public class GameController extends MainController {
      */
     @FXML
     public void compStone1Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(0);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(0);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone2Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(1);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(1);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone3Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(2);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(2);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone4Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(3);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(3);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone5Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(4);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(4);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone6Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(5);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(5);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone7Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(6);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(6);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone8Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(7);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(7);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     }
 
     @FXML
     public void compStone9Clicked(MouseEvent event) {
-    	chosenStone = configGUI.selectSecondPlayer().getStones().get(8);
-    	removeChosenStone(chosenStone, configGUI.getPlayerNumTwo());
+    	chosenStone = selectSecondPlayer().getStones().get(8);
+    	removeChosenStone(chosenStone, getPlayerNumTwo());
     } 
 
     /**
      * Performs first turn; if the AI goes first it will call the AI to take its turn
      */
     public void firstTurnPlay() {
-        if (configGUI.getFirstPlayer() == 2) {
-			turnComputer(configGUI.selectSecondPlayer());
+        if (getFirstPlayer() == 2) {
+        	pauseAndPlayForAI();
     	}
+        else {
+            setAnimationAllPoints();        	
+        }
     }
     
     /**
      * Starts human player turn
      */
     public void promptEachTurn() {
-    	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 9) {
+    	if (selectFirstPlayer().getNumberOfPlacedStones() == 9) {
     		// stage 2 or 3; select stone first; disable all buttons; enable all human stones for click
     		statusLabel.setText("Choose a stone to move");
 
-    		for (Button point : allPoints) {
-    			point.setDisable(true);
-    		}
-    		
     		for (Circle humanStone : humanStones) {
     			humanStone.setDisable(false);
+    		}
+
+    		for (Button point : allPoints) {
+    			point.setDisable(true);
     		}
     	}
     	else {
@@ -377,17 +398,7 @@ public class GameController extends MainController {
     	}
 
     	// disables all buttons and stones; the game will no longer be accessible
-    	for (Button point : allPoints) {
-    		point.setDisable(true);
-		}
-		
-		for (Circle humanStone : humanStones) {
-			humanStone.setDisable(true);
-		}
-
-		for (Circle compStone : compStones) {
-			compStone.setDisable(true);
-		}
+    	disablePointsAndStones();
 	}
 
     /**
@@ -395,8 +406,9 @@ public class GameController extends MainController {
      * 
      * @param compPlayer
      */
+    @Override
 	public void turnComputer(AIPlayer compPlayer) {
-		ArrayList<Line> filledLines_StartTurn = configGUI.getFilledLine(compPlayer);
+    	ArrayList<Line> filledLines_StartTurn = getFilledLine(compPlayer);
     	
 		if (compPlayer.getNumberOfPlacedStones() < 9) {
 			// placing stage
@@ -422,21 +434,21 @@ public class GameController extends MainController {
 	 */
 	private void compTurnPlaceStage(AIPlayer compPlayer) {
 		// look for the best move in placing stage
-		destination = compPlayer.lookForBestMove(configGUI.getGameBoard());
+		destination = compPlayer.lookForBestMove(getGameBoard());
 
 		if (destination == null) {
 			// the AI had no good move to make; make a random point to move to
-			Point randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
+			Point randomPoint = compPlayer.getRandomPoint(getPointsAsList());
 			while (randomPoint.getOccupiedPlayer() != 0) {
-				randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
+				randomPoint = compPlayer.getRandomPoint(getPointsAsList());
 			}
 			
 			destination = randomPoint;			
 		}
 
 		setCoordinatesStone(destination);
-		stonePlacedNewVisually(configGUI.getPlayerNumTwo());
-		configGUI.moveStone(compPlayer, null, destination);
+		stonePlacedNewVisually(getPlayerNumTwo());
+		moveStone(compPlayer, null, destination);
 	}
 	
 	/**
@@ -446,7 +458,7 @@ public class GameController extends MainController {
 	 */
 	private void compTurnMoveAdjacentStage(AIPlayer compPlayer) {
 		// look for the best move in placing stage
-		destination = compPlayer.lookForBestMove(configGUI.getGameBoard());
+		destination = compPlayer.lookForBestMove(getGameBoard());
 		
 		if (destination == null) {
 			// the AI had no good move to make; make a move adjacent with a random stone
@@ -473,8 +485,8 @@ public class GameController extends MainController {
 		}
 		
 		setCoordinatesStone(destination);
-		stoneMovedVisually(configGUI.getPlayerNumTwo());
-		configGUI.moveStone(compPlayer, chosenStone, destination);
+		stoneMovedVisually(getPlayerNumTwo());
+		moveStone(compPlayer, chosenStone, destination);
 	}
 	
 	/**
@@ -484,14 +496,14 @@ public class GameController extends MainController {
 	 */
 	private void compTurnJumpStage(AIPlayer compPlayer) {
 		// look for the best move in jumping stage
-    	destination = compPlayer.lookForBestMove(configGUI.getGameBoard());
+    	destination = compPlayer.lookForBestMove(getGameBoard());
     	
     	if (destination == null) {
 			// the AI had no good move to make; make a random move with a random stone
-    		Stone randomStone = compPlayer.selectRandomStone(configGUI.getFreeStones(compPlayer));
-    		Point randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
+    		Stone randomStone = compPlayer.selectRandomStone(getFreeStones(compPlayer));
+    		Point randomPoint = compPlayer.getRandomPoint(getPointsAsList());
     		while (randomPoint.getOccupiedPlayer() != 0) {
-    			randomPoint = compPlayer.getRandomPoint(configGUI.getPointsAsList());
+    			randomPoint = compPlayer.getRandomPoint(getPointsAsList());
     		}
     	
     		chosenStone = randomStone;
@@ -502,8 +514,8 @@ public class GameController extends MainController {
     	}
 
     	setCoordinatesStone(destination);
-		stoneMovedVisually(configGUI.getPlayerNumTwo());
-		configGUI.moveStone(compPlayer, chosenStone, destination);
+		stoneMovedVisually(getPlayerNumTwo());
+		moveStone(compPlayer, chosenStone, destination);
 	}
 	
 	/**
@@ -513,36 +525,62 @@ public class GameController extends MainController {
 	 * @param filledLines_StartTurn List of mills at the start of the turn
 	 */
 	private void compTurnCheckMillAndEndTurn(AIPlayer compPlayer, ArrayList<Line> filledLines_StartTurn) {
-		ArrayList<Line> filled_Lines_At_End_Of_Turn = configGUI.getFilledLine(compPlayer);
+		ArrayList<Line> filled_Lines_At_End_Of_Turn = getFilledLine(compPlayer);
 		
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filledLines_StartTurn))) && filled_Lines_At_End_Of_Turn.size() >= filledLines_StartTurn.size()) {
 			// A new mill was found; look for the best stone to remove and perform
-			chosenStone = compPlayer.lookforBestRemove(configGUI.getGameBoard(), configGUI.selectFirstPlayer());
-			removeChosenStone(chosenStone, configGUI.getPlayerNumOne());
+			chosenStone = compPlayer.lookforBestRemove(getGameBoard(), selectFirstPlayer());
+			pauseTimer.setOnFinished(event -> removeChosenStone(chosenStone, getPlayerNumOne()));
+			statusLabel.setText("The Computer is thinking...");
+	    	pauseTimer.play();
+	    	pauseTimer3.setDuration(Duration.millis(3500));
+	    	pauseTimer2.setDuration(Duration.millis(3500));
 		}
 		else {
 			// Player's turn without removing stone
-			promptEachTurn();			
+			promptEachTurn();
 		}
+		
+		if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
+			pauseTimer3.setOnFinished(event -> setAnimationAllPoints());
+			pauseTimer3.play();
+		}
+		pauseTimer3.setDuration(Duration.millis(1500));
+		pauseTimer2.setOnFinished(event -> enablePointsandStones());
+		pauseTimer2.play();
+		pauseTimer2.setDuration(Duration.millis(1500));
 	}
 
 	/**
+	 * Shows hint when clicked
+	 * 
+	 * @param event Button click
+ 	 */
+    @FXML
+    public void hintButtonClicked(ActionEvent event) {
+    	// prompt findbestmove methods
+
+    }
+    
+    /**
 	 * Activates when any point is clicked
 	 * 
 	 * @param event Mouse click on a point
 	 */
     @FXML
     public void pointClicked(ActionEvent event) {
+    	stopAnimationPoints();
+    	
     	Button button = (Button)event.getSource();
     	Boolean moveWasDone;
-    	ArrayList<Line> filledLines_StartTurn = configGUI.getFilledLine(configGUI.selectFirstPlayer());
+    	ArrayList<Line> filledLines_StartTurn = getFilledLine(selectFirstPlayer());
     	
     	// If phase1 -> placing stones
-    	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() < 9) {
+    	if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
     		moveWasDone = humanTurnPlaceStage(button);
     	}
     	// If phase2 -> moving stones; stone is already selected
-    	else if (configGUI.selectFirstPlayer().getNumberOfTotalStones() > 3) {
+    	else if (selectFirstPlayer().getNumberOfTotalStones() > 3) {
     		moveWasDone = humanTurnMoveAdjacentStage(button);
     	}
     	else {
@@ -552,8 +590,8 @@ public class GameController extends MainController {
     	
 		// ending stage if a move was done properly; otherwise reset the turn
     	if (moveWasDone) {
-        	humanTurnCheckMillAndEndTurn(filledLines_StartTurn);    		
-    	}    	
+        	humanTurnCheckMillAndEndTurn(filledLines_StartTurn);
+    	}
     }
     
 	/**
@@ -570,8 +608,8 @@ public class GameController extends MainController {
 			return false;
 		}
 		else {
-    		stonePlacedNewVisually(configGUI.getPlayerNumOne());
-    		configGUI.moveStone(configGUI.selectFirstPlayer(), null, destination);
+    		stonePlacedNewVisually(getPlayerNumOne());
+    		moveStone(selectFirstPlayer(), null, destination);
     		return true;
 		}		
     }
@@ -589,7 +627,7 @@ public class GameController extends MainController {
 		destination = chooseLocation(button);
 		
     	// Check if the point chosen was an adjacent point
-        ArrayList<Point> adjacentPoints = configGUI.selectFirstPlayer().getAdjacentPoints(chosenStone.getLocation());
+        ArrayList<Point> adjacentPoints = selectFirstPlayer().getAdjacentPoints(chosenStone.getLocation());
 
         for (Point adjacentPoint : adjacentPoints) {
         	if (destination.equals(adjacentPoint)) {
@@ -604,19 +642,19 @@ public class GameController extends MainController {
     		moveWasValid = false;
         }
         else {
-    		stoneMovedVisually(configGUI.getPlayerNumOne());
-    		configGUI.moveStone(configGUI.selectFirstPlayer(), chosenStone, destination);
+    		stoneMovedVisually(getPlayerNumOne());
+    		moveStone(selectFirstPlayer(), chosenStone, destination);
 
     		moveWasValid = true;        	
         }
         
     	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
-		for (Button point : allPoints) {
-			point.setDisable(true);
-		}
-		
 		for (Circle humanStone : humanStones) {
 			humanStone.setDisable(false);
+		}
+
+		for (Button point : allPoints) {
+			point.setDisable(true);
 		}
 
         return moveWasValid;
@@ -638,19 +676,19 @@ public class GameController extends MainController {
     		moveWasValid = false;;
 		}
 		else {			
-			stoneMovedVisually(configGUI.getPlayerNumOne());
-			configGUI.moveStone(configGUI.selectFirstPlayer(), chosenStone, destination);
+			stoneMovedVisually(getPlayerNumOne());
+			moveStone(selectFirstPlayer(), chosenStone, destination);
 
 			moveWasValid = true;
 		}
 
     	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
-		for (Button point : allPoints) {
-			point.setDisable(true);
-		}
-		
 		for (Circle humanStone : humanStones) {
 			humanStone.setDisable(false);
+		}
+		
+		for (Button point : allPoints) {
+			point.setDisable(true);
 		}
 		
 		return moveWasValid;
@@ -664,27 +702,27 @@ public class GameController extends MainController {
     private void humanTurnCheckMillAndEndTurn(ArrayList<Line> filledLines_StartTurn) {
     	// check if you formed line
     	
-		ArrayList<Line> filled_Lines_At_End_Of_Turn = configGUI.getFilledLine(configGUI.selectFirstPlayer());
+		ArrayList<Line> filled_Lines_At_End_Of_Turn = getFilledLine(selectFirstPlayer());
 		
 		if ((!filled_Lines_At_End_Of_Turn.equals(filledLines_StartTurn)) && filled_Lines_At_End_Of_Turn.size() >= filledLines_StartTurn.size()) {
 	    	statusLabel.setText("You formed a line!\nSelect a stone to remove");
 	    	
 			// A new mill was found; only computer stones will be selectable
-    		for (Button point : allPoints) {
-    			point.setDisable(true);
+    		for (Circle compStone : compStones) {
+    			compStone.setDisable(false);
     		}
-    		
+
     		for (Circle humanStone : humanStones) {
     			humanStone.setDisable(true);
     		}
 
-    		for (Circle compStone : compStones) {
-    			compStone.setDisable(false);
-    		}
+    		for (Button point : allPoints) {
+    			point.setDisable(true);
+    		}    		
 		}
 		else {
 			// A mill was not found. It is the computer's turn
-			turnComputer(configGUI.selectSecondPlayer());
+			pauseAndPlayForAI();
 		}
     }
     
@@ -695,101 +733,101 @@ public class GameController extends MainController {
      * @param point Clicked point
      */
     private void setCoordinatesStone(Point point) {
-    	if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[0].getEndPoint1())) {
-    		clickedX = outSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;    		
+    	if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getEndPoint1())) {
+    		clickedX = outSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;    		
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[0].getMidPoint())) {
-    		clickedX = outSqLineSMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineSMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getMidPoint())) {
+    		clickedX = outSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[0].getEndPoint2())) {
-    		clickedX = outSqLineSEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineSEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getEndPoint2())) {
+    		clickedX = outSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[1].getMidPoint())) {
-    		clickedX = outSqLineWMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineWMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[1].getMidPoint())) {
+    		clickedX = outSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[2].getMidPoint())) {
-    		clickedX = outSqLineEMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineEMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[2].getMidPoint())) {
+    		clickedX = outSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[3].getEndPoint1())) {
-    		clickedX = outSqLineNEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineNEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getEndPoint1())) {
+    		clickedX = outSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[3].getMidPoint())) {
-    		clickedX = outSqLineNMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineNMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getMidPoint())) {
+    		clickedX = outSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[0].getLines()[3].getEndPoint2())) {
-    		clickedX = outSqLineNEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineNEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getEndPoint2())) {
+    		clickedX = outSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[0].getEndPoint1())) {
-    		clickedX = midSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getEndPoint1())) {
+    		clickedX = midSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[0].getMidPoint())) {
-    		clickedX = midSqLineSMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineSMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getMidPoint())) {
+    		clickedX = midSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[0].getEndPoint2())) {
-    		clickedX = midSqLineSEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineSEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getEndPoint2())) {
+    		clickedX = midSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[1].getMidPoint())) {
-    		clickedX = midSqLineWMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineWMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[1].getMidPoint())) {
+    		clickedX = midSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[2].getMidPoint())) {
-    		clickedX = midSqLineEMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineEMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[2].getMidPoint())) {
+    		clickedX = midSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[3].getEndPoint1())) {
-    		clickedX = midSqLineNEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineNEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getEndPoint1())) {
+    		clickedX = midSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[3].getMidPoint())) {
-    		clickedX = midSqLineNMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineNMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getMidPoint())) {
+    		clickedX = midSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[1].getLines()[3].getEndPoint2())) {
-    		clickedX = midSqLineNEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineNEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getEndPoint2())) {
+    		clickedX = midSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[0].getEndPoint1())) {
-    		clickedX = innSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getEndPoint1())) {
+    		clickedX = innSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[0].getMidPoint())) {
-    		clickedX = innSqLineSMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineSMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getMidPoint())) {
+    		clickedX = innSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[0].getEndPoint2())) {
-    		clickedX = innSqLineSEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineSEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getEndPoint2())) {
+    		clickedX = innSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[1].getMidPoint())) {
-    		clickedX = innSqLineWMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineWMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[1].getMidPoint())) {
+    		clickedX = innSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[2].getMidPoint())) {
-    		clickedX = innSqLineEMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineEMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[2].getMidPoint())) {
+    		clickedX = innSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[3].getEndPoint1())) {
-    		clickedX = innSqLineNEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineNEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[3].getEndPoint1())) {
+    		clickedX = innSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(configGUI.getGameBoard().getSquares()[2].getLines()[3].getMidPoint())) {
-    		clickedX = innSqLineNMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineNMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[3].getMidPoint())) {
+    		clickedX = innSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else {
-    		clickedX = innSqLineNEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineNEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedX = innSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     }
     
@@ -803,148 +841,148 @@ public class GameController extends MainController {
     	Point pointSelected;
     	
     	if (button.equals(outSqLineSEnd1)) {
-        	// get outerSquare().getSouthLine().getEndPoint1();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[0].getEndPoint1();
-    		clickedX = outSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[0].getEndPoint1();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getEndPoint1();
+    		clickedX = outSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineSMid)) {
-        	// get outerSquare().getSouthLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[0].getMidPoint();
-    		clickedX = outSqLineSMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineSMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[0].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getMidPoint();
+    		clickedX = outSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineSEnd2)) {
-        	// get outerSquare().getSouthLine().getEndPoint2();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[0].getEndPoint2();
-    		clickedX = outSqLineSEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineSEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[0].getEndPoint2();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getEndPoint2();
+    		clickedX = outSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineWMid)) {
-        	// get outerSquare().getWestLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[1].getMidPoint();
-    		clickedX = outSqLineWMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineWMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[1].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[1].getMidPoint();
+    		clickedX = outSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineEMid)) {
-        	// get outerSquare().getEastLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[2].getMidPoint();
-    		clickedX = outSqLineEMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineEMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[2].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[2].getMidPoint();
+    		clickedX = outSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineNEnd1)) {
-        	// get outerSquare().getNorthLine().getEndPoint1();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[3].getEndPoint1();
-    		clickedX = outSqLineNEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineNEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[3].getEndPoint1();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getEndPoint1();
+    		clickedX = outSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineNMid)) {
-        	// get outerSquare().getNorthLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[3].getMidPoint();
-    		clickedX = outSqLineNMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineNMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[3].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getMidPoint();
+    		clickedX = outSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineNEnd2)) {
-        	// get outerSquare().getNorthLine().getEndPoint2();
-    		pointSelected = configGUI.getGameBoard().getSquares()[0].getLines()[3].getEndPoint2();
-    		clickedX = outSqLineNEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = outSqLineNEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get outerSquare().getLines()[3].getEndPoint2();
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getEndPoint2();
+    		clickedX = outSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = outSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineSEnd1)) {
-        	// get midSquare().getSouthLine().getEndPoint1();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[0].getEndPoint1();
-    		clickedX = midSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[0].getEndPoint1();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getEndPoint1();
+    		clickedX = midSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineSMid)) {
-        	// get midSquare().getSouthLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[0].getMidPoint();
-    		clickedX = midSqLineSMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineSMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[0].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getMidPoint();
+    		clickedX = midSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineSEnd2)) {
-        	// get midSquare().getSouthLine().getEndPoint2();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[0].getEndPoint2();
-    		clickedX = midSqLineSEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineSEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[0].getEndPoint2();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getEndPoint2();
+    		clickedX = midSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineWMid)) {
-        	// get midSquare().getWestLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[1].getMidPoint();
-    		clickedX = midSqLineWMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineWMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[1].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[1].getMidPoint();
+    		clickedX = midSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineEMid)) {
-        	// get midSquare().getEastLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[2].getMidPoint();
-    		clickedX = midSqLineEMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineEMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[2].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[2].getMidPoint();
+    		clickedX = midSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineNEnd1)) {
-        	// get midSquare().getNorthLine().getEndPoint1();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[3].getEndPoint1();
-    		clickedX = midSqLineNEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineNEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[3].getEndPoint1();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getEndPoint1();
+    		clickedX = midSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineNMid)) {
-        	// get midSquare().getNorthLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[3].getMidPoint();
-    		clickedX = midSqLineNMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineNMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[3].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getMidPoint();
+    		clickedX = midSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineNEnd2)) {
-        	// get midSquare().getNorthLine().getEndPoint2();
-    		pointSelected = configGUI.getGameBoard().getSquares()[1].getLines()[3].getEndPoint2();
-    		clickedX = midSqLineNEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = midSqLineNEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get midSquare().getLines()[3].getEndPoint2();
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getEndPoint2();
+    		clickedX = midSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = midSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineSEnd1)) {
-        	// get innerSquare().getSouthLine().getEndPoint1();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[0].getEndPoint1();
-    		clickedX = innSqLineSEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineSEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[0].getEndPoint1();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getEndPoint1();
+    		clickedX = innSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineSMid)) {
-        	// get innerSquare().getSouthLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[0].getMidPoint();
-    		clickedX = innSqLineSMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineSMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[0].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getMidPoint();
+    		clickedX = innSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineSEnd2)) {
-        	// get innerSquare().getSouthLine().getEndPoint2();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[0].getEndPoint2();
-    		clickedX = innSqLineSEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineSEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[0].getEndPoint2();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getEndPoint2();
+    		clickedX = innSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineWMid)) {
-        	// get innerSquare().getWestLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[1].getMidPoint();
-    		clickedX = innSqLineWMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineWMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[1].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[1].getMidPoint();
+    		clickedX = innSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineEMid)) {
-        	// get innerSquare().getEastLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[2].getMidPoint();
-    		clickedX = innSqLineEMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineEMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[2].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[2].getMidPoint();
+    		clickedX = innSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineNEnd1)) {
-        	// get innerSquare().getNorthLine().getEndPoint1();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[3].getEndPoint1();
-    		clickedX = innSqLineNEnd1.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineNEnd1.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[3].getEndPoint1();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getEndPoint1();
+    		clickedX = innSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineNMid)) {
-        	// get innerSquare().getNorthLine().getMidPoint();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[3].getMidPoint();
-    		clickedX = innSqLineNMid.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineNMid.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[3].getMidPoint();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getMidPoint();
+    		clickedX = innSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineNEnd2)) {
-        	// get innerSquare().getNorthLine().getEndPoint2();
-    		pointSelected = configGUI.getGameBoard().getSquares()[2].getLines()[3].getEndPoint2();
-    		clickedX = innSqLineNEnd2.getLayoutX() + MARGIN_LAYOUT_X_AND_Y;
-    		clickedY = innSqLineNEnd2.getLayoutY() + MARGIN_LAYOUT_X_AND_Y;
+        	// get innerSquare().getLines()[3].getEndPoint2();
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getEndPoint2();
+    		clickedX = innSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
+    		clickedY = innSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else {
     		// shouldn't happen
@@ -957,12 +995,19 @@ public class GameController extends MainController {
     /**
      * Activates when a human stone is clicked; prompt to click a point to move to.
      */
-    private void moveFromChosenStone() {
-    	statusLabel.setText("Choose a destination point");
-
-    	// All points are clickable
+    private void moveFromChosenStone(Point stoneLocation) {
 		for (Button point : allPoints) {
 			point.setDisable(false);
+		}
+
+		stopAnimationPoints();
+    	statusLabel.setText("Choose a destination point");
+    	
+		if (selectFirstPlayer().getNumberOfTotalStones() > 3) {
+	    	setAnimationAvailablePoints(stoneLocation);			
+		}
+		else {
+			setAnimationAllPoints();
 		}
     }
 
@@ -974,13 +1019,13 @@ public class GameController extends MainController {
      */
     private void removeChosenStone(Stone stone, int playerNum) {
     	try {
-    		if (playerNum == configGUI.getPlayerNumOne()) {
+    		if (playerNum == getPlayerNumOne()) {
     			// remove Human player's stone
-            	stoneRemovedVisually(configGUI.getPlayerNumOne());
-        		configGUI.removeStone(configGUI.selectFirstPlayer(), chosenStone);
+            	stoneRemovedVisually(getPlayerNumOne());
+        		removeStone(selectFirstPlayer(), stone);
         		    		
     			// check Human player's number of stones at the end to see if the AI wins
-    			if (configGUI.selectFirstPlayer().getNumberOfTotalStones() < 3) {
+    			if (selectFirstPlayer().getNumberOfTotalStones() < 3) {
     				winner = 2;
     				endGame();
     			}
@@ -990,16 +1035,16 @@ public class GameController extends MainController {
     		}
     		else {
     			// remove AI player's stone
-            	stoneRemovedVisually(configGUI.getPlayerNumTwo());
-        		configGUI.removeStone(configGUI.selectSecondPlayer(), chosenStone);
+            	stoneRemovedVisually(getPlayerNumTwo());
+        		removeStone(selectSecondPlayer(), stone);
 
         		// check AI's number of stones at the end to see if the Human player wins
-        		if (configGUI.selectSecondPlayer().getNumberOfTotalStones() < 3) {
+        		if (selectSecondPlayer().getNumberOfTotalStones() < 3) {
         			winner = 1;
         			endGame();
         		}
         		else {
-                	if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() < 9) {
+                	if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
                 		for (Button point : allPoints) {
                 			point.setDisable(false);
                 		}
@@ -1014,7 +1059,7 @@ public class GameController extends MainController {
                 		compStone.setDisable(true);
                 	}
 
-                	turnComputer(configGUI.selectSecondPlayer());
+                	pauseAndPlayForAI();
         		}
     		}
     	}
@@ -1032,29 +1077,29 @@ public class GameController extends MainController {
     private void stonePlacedNewVisually(int playerNum) {
     	Circle circle;
     	
-    	if (playerNum == configGUI.getPlayerNumOne()) {
-    		if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 0) {
+    	if (playerNum == getPlayerNumOne()) {
+    		if (selectFirstPlayer().getNumberOfPlacedStones() == 0) {
 				circle = humanStone1;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 1) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 1) {
 				circle = humanStone2;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 2) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 2) {
 				circle = humanStone3;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 3) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 3) {
 				circle = humanStone4;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 4) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 4) {
 				circle = humanStone5;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 5) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 5) {
 				circle = humanStone6;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 6) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 6) {
 				circle = humanStone7;
     		}
-    		else if (configGUI.selectFirstPlayer().getNumberOfPlacedStones() == 7) {
+    		else if (selectFirstPlayer().getNumberOfPlacedStones() == 7) {
 				circle = humanStone8;
     		}
     		else {			
@@ -1062,34 +1107,35 @@ public class GameController extends MainController {
     		}    		
     	}
     	else {
-    		if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 0) {
+    		if (selectSecondPlayer().getNumberOfPlacedStones() == 0) {
 				circle = compStone1;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 1) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 1) {
 				circle = compStone2;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 2) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 2) {
 				circle = compStone3;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 3) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 3) {
 				circle = compStone4;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 4) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 4) {
 				circle = compStone5;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 5) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 5) {
 				circle = compStone6;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 6) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 6) {
 				circle = compStone7;
     		}
-    		else if (configGUI.selectSecondPlayer().getNumberOfPlacedStones() == 7) {
+    		else if (selectSecondPlayer().getNumberOfPlacedStones() == 7) {
 				circle = compStone8;
     		}
     		else {			
 				circle = compStone9;
     		}    		    		
     	}
+    	
 		setStoneLayoutVisual(circle);
 	}
 
@@ -1101,29 +1147,29 @@ public class GameController extends MainController {
 	private void stoneMovedVisually(int playerNum) {
 		Circle circle;
 		
-		if (playerNum == configGUI.getPlayerNumOne()) {
-			if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(0))) {
+		if (playerNum == getPlayerNumOne()) {
+			if (chosenStone.equals(selectFirstPlayer().getStones().get(0))) {
 				circle = humanStone1;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(1))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(1))) {
 				circle = humanStone2;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(2))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(2))) {
 				circle = humanStone3;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(3))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(3))) {
 				circle = humanStone4;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(4))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(4))) {
 				circle = humanStone5;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(5))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(5))) {
 				circle = humanStone6;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(6))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(6))) {
 				circle = humanStone7;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(7))) {
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(7))) {
 				circle = humanStone8;
 			}
 			else {
@@ -1131,34 +1177,35 @@ public class GameController extends MainController {
 			}			
 		}
 		else {
-			if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(0))) {
+			if (chosenStone.equals(selectSecondPlayer().getStones().get(0))) {
 				circle = compStone1;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(1))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(1))) {
 				circle = compStone2;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(2))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(2))) {
 				circle = compStone3;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(3))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(3))) {
 				circle = compStone4;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(4))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(4))) {
 				circle = compStone5;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(5))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(5))) {
 				circle = compStone6;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(6))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(6))) {
 				circle = compStone7;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(7))) {
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(7))) {
 				circle = compStone8;
 			}
 			else {
 				circle = compStone9;
 			}						
 		}
+		
 		setStoneLayoutVisual(circle);
 	}
 
@@ -1168,64 +1215,83 @@ public class GameController extends MainController {
      * @param playerNum Player number that indicates whether it is Human or AI
      */
 	private void stoneRemovedVisually(int playerNum) {
-		if (playerNum == configGUI.getPlayerNumOne()) {
-			if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(0))) {
-				boardPane.getChildren().remove(humanStone1);
+		Circle stone;
+		
+		if (playerNum == getPlayerNumOne()) {
+			if (chosenStone.equals(selectFirstPlayer().getStones().get(0))) {
+				stone = humanStone1;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(1))) {
-				boardPane.getChildren().remove(humanStone2);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(1))) {
+				stone = humanStone2;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(2))) {
-				boardPane.getChildren().remove(humanStone3);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(2))) {
+				stone = humanStone3;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(3))) {
-				boardPane.getChildren().remove(humanStone4);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(3))) {
+				stone = humanStone4;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(4))) {
-				boardPane.getChildren().remove(humanStone5);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(4))) {
+				stone = humanStone5;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(5))) {
-				boardPane.getChildren().remove(humanStone6);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(5))) {
+				stone = humanStone6;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(6))) {
-				boardPane.getChildren().remove(humanStone7);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(6))) {
+				stone = humanStone7;
 			}
-			else if (chosenStone.equals(configGUI.selectFirstPlayer().getStones().get(7))) {
-				boardPane.getChildren().remove(humanStone8);
+			else if (chosenStone.equals(selectFirstPlayer().getStones().get(7))) {
+				stone = humanStone8;
 			}
 			else {
-				boardPane.getChildren().remove(humanStone9);
-			}								
+				stone = humanStone9;
+			}				
+			
+			clickedX = -stone.getTranslateX();
+			clickedY = -stone.getTranslateY();
 		}
 		else {
-			if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(0))) {
-				boardPane.getChildren().remove(compStone1);
+			if (chosenStone.equals(selectSecondPlayer().getStones().get(0))) {
+				stone = compStone1;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(1))) {
-				boardPane.getChildren().remove(compStone2);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(1))) {
+				stone = compStone2;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(2))) {
-				boardPane.getChildren().remove(compStone3);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(2))) {
+				stone = compStone3;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(3))) {
-				boardPane.getChildren().remove(compStone4);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(3))) {
+				stone = compStone4;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(4))) {
-				boardPane.getChildren().remove(compStone5);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(4))) {
+				stone = compStone5;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(5))) {
-				boardPane.getChildren().remove(compStone6);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(5))) {
+				stone = compStone6;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(6))) {
-				boardPane.getChildren().remove(compStone7);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(6))) {
+				stone = compStone7;
 			}
-			else if (chosenStone.equals(configGUI.selectSecondPlayer().getStones().get(7))) {
-				boardPane.getChildren().remove(compStone8);
+			else if (chosenStone.equals(selectSecondPlayer().getStones().get(7))) {
+				stone = compStone8;
 			}
 			else {
-				boardPane.getChildren().remove(compStone9);
-			}					
+				stone = compStone9;
+			}				
+			
+			clickedX = 850 - stone.getTranslateX();
+			clickedY = -stone.getTranslateY();			
 		}
+
+		moveTransition.setDuration(Duration.millis(500));
+		moveTransition.setNode(stone);
+		moveTransition.setByX(clickedX);
+		moveTransition.setByY(clickedY);
+		pauseTimer.setOnFinished(event -> boardPane.getChildren().remove(stone));
+		pauseTimer.setDuration(Duration.millis(500));
+
+		moveTransition.play();
+		pauseTimer.play();
+		pauseTimer.setDuration(Duration.millis(2000));
 	}	
 	
 	/**
@@ -1234,8 +1300,201 @@ public class GameController extends MainController {
 	 * @param stone
 	 */
 	private void setStoneLayoutVisual(Circle stone) {
-		stone.setLayoutX(clickedX);
-		stone.setLayoutY(clickedY);
+		moveTransition.setDuration(Duration.millis(1200));
+		moveTransition.setNode(stone);
+		moveTransition.setByX(clickedX - stone.getTranslateX());
+		moveTransition.setByY(clickedY - stone.getTranslateY());
+		moveTransition.play();
+	}
+	
+	/**
+	 * Disable all points and stones clickable, for work to be done. Only rules and quit button can be clicked
+	 */
+	private void disablePointsAndStones() {
+    	for (Button point : allPoints) {
+    		point.setDisable(true);
+		}
+		
+		for (Circle humanStone : humanStones) {
+			humanStone.setDisable(true);
+		}
+
+		for (Circle compStone : compStones) {
+			compStone.setDisable(true);
+		}
+	}
+	
+	/**
+	 * Enable points and stones clickable, for available points or stones depending on the situation
+	 */
+	private void enablePointsandStones() {
+		if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
+			for (Button point : allPoints) {
+				point.setDisable(false);
+			}
+		}
+		else {
+			for (Button point : allPoints) {
+				point.setDisable(true);
+			}
+			
+			for (Circle humanStone : humanStones) {
+				humanStone.setDisable(false);
+			}
+
+			for (Circle compStone : compStones) {
+				compStone.setDisable(false);
+			}
+		}
+	}
+	
+	/**
+	 * Get a button from location of the point
+	 * 
+	 * @param Point to retrieve button from
+	 */
+	private Button getButtonFromPoint(Point point) {
+		Button selectedPoint;
+		
+    	if (point == getGameBoard().getSquares()[0].getLines()[0].getEndPoint1()) {
+    		selectedPoint = outSqLineSEnd1;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[0].getMidPoint()) {
+    		selectedPoint = outSqLineSMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[0].getEndPoint2()) {
+    		selectedPoint = outSqLineSEnd2;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[1].getMidPoint()) {
+    		selectedPoint = outSqLineWMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[2].getMidPoint()) {
+    		selectedPoint = outSqLineEMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getEndPoint1()) {
+    		selectedPoint = outSqLineNEnd1;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getMidPoint()) {
+    		selectedPoint = outSqLineNMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getEndPoint2()) {
+    		selectedPoint = outSqLineNEnd2;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getEndPoint1()) {
+    		selectedPoint = midSqLineSEnd1;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getMidPoint()) {
+    		selectedPoint = midSqLineSMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getEndPoint2()) {
+    		selectedPoint = midSqLineSEnd2;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[1].getMidPoint()) {
+    		selectedPoint = midSqLineWMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[2].getMidPoint()) {
+    		selectedPoint = midSqLineEMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getEndPoint1()) {
+    		selectedPoint = midSqLineNEnd1;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getMidPoint()) {
+    		selectedPoint = midSqLineNMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getEndPoint2()) {
+    		selectedPoint = midSqLineNEnd2;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getEndPoint1()) {
+    		selectedPoint = innSqLineSEnd1;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getMidPoint()) {
+    		selectedPoint = innSqLineSMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getEndPoint2()) {
+    		selectedPoint = innSqLineSEnd2;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[1].getMidPoint()) {
+    		selectedPoint = innSqLineWMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[2].getMidPoint()) {
+    		selectedPoint = innSqLineEMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getEndPoint1()) {
+    		selectedPoint = innSqLineNEnd1;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getMidPoint()) {
+    		selectedPoint = innSqLineNMid;
+    	}
+    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getEndPoint2()) {
+    		selectedPoint = innSqLineNEnd2;
+    	}
+    	else {
+    		// shouldn't happen
+    		// throw GameException here
+    		return null;
+    	}
+    	
+    	return selectedPoint;
+	}
+	
+	/**
+	 * Sets animation for available points to move to; only used for moving adjacent
+	 * 
+	 * @param point Current point
+	 */
+	private void setAnimationAvailablePoints(Point point) {
+		ArrayList<Point> availablePoints;
+		Button chosenPoint;
+		
+		availablePoints = selectFirstPlayer().getAdjacentPoints(point);
+		
+		for (Point currentPoint : availablePoints) {
+			if (currentPoint.getOccupiedPlayer() == 0) {
+				chosenPoint = getButtonFromPoint(currentPoint);
+				chosenPoint.opacityProperty().bind(animationButton.opacityProperty());
+			}
+		}
+		
+		playAnimationPoints();
+	}
+	
+	/**
+	 * Sets animation for available points to move to; used for placing and jumping stage
+	 */
+	private void setAnimationAllPoints() {
+		Point chosenPoint;
+		
+		for (Button point : allPoints) {
+			chosenPoint = chooseLocation(point);
+			
+			if (chosenPoint.getOccupiedPlayer() == 0) {
+				point.opacityProperty().bind(animationButton.opacityProperty());
+			}
+		}
+		
+		playAnimationPoints();
+	}
+	
+	/**
+	 * 
+	 */
+	private void playAnimationPoints() {
+		fadeTransition.setNode(animationButton);
+		fadeTransition.play();
+	}
+	
+	private void stopAnimationPoints() {
+		fadeTransition.stop();
+		animationButton.setOpacity(0.0);
+		animationButton = new Button();
+	}
+	
+	private void pauseAndPlayForAI() {
+		pauseTimer.setOnFinished(event -> turnComputer(selectSecondPlayer()));
+		statusLabel.setText("The Computer is thinking...");
+		stopAnimationPoints();
+    	disablePointsAndStones();
+    	pauseTimer.play();
 	}
 	
     /**
@@ -1246,9 +1505,6 @@ public class GameController extends MainController {
     void initialize() {
         assert exitButton != null : "fx:id=\"exitButton\" was not injected: check your FXML file 'Board.fxml'.";
         assert rulesButton != null : "fx:id=\"rulesButton\" was not injected: check your FXML file 'Board.fxml'.";
-        configGUI = new GameShared();
-        configGUI.setGameConfig();
-        firstTurnPlay();
         humanStones[0] = humanStone1;
         humanStones[1] = humanStone2;
         humanStones[2] = humanStone3;
@@ -1291,5 +1547,10 @@ public class GameController extends MainController {
         allPoints[21] = innSqLineNEnd1;
         allPoints[22] = innSqLineNMid;
         allPoints[23] = innSqLineNEnd2;
+    	fadeTransition.setFromValue(1.0);
+    	fadeTransition.setToValue(0.0);
+    	fadeTransition.setCycleCount(Animation.INDEFINITE);
+        setGameConfig();
+        firstTurnPlay();
     }
 }

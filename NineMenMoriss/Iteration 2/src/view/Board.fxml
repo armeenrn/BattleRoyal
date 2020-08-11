@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -31,84 +32,99 @@
                   <Font name="Comic Sans MS" size="32.0" />
                </font>
             </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc471" height="650.0" layoutX="100.0" layoutY="100.0" stroke="BLACK" strokeType="OUTSIDE" width="650.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc371" height="450.0" layoutX="200.0" layoutY="200.0" stroke="BLACK" strokeType="INSIDE" width="450.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffc371" height="250.0" layoutX="300.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
-            <Line endX="100.0" layoutX="650.0" layoutY="425.0" startX="-100.0" />
-            <Line endX="100.0" layoutX="200.0" layoutY="425.0" startX="-100.0" />
-            <Line endX="-100.0" endY="200.0" layoutX="526.0" layoutY="550.0" startX="-100.0" />
-            <Line endX="-100.0" endY="200.0" layoutX="526.0" layoutY="100.0" startX="-100.0" />
-            <Circle layoutX="100.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="426.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="750.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="100.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="100.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="201.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="426.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="649.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="750.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="750.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="649.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="426.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="201.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="649.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="201.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="426.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="426.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="300.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="550.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="550.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="300.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="426.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="300.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle layoutX="550.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button fx:id="outSqLineSEnd1" layoutX="77.0" layoutY="730.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineSMid" layoutX="403.0" layoutY="728.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineSEnd2" layoutX="727.0" layoutY="728.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineWMid" layoutX="78.0" layoutY="403.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineNEnd1" layoutX="77.0" layoutY="78.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineNMid" layoutX="403.0" layoutY="77.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineNEnd2" layoutX="728.0" layoutY="77.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="outSqLineEMid" layoutX="727.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineEMid" layoutX="627.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineNEnd2" layoutX="627.0" layoutY="178.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineNMid" layoutX="403.0" layoutY="178.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineNEnd1" layoutX="179.0" layoutY="178.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineWMid" layoutX="178.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineSEnd2" layoutX="627.0" layoutY="628.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineSMid" layoutX="404.0" layoutY="628.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="midSqLineSEnd1" layoutX="178.0" layoutY="628.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineSEnd1" layoutX="278.0" layoutY="527.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineSMid" layoutX="404.0" layoutY="527.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineSEnd2" layoutX="527.0" layoutY="527.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineWMid" layoutX="278.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineNEnd1" layoutX="278.0" layoutY="279.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineNMid" layoutX="404.0" layoutY="278.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineNEnd2" layoutX="527.0" layoutY="279.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Button fx:id="innSqLineEMid" layoutX="527.0" layoutY="402.0" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" />
-            <Circle fx:id="humanStone9" disable="true" layoutX="44.0" layoutY="90.0" onMouseClicked="#humanStone9Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone6" disable="true" layoutX="44.0" layoutY="270.0" onMouseClicked="#humanStone6Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone7" disable="true" layoutX="44.0" layoutY="210.0" onMouseClicked="#humanStone7Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone8" disable="true" layoutX="44.0" layoutY="150.0" onMouseClicked="#humanStone8Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone4" disable="true" layoutX="44.0" layoutY="390.0" onMouseClicked="#humanStone4Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone3" disable="true" layoutX="44.0" layoutY="450.0" onMouseClicked="#humanStone3Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone2" disable="true" layoutX="44.0" layoutY="510.0" onMouseClicked="#humanStone2Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone5" disable="true" layoutX="44.0" layoutY="330.0" onMouseClicked="#humanStone5Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="humanStone1" disable="true" layoutX="44.0" layoutY="570.0" onMouseClicked="#humanStone1Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone1" disable="true" fill="WHITE" layoutX="811.0" layoutY="570.0" onMouseClicked="#compStone1Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone5" disable="true" fill="WHITE" layoutX="811.0" layoutY="330.0" onMouseClicked="#compStone5Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone2" disable="true" fill="WHITE" layoutX="811.0" layoutY="510.0" onMouseClicked="#compStone2Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone3" disable="true" fill="WHITE" layoutX="811.0" layoutY="450.0" onMouseClicked="#compStone3Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone4" disable="true" fill="WHITE" layoutX="811.0" layoutY="390.0" onMouseClicked="#compStone4Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone8" disable="true" fill="WHITE" layoutX="811.0" layoutY="150.0" onMouseClicked="#compStone8Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone7" disable="true" fill="WHITE" layoutX="811.0" layoutY="210.0" onMouseClicked="#compStone7Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone6" disable="true" fill="WHITE" layoutX="811.0" layoutY="270.0" onMouseClicked="#compStone6Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fx:id="compStone9" disable="true" fill="WHITE" layoutX="811.0" layoutY="90.0" onMouseClicked="#compStone9Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" />
-            <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="7.0" prefHeight="60.0" prefWidth="494.0" text="TURN" textAlignment="CENTER">
+            <Button fx:id="outSqLineSEnd1" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="77.0" translateY="728.0" />
+            <Button fx:id="outSqLineSMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="403.0" translateY="728.0" />
+            <Button fx:id="outSqLineSEnd2" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="727.0" translateY="728.0" />
+            <Button fx:id="outSqLineWMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="78.0" translateY="403.0" />
+            <Button fx:id="outSqLineNEnd1" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="77.0" translateY="78.0" />
+            <Button fx:id="outSqLineNMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="403.0" translateY="77.0" />
+            <Button fx:id="outSqLineNEnd2" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="728.0" translateY="77.0" />
+            <Button fx:id="outSqLineEMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="727.0" translateY="402.0" />
+            <Button fx:id="midSqLineEMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="627.0" translateY="402.0" />
+            <Button fx:id="midSqLineNEnd2" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="627.0" translateY="178.0" />
+            <Button fx:id="midSqLineNMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="403.0" translateY="178.0" />
+            <Button fx:id="midSqLineNEnd1" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="179.0" translateY="178.0" />
+            <Button fx:id="midSqLineWMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="178.0" translateY="402.0" />
+            <Button fx:id="midSqLineSEnd2" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="627.0" translateY="628.0" />
+            <Button fx:id="midSqLineSMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="404.0" translateY="628.0" />
+            <Button fx:id="midSqLineSEnd1" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="178.0" translateY="628.0" />
+            <Button fx:id="innSqLineSEnd1" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="278.0" translateY="527.0" />
+            <Button fx:id="innSqLineSMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="404.0" translateY="527.0" />
+            <Button fx:id="innSqLineSEnd2" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="527.0" translateY="527.0" />
+            <Button fx:id="innSqLineWMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="278.0" translateY="402.0" />
+            <Button fx:id="innSqLineNEnd1" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="278.0" translateY="279.0" />
+            <Button fx:id="innSqLineNMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="404.0" translateY="278.0" />
+            <Button fx:id="innSqLineNEnd2" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="527.0" translateY="279.0" />
+            <Button fx:id="innSqLineEMid" mnemonicParsing="false" onAction="#pointClicked" opacity="0.0" prefHeight="45.0" prefWidth="45.0" style="-fx-border-color: #ff0000; -fx-background-color: #ffc371;" translateX="527.0" translateY="402.0" />
+            <Circle disable="true" layoutX="100.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="426.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="750.0" layoutY="100.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="100.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="100.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="201.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="426.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="649.0" layoutY="200.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="750.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="750.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="649.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="426.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="201.0" layoutY="650.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="649.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="201.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="426.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="426.0" layoutY="750.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="300.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="550.0" layoutY="301.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="550.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="300.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="426.0" layoutY="550.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="300.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle disable="true" layoutX="550.0" layoutY="425.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <Line disable="true" endX="100.0" layoutX="650.0" layoutY="425.0" startX="-100.0" />
+            <Line disable="true" endX="100.0" layoutX="200.0" layoutY="425.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="200.0" layoutX="526.0" layoutY="550.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="200.0" layoutX="526.0" layoutY="100.0" startX="-100.0" />
+            <Line disable="true" endX="550.0" layoutX="200.0" layoutY="100.0" startX="-100.0" />
+            <Line disable="true" endX="550.0" layoutX="200.0" layoutY="750.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="650.0" layoutX="200.0" layoutY="100.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="650.0" layoutX="850.0" layoutY="100.0" startX="-100.0" />
+            <Line disable="true" endX="348.0" layoutX="301.0" layoutY="200.0" startX="-100.0" />
+            <Line disable="true" endX="348.0" layoutX="301.0" layoutY="650.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="450.0" layoutX="301.0" layoutY="200.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="450.0" layoutX="749.0" layoutY="200.0" startX="-100.0" />
+            <Line disable="true" endX="150.0" layoutX="400.0" layoutY="301.0" startX="-100.0" />
+            <Line disable="true" endX="150.0" layoutX="400.0" layoutY="550.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="249.0" layoutX="400.0" layoutY="301.0" startX="-100.0" />
+            <Line disable="true" endX="-100.0" endY="249.0" layoutX="650.0" layoutY="301.0" startX="-100.0" />
+            <Circle fx:id="humanStone9" disable="true" onMouseClicked="#humanStone9Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="90.0" />
+            <Circle fx:id="humanStone6" disable="true" onMouseClicked="#humanStone6Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="270.0" />
+            <Circle fx:id="humanStone7" disable="true" onMouseClicked="#humanStone7Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="210.0" />
+            <Circle fx:id="humanStone8" disable="true" onMouseClicked="#humanStone8Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="150.0" />
+            <Circle fx:id="humanStone4" disable="true" onMouseClicked="#humanStone4Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="390.0" />
+            <Circle fx:id="humanStone3" disable="true" onMouseClicked="#humanStone3Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="450.0" />
+            <Circle fx:id="humanStone2" disable="true" onMouseClicked="#humanStone2Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="510.0" />
+            <Circle fx:id="humanStone5" disable="true" onMouseClicked="#humanStone5Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="330.0" />
+            <Circle fx:id="humanStone1" disable="true" onMouseClicked="#humanStone1Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="44.0" translateY="570.0" />
+            <Circle fx:id="compStone1" disable="true" fill="WHITE" onMouseClicked="#compStone1Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="570.0" />
+            <Circle fx:id="compStone5" disable="true" fill="WHITE" onMouseClicked="#compStone5Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="330.0" />
+            <Circle fx:id="compStone2" disable="true" fill="WHITE" onMouseClicked="#compStone2Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="510.0" />
+            <Circle fx:id="compStone3" disable="true" fill="WHITE" onMouseClicked="#compStone3Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="450.0" />
+            <Circle fx:id="compStone4" disable="true" fill="WHITE" onMouseClicked="#compStone4Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="390.0" />
+            <Circle fx:id="compStone8" disable="true" fill="WHITE" onMouseClicked="#compStone8Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="150.0" />
+            <Circle fx:id="compStone7" disable="true" fill="WHITE" onMouseClicked="#compStone7Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="210.0" />
+            <Circle fx:id="compStone6" disable="true" fill="WHITE" onMouseClicked="#compStone6Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="270.0" />
+            <Circle fx:id="compStone9" disable="true" fill="WHITE" onMouseClicked="#compStone9Clicked" radius="25.0" stroke="BLACK" strokeType="INSIDE" translateX="811.0" translateY="90.0" />
+            <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="7.0" prefHeight="60.0" prefWidth="494.0" text="YOUR TURN; PLACE A STONE ON A POINT" textAlignment="CENTER">
                <font>
                   <Font name="Comic Sans MS" size="18.0" />
                </font>
             </Label>
+            <Button fx:id="animationButton" layoutX="418.0" layoutY="413.0" mnemonicParsing="false" opacity="0.0" visible="false" />
+            <Button fx:id="hintButton" layoutX="389.0" layoutY="792.0" mnemonicParsing="false" onAction="#hintButtonClicked" text="Hint">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
          </children></Pane>
    </children>
 </Pane>
