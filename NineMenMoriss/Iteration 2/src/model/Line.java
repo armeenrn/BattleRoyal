@@ -15,9 +15,11 @@ package model;
 
 public class Line {
 	private String name;
+	/*
 	private Point endPoint1;
 	private Point midPoint;
 	private Point endPoint2;
+	*/
 	private Point[] points;
 
 	/**
@@ -34,12 +36,9 @@ public class Line {
 			this.name = name;
 			points = new Point[3];
 
-			this.endPoint1 = endPoint1;
-			points[0] = this.endPoint1;
-			this.midPoint = midPoint;
-			points[1] = this.midPoint;
-			this.endPoint2 = endPoint2;
-			points[2] = this.endPoint2;
+			points[0] = endPoint1;
+			points[1] = midPoint;
+			points[2] = endPoint2;
 		} catch (NullPointerException np) {
 			System.out.println(np + " One or more parameters are empty.");
 		} catch (Exception e) {
@@ -50,7 +49,7 @@ public class Line {
 	public Point[] getPoints() {// Why is this Point [] only whereas other getter methods use Point only?
 		return points;
 	}
-
+/*
 	public Point getEndPoint1() {
 		return endPoint1;
 	}
@@ -70,9 +69,9 @@ public class Line {
 	 * @return Indicates if the line is filled
 	 */
 	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
-		if (endPoint1.getOccupiedPlayer() == player.getPlayerNumber()) {
-			if (endPoint1.getOccupiedPlayer() == midPoint.getOccupiedPlayer()) {
-				if (midPoint.getOccupiedPlayer() == endPoint2.getOccupiedPlayer()) {
+		if (points[0].getOccupiedPlayer() == player.getPlayerNumber()) {
+			if (points[0].getOccupiedPlayer() == points[1].getOccupiedPlayer()) {
+				if (points[1].getOccupiedPlayer() == points[2].getOccupiedPlayer()) {
 					return true;
 				}
 
@@ -101,15 +100,15 @@ public class Line {
 	public boolean doesLineContain(Stone stoneToCheck) throws NullPointerException, Exception {
 		boolean contains = false;
 		try {
-			if (endPoint1.getOccupiedStone() == stoneToCheck) {
+			if (points[0].getOccupiedStone() == stoneToCheck) {
 				contains = true;
 			}
 
-			else if (midPoint.getOccupiedStone() == stoneToCheck) {
+			else if (points[1].getOccupiedStone() == stoneToCheck) {
 				contains = true;
 			}
 
-			else if (endPoint2.getOccupiedStone() == stoneToCheck) {
+			else if (points[2].getOccupiedStone() == stoneToCheck) {
 				contains = true;
 			}
 		} catch (NullPointerException np) {
@@ -131,15 +130,15 @@ public class Line {
 		boolean contains = false;
 		try {
 
-			if (endPoint1 == pointToBeChecked) {
+			if (points[0] == pointToBeChecked) {
 				contains = true;
 			}
 
-			else if (midPoint == pointToBeChecked) {
+			else if (points[1] == pointToBeChecked) {
 				contains = true;
 			}
 
-			else if (endPoint2 == pointToBeChecked) {
+			else if (points[2] == pointToBeChecked) {
 				contains = true;
 			}
 		} catch (NullPointerException np) {
