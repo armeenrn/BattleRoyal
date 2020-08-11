@@ -528,7 +528,7 @@ public class GameController extends GameShared {
 			// A new mill was found; look for the best stone to remove and perform
 			chosenStone = compPlayer.lookforBestRemove(getGameBoard(), selectFirstPlayer());
 			pauseTimer.setOnFinished(event -> removeChosenStone(chosenStone, getPlayerNumOne()));
-			statusLabel.setText("The Computer is thinking...");
+			statusLabel.setText("The Computer formed a line!\nComputer will remove one of your stones.");
 	    	pauseTimer.play();
 	    	pauseTimer3.setDuration(Duration.millis(3500));
 	    	pauseTimer2.setDuration(Duration.millis(3500));
@@ -666,7 +666,7 @@ public class GameController extends GameShared {
     			humanStone.setDisable(false);
     		}
 
-    		moveWasValid = false;;
+    		moveWasValid = false;
 		}
 		else {			
 			stoneMovedVisually(getPlayerNumOne());
@@ -1431,7 +1431,6 @@ public class GameController extends GameShared {
 	}
 	
 	private void pauseAndPlayForAI() {
-    	disablePointsAndStones();
 		pauseTimer.setOnFinished(event -> turnComputer(selectSecondPlayer()));
 		statusLabel.setText("The Computer is thinking...");
 		stopAnimationPoints();
