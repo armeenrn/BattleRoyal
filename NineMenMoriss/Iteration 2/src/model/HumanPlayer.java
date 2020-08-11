@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -63,15 +64,27 @@ public class HumanPlayer extends Player {
 	 * @return the point that has been selected
 	 */
 	public Point selectDestination(ArrayList<Point> pointsList) {
-		int index = 0;
+		int index = -1;
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the index of the point you wish to choose.");
-		index = input.nextInt();
 
 		while (index < 0 || index >= pointsList.size()) {
-			System.out.println("Invalid point. Enter the index of the point you wish to choose");
-			index = input.nextInt();
-		}
+				System.out.println("Enter the index of the point you wish to choose");
+				try {
+					index = input.nextInt();	
+					if (index < 0 || index > pointsList.size()) {
+						throw new Exception();
+					}
+				} catch (InputMismatchException ime) {
+					System.out.println("Error: InputMismatchException. Must enter integer");
+					index = -1;
+					
+				} catch (Exception e) {
+					System.out.println("Invalid point. Must be a point between index 0 to 23.");
+				
+				}
+				
+			}
+	
 
 		return pointsList.get(index);
 	}
