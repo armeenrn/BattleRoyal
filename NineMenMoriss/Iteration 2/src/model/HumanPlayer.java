@@ -88,7 +88,7 @@ public class HumanPlayer extends Player {
 				} catch (InputMismatchException nfe) {
 					System.out.println("Error: InputMismatchException. Must enter integer");
 					index = -1;
-					
+					input.next();
 					
 				} catch (Exception e) {
 					System.out.println("Invalid point. Must be a point between index 0 to 23.");

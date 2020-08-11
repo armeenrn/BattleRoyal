@@ -37,10 +37,10 @@ import java.util.ArrayList;
 import model.Point;
 import model.Line;
 import model.Stone;
-import model.GameShared;
+import model.GameConfig;
 import model.AIPlayer;
 
-public class GameController extends GameShared {
+public class GameGUI extends GameConfig {
 	@FXML
 	private Pane boardPane;
 	

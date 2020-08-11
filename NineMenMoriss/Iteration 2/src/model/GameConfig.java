@@ -16,7 +16,7 @@ import java.util.Random;
  */
 
 
-public abstract class GameShared {
+public abstract class GameConfig {
 	private double BOARDWIDTH = 30;
 	private double CENTER_X = 0;
 	private double CENTER_Y = 0;

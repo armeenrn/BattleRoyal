@@ -9,7 +9,7 @@
 package application;
 
 import java.util.Scanner;
-import model.Game;
+import model.GameText;
 
 public class TextApplication {
 	/**
@@ -18,7 +18,7 @@ public class TextApplication {
 	 * the game.
 	 */
 	public void run() {
-		Game game;
+		GameText game;
 		String next = "";
 		Scanner input = new Scanner(System.in);
 		System.out.println("Welcome to Nine-men Morris!");
@@ -28,7 +28,7 @@ public class TextApplication {
 
 		do {
 			if (next.equalsIgnoreCase("PLAY")) {
-				game = new Game();
+				game = new GameText();
 				game.play(); // one game is played
 
 				// game is over

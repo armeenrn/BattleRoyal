@@ -14,14 +14,14 @@ import java.util.ArrayList;
  * @author Armeen Rashidian, Daniel Kim Team D
  */
 
-public class Game extends GameShared {
+public class GameText extends GameConfig {
 	private int winner = 0; // initialized to 0, set to 1 or 2 depending on if player1 or player2 wins,
 							// respectively
 	
 	/**
 	 * the constructor creates a new object of Game
 	 */
-	public Game() {
+	public GameText() {
 	}
 
 	/**
