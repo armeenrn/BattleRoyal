@@ -7,10 +7,11 @@ package model;
  *
  */
 public class Board {
-
+/*
 	private Square outerSquare;
 	private Square midSquare;
 	private Square innerSquare;
+	*/
 	private Line northMidLine;
 	private Line westMidLine;
 	private Line eastMidLine;
@@ -30,25 +31,25 @@ public class Board {
 	public Board(double range, double centreXCoord, double centreYCoord) {
 		squares = new Square[4];
 
-		outerSquare = new Square("Outer Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
-		squares[0] = outerSquare;
+		squares[0] = new Square("Outer Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
+		//squares[0] = outerSquare;
 		range = range * (2.0 / 3);
 
-		midSquare = new Square("Middle Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
-		squares[1] = midSquare;
+		squares[1] = new Square("Middle Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
+		//squares[1] = midSquare;
 		range = range * 0.5;
 
-		innerSquare = new Square("Inner Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
-		squares[2] = innerSquare;
+		squares[2] = new Square("Inner Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
+		//squares[2] = innerSquare;
 
-		northMidLine = new Line("North Mid Line", innerSquare.getNorthLine().getMidPoint(),
-				midSquare.getNorthLine().getMidPoint(), outerSquare.getNorthLine().getMidPoint());
-		westMidLine = new Line("West Mid Line", innerSquare.getWestLine().getMidPoint(),
-				midSquare.getWestLine().getMidPoint(), outerSquare.getWestLine().getMidPoint());
-		eastMidLine = new Line("East Mid Line", innerSquare.getEastLine().getMidPoint(),
-				midSquare.getEastLine().getMidPoint(), outerSquare.getEastLine().getMidPoint());
-		southMidLine = new Line("South Mid Line", innerSquare.getSouthLine().getMidPoint(),
-				midSquare.getSouthLine().getMidPoint(), outerSquare.getSouthLine().getMidPoint());
+		northMidLine = new Line("North Mid Line", squares[2].getLines()[3].getPoints()[1],
+				squares[1].getLines()[3].getPoints()[1], squares[0].getLines()[3].getPoints()[1]);
+		westMidLine = new Line("West Mid Line", squares[2].getLines()[1].getPoints()[1],
+				squares[1].getLines()[1].getPoints()[1], squares[0].getLines()[1].getPoints()[1]);
+		eastMidLine = new Line("East Mid Line", squares[2].getLines()[2].getPoints()[1],
+				squares[1].getLines()[2].getPoints()[1], squares[0].getLines()[2].getPoints()[1]);
+		southMidLine = new Line("South Mid Line", squares[2].getLines()[0].getPoints()[1],
+				squares[1].getLines()[0].getPoints()[1], squares[0].getLines()[0].getPoints()[1]);
 		Square linesOnBoard = new Square(northMidLine, westMidLine, eastMidLine, southMidLine);
 		squares[3] = linesOnBoard;
 	}
@@ -68,10 +69,10 @@ public class Board {
 	 */
 	public void displayBoard() {
 		for (int i = 0; i < squares.length; i++) {
-			System.out.println("Points on the North Lines: " + squares[i].getNorthLine().getPoints());
-			System.out.println("Points on the East Lines: " + squares[i].getEastLine().getPoints());
-			System.out.println("Points on the West Lines: " + squares[i].getWestLine().getPoints());
-			System.out.println("Points on the South Lines: " + squares[i].getSouthLine().getPoints());
+			System.out.println("Points on the North Lines: " + squares[i].getLines()[3].getPoints());
+			System.out.println("Points on the East Lines: " + squares[i].getLines()[2].getPoints());
+			System.out.println("Points on the West Lines: " + squares[i].getLines()[1].getPoints());
+			System.out.println("Points on the South Lines: " + squares[i].getLines()[0].getPoints());
 		}
 	}
 
