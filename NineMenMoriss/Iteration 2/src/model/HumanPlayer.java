@@ -63,7 +63,7 @@ public class HumanPlayer extends Player {
 	 * @param pointsList, the list of points that the player will choose from
 	 * @return the point that has been selected
 	 */
-	public Point selectDestination(ArrayList<Point> pointsList)  {
+	public Point selectDestination(ArrayList<Point> pointsList) {
 		int index = -1;
 		Scanner input = new Scanner(System.in);
 
@@ -76,7 +76,7 @@ public class HumanPlayer extends Player {
 					}
 				} catch (InputMismatchException ime) {
 					System.out.println("Error: InputMismatchException. Must enter integer");
-					input.next();
+					index = -1;
 					
 				} catch (Exception e) {
 					System.out.println("Invalid point. Must be a point between index 0 to 23.");
