@@ -338,4 +338,6 @@ public class Game extends GameShared {
 		System.out.println("");
 	}
 
+	public void refresh() {
+	}
 }

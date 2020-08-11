@@ -410,5 +410,16 @@ public class GameShared {
 		
 		return pointsAsList;
 	}
+<<<<<<< Updated upstream:NineMenMoriss/Iteration 2/src/model/GameShared.java
 	
+=======
+
+	/**
+	 * Performs a turn with AI
+	 * 
+	 * @param compPlayer
+	 */
+	public abstract void turnComputer(AIPlayer compPlayer); 
+		// TODO Auto-generated method stub	
+>>>>>>> Stashed changes:NineMenMoriss/Iteration 2/src/model/GameConfig.java
 }
