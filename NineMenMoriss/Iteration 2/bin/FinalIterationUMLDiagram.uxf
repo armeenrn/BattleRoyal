@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>75</x>
-      <y>170</y>
+      <y>165</y>
       <w>320</w>
       <h>1005</h>
     </coordinates>
@@ -610,9 +610,9 @@ boolean
       <x>145</x>
       <y>135</y>
       <w>15</w>
-      <h>45</h>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
