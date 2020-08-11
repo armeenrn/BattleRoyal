@@ -96,7 +96,6 @@ public class HumanPlayer extends Player {
 				}
 				
 			}
-	
 
 		return pointsList.get(index);
 	}

@@ -546,7 +546,7 @@ public class GameGUI extends GameConfig {
 	 * @param compPlayer
 	 * @param filledLines_StartTurn List of mills at the start of the turn
 	 */
-	private void compTurnCheckMillAndEndTurn(AIPlayer compPlayer, ArrayList<Line> filledLines_StartTurn) {
+	private void compTurnCheckMillAndEndTurn(AIPlayer compPlayer, ArrayList<Line> filledLines_StartTurn) throws NullPointerException {
 		ArrayList<Line> filled_Lines_At_End_Of_Turn = getFilledLine(compPlayer);
 		
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filledLines_StartTurn))) && filled_Lines_At_End_Of_Turn.size() >= filledLines_StartTurn.size()) {
@@ -1019,43 +1019,51 @@ public class GameGUI extends GameConfig {
      * @param playerNum Player to remove the stone from
      */
     private void removeChosenStone(Stone stone, int playerNum) {
-    	try {
     		if (playerNum == getPlayerNumOne()) {
-    			// remove Human player's stone
-            	stoneRemovedVisually(getPlayerNumOne());
-        		removeStone(selectFirstPlayer(), stone);
-        		    		
-    			// check Human player's number of stones at the end to see if the AI wins
-    			if (selectFirstPlayer().getNumberOfTotalStones() < 3) {
-    				winner = 2;
-    				endGame();
+    			try {
+    				// remove Human player's stone
+                	stoneRemovedVisually(getPlayerNumOne());
+            		removeStone(selectFirstPlayer(), stone);
+            		    		
+        			// check Human player's number of stones at the end to see if the AI wins
+        			if (selectFirstPlayer().getNumberOfTotalStones() < 3) {
+        				winner = 2;
+        				endGame();
+        			}
+        			else {
+        				promptEachTurn();
+        			}
     			}
-    			else {
-    				promptEachTurn();
+    			catch (NullPointerException npe) {
+    				// AI tried to remove invalid stone; pick another stone
+    				selectSecondPlayer().selectRandomStoneToRemove(selectFirstPlayer().getStones());
+                	stoneRemovedVisually(getPlayerNumOne());
+            		removeStone(selectFirstPlayer(), stone);
     			}
     		}
     		else {
-    			// remove AI player's stone
-            	stoneRemovedVisually(getPlayerNumTwo());
-        		removeStone(selectSecondPlayer(), stone);
+    	    	try {
+        			// remove AI player's stone
+                	stoneRemovedVisually(getPlayerNumTwo());
+            		removeStone(selectSecondPlayer(), stone);
 
-        		// check AI's number of stones at the end to see if the Human player wins
-        		if (selectSecondPlayer().getNumberOfTotalStones() < 3) {
-        			winner = 1;
-        			endGame();
-        		}
-        		else {
-            		for (Circle compStone : compStones) {
-            			compStone.setDisable(true);
+            		// check AI's number of stones at the end to see if the Human player wins
+            		if (selectSecondPlayer().getNumberOfTotalStones() < 3) {
+            			winner = 1;
+            			endGame();
             		}
+            		else {
+                		for (Circle compStone : compStones) {
+                			compStone.setDisable(true);
+                		}
 
-            		pauseAndPlayForAI();
-        		}
+                		pauseAndPlayForAI();
+            		}
+    	    	}
+            	catch (NullPointerException NPE) {
+            		// tried to remove a stone that is not on the field
+            		statusLabel.setText("You can only remove a stone on the field");
     		}
-    	}
-    	catch (NullPointerException NPE) {
-    		// tried to remove a stone that is not on the field
-    		statusLabel.setText("You can only remove a stone on the field");
     	}
 	}    	
 
@@ -1276,8 +1284,8 @@ public class GameGUI extends GameConfig {
 		moveTransition.setNode(stone);
 		moveTransition.setByX(clickedX);
 		moveTransition.setByY(clickedY);
-		pauseTimer.setOnFinished(event -> boardPane.getChildren().remove(stone));
-		pauseTimer.setDuration(Duration.millis(500));
+		pauseTimer.setOnFinished(event -> stone.setVisible(false));
+		pauseTimer.setDuration(Duration.millis(600));
 
 		moveTransition.play();
 		pauseTimer.play();
