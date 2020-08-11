@@ -1,38 +1,34 @@
-/*
- * Game runs the overall game 
- */
-
 package model;
 
 import java.util.ArrayList;
 
 /**
- * public class Game runs the game program
+ * public class GameText runs the game program in text
  * 
  * 10.00 6 August 2020
  * 
  * @author Armeen Rashidian, Daniel Kim Team D
  */
 
-public class Game extends GameShared {
+public class GameText extends GameConfig {
 	private int winner = 0; // initialized to 0, set to 1 or 2 depending on if player1 or player2 wins,
 							// respectively
 	
 	/**
 	 * the constructor creates a new object of Game
 	 */
-	public Game() {
+	public GameText() {
 	}
 
 	/**
 	 * play runs the game
 	 */
 	public void play() {
+		setGameConfig();
+
 		int firstTurn = getFirstPlayer();
 		HumanPlayer player1 = selectFirstPlayer();
-		AIPlayer player2 = selectSecondPlayer();
-		
-		setGameConfig();
+		AIPlayer player2 = selectSecondPlayer();	
 
 		if (firstTurn == 1) {
 			System.out.println("You go first." + "\n");
@@ -162,6 +158,7 @@ public class Game extends GameShared {
 	 * 
 	 * @param compPlayer
 	 */
+	@Override
 	public void turnComputer(AIPlayer compPlayer) {
 		displayPointsAsList();
 		ArrayList<Line> filled_Lines_At_Start_Of_Turn = getFilledLine(compPlayer);
@@ -230,8 +227,7 @@ public class Game extends GameShared {
 
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_Start_Of_Turn)))
 				&& filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
-			System.out.println("The computer formed a new line at: ");
-			System.out.print(getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
+			System.out.println("The computer formed a new line!");
 			System.out.println("The computer removes one of your stones on the board." + "\n");
 			Stone removeStone = compPlayer.lookforBestRemove(getGameBoard(),
 					selectFirstPlayer());
