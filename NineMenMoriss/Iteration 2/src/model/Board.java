@@ -54,26 +54,26 @@ public class Board {
 		// squares[2] = innerSquare;
 
 		try {
-			northMidLine = new Line("North Mid Line", squares[2].getNorthLine().getMidPoint(),
-					squares[1].getNorthLine().getMidPoint(), squares[0].getNorthLine().getMidPoint());
+			northMidLine = new Line("North Mid Line", squares[2].getLines()[3].getPoints()[1],
+					squares[1].getLines()[3].getPoints()[1], squares[0].getLines()[3].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			westMidLine = new Line("West Mid Line", squares[2].getWestLine().getMidPoint(),
-					squares[1].getWestLine().getMidPoint(), squares[0].getWestLine().getMidPoint());
+			westMidLine = new Line("West Mid Line", squares[2].getLines()[1].getPoints()[1],
+					squares[1].getLines()[1].getPoints()[1], squares[0].getLines()[1].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			eastMidLine = new Line("East Mid Line", squares[2].getEastLine().getMidPoint(),
-					squares[1].getEastLine().getMidPoint(), squares[0].getEastLine().getMidPoint());
+			eastMidLine = new Line("East Mid Line", squares[2].getLines()[2].getPoints()[1],
+					squares[1].getLines()[2].getPoints()[1], squares[0].getLines()[2].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
-			southMidLine = new Line("South Mid Line", squares[2].getSouthLine().getMidPoint(),
-					squares[1].getSouthLine().getMidPoint(), squares[0].getSouthLine().getMidPoint());
+			southMidLine = new Line("South Mid Line", squares[2].getLines()[0].getPoints()[1],
+					squares[1].getLines()[0].getPoints()[1], squares[0].getLines()[0].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,10 +101,10 @@ public class Board {
 	 */
 	public void displayBoard() {
 		for (int i = 0; i < squares.length; i++) {
-			System.out.println("Points on the North Lines: " + squares[i].getNorthLine().getPoints());
-			System.out.println("Points on the East Lines: " + squares[i].getEastLine().getPoints());
-			System.out.println("Points on the West Lines: " + squares[i].getWestLine().getPoints());
-			System.out.println("Points on the South Lines: " + squares[i].getSouthLine().getPoints());
+			System.out.println("Points on the North Lines: " + squares[i].getLines()[3].getPoints());
+			System.out.println("Points on the East Lines: " + squares[i].getLines()[2].getPoints());
+			System.out.println("Points on the West Lines: " + squares[i].getLines()[1].getPoints());
+			System.out.println("Points on the South Lines: " + squares[i].getLines()[0].getPoints());
 		}
 	}
 
