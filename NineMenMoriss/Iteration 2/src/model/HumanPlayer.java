@@ -44,13 +44,24 @@ public class HumanPlayer extends Player {
 	 */
 	public Stone selectStoneToMove(ArrayList<Stone> stonesToSelect) {
 		int index;
+		index = -1;
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the index of the stone you wish to select.");
-		index = input.nextInt();
 
 		while (index < 0 || index >= stonesToSelect.size()) {
-			System.out.println("Invalid stone. Enter the index of the stone you wish to move");
-			index = input.nextInt();
+			System.out.println("Enter the index of the stone you wish to select");
+			
+			try {
+				index = input.nextInt();	
+				if (index < 0 || index >= stonesToSelect.size()) {
+					throw new Exception();
+				}
+			} catch (InputMismatchException nfe) {
+				System.out.println("Error: InputMismatchException. Must enter integer");
+				input.next();
+					
+			} catch (Exception e) {
+				System.out.println("Invalid stone. Must enter an index from the list.");
+			}	
 		}
 
 		return stonesToSelect.get(index);
@@ -71,12 +82,13 @@ public class HumanPlayer extends Player {
 				System.out.println("Enter the index of the point you wish to choose");
 				try {
 					index = input.nextInt();	
-					if (index < 0 || index > pointsList.size()) {
+					if (index < 0 || index >= pointsList.size()) {
 						throw new Exception();
 					}
-				} catch (InputMismatchException ime) {
+				} catch (InputMismatchException nfe) {
 					System.out.println("Error: InputMismatchException. Must enter integer");
 					index = -1;
+					
 					
 				} catch (Exception e) {
 					System.out.println("Invalid point. Must be a point between index 0 to 23.");
@@ -99,15 +111,26 @@ public class HumanPlayer extends Player {
 	 */
 	public Stone selectStoneToRemove(ArrayList<Stone> stonesOfOpponent) {
 		int index;
+		index = -1;
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the index of the stone you wish to remove.");
-		index = input.nextInt();
-
+		
 		while (index < 0 || index >= stonesOfOpponent.size()) {
-			System.out.println("Invalid stone. Enter the index of the stone you wish to remove.");
-			index = input.nextInt();
+			System.out.println("Enter the index of the stone you wish to remove.");
+			
+			try {
+				index = input.nextInt();	
+				if (index < 0 || index >= stonesOfOpponent.size()) {
+					throw new Exception();
+				}
+			} catch (InputMismatchException nfe) {
+				System.out.println("Error: InputMismatchException. Must enter integer");
+				input.next();
+					
+			} catch (Exception e) {
+				System.out.println("Invalid stone. Must enter an index from the list.");
+			}	
 		}
-
+		
 		return stonesOfOpponent.get(index);
 	}
 
