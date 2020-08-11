@@ -361,7 +361,7 @@ public class GameController extends GameShared {
         	pauseAndPlayForAI();
     	}
         else {
-            setAnimationAllPoints();        	
+        	promptEachTurn();
         }
     }
     
@@ -370,19 +370,19 @@ public class GameController extends GameShared {
      */
     public void promptEachTurn() {
     	if (selectFirstPlayer().getNumberOfPlacedStones() == 9) {
-    		// stage 2 or 3; select stone first; disable all buttons; enable all human stones for click
-    		statusLabel.setText("Choose a stone to move");
+    		// stage 2 or 3; select stone first; enable player stones for selection
+    		statusLabel.setText("YOUR TURN: Choose a stone to move");
 
     		for (Circle humanStone : humanStones) {
     			humanStone.setDisable(false);
     		}
 
-    		for (Button point : allPoints) {
-    			point.setDisable(true);
-    		}
     	}
     	else {
-    		statusLabel.setText("Choose a point to place a stone");
+    		statusLabel.setText("YOUR TURN: Choose a point to place a stone");
+    		for (Button point : allPoints) {
+    			point.setDisable(false);
+    		}
     	}
     }    
     
@@ -536,17 +536,13 @@ public class GameController extends GameShared {
 	    	pauseTimer3.setDuration(Duration.millis(3500));
 	    	pauseTimer2.setDuration(Duration.millis(3500));
 		}
-		else {
-			// Player's turn without removing stone
-			promptEachTurn();
-		}
-		
+
 		if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
 			pauseTimer3.setOnFinished(event -> setAnimationAllPoints());
 			pauseTimer3.play();
 		}
 		pauseTimer3.setDuration(Duration.millis(1500));
-		pauseTimer2.setOnFinished(event -> enablePointsandStones());
+		pauseTimer2.setOnFinished(event -> promptEachTurn());
 		pauseTimer2.play();
 		pauseTimer2.setDuration(Duration.millis(1500));
 	}
@@ -569,6 +565,7 @@ public class GameController extends GameShared {
 	 */
     @FXML
     public void pointClicked(ActionEvent event) {
+    	disablePointsAndStones();
     	stopAnimationPoints();
     	
     	Button button = (Button)event.getSource();
@@ -600,18 +597,27 @@ public class GameController extends GameShared {
 	 * @param compPlayer
 	 */
     private boolean humanTurnPlaceStage(Button button) {
+    	boolean moveWasValid;
 		destination = chooseLocation(button);
 		
 		// Check if player chooses an empty location		
 		if (destination.getOccupiedPlayer() != 0) {
 			statusLabel.setText("Invalid location; please try again");
-			return false;
+
+	   		for (Button point : allPoints) {
+	   			point.setDisable(false);
+	   		}
+	   		
+            setAnimationAllPoints();        	
+            moveWasValid = false;
 		}
 		else {
     		stonePlacedNewVisually(getPlayerNumOne());
     		moveStone(selectFirstPlayer(), null, destination);
-    		return true;
-		}		
+    		moveWasValid = true;
+		}	
+		
+		return moveWasValid;
     }
     
 	/**
@@ -638,7 +644,12 @@ public class GameController extends GameShared {
         // Check if the point chosen is empty
         if (!validAdjacent || destination.getOccupiedPlayer() != 0) {
         	statusLabel.setText("Invalid destination. Try again");
-        	
+
+        	// reset to the beginning; make human stones clickable
+    		for (Circle humanStone : humanStones) {
+    			humanStone.setDisable(false);
+    		}
+
     		moveWasValid = false;
         }
         else {
@@ -648,15 +659,6 @@ public class GameController extends GameShared {
     		moveWasValid = true;        	
         }
         
-    	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
-		for (Circle humanStone : humanStones) {
-			humanStone.setDisable(false);
-		}
-
-		for (Button point : allPoints) {
-			point.setDisable(true);
-		}
-
         return moveWasValid;
     }
     
@@ -673,6 +675,11 @@ public class GameController extends GameShared {
 		if (destination.getOccupiedPlayer() != 0) {
 			statusLabel.setText("Invalid location; please try again");    				
 
+        	// reset to the beginning; make human stones clickable
+    		for (Circle humanStone : humanStones) {
+    			humanStone.setDisable(false);
+    		}
+
     		moveWasValid = false;;
 		}
 		else {			
@@ -682,15 +689,6 @@ public class GameController extends GameShared {
 			moveWasValid = true;
 		}
 
-    	// Points will be disabled and human stones will be clickable to prepare for either reset or a new turn
-		for (Circle humanStone : humanStones) {
-			humanStone.setDisable(false);
-		}
-		
-		for (Button point : allPoints) {
-			point.setDisable(true);
-		}
-		
 		return moveWasValid;
     }
     
@@ -707,18 +705,10 @@ public class GameController extends GameShared {
 		if ((!filled_Lines_At_End_Of_Turn.equals(filledLines_StartTurn)) && filled_Lines_At_End_Of_Turn.size() >= filledLines_StartTurn.size()) {
 	    	statusLabel.setText("You formed a line!\nSelect a stone to remove");
 	    	
-			// A new mill was found; only computer stones will be selectable
+			// A new mill was found; only computer stones will be selectable for removal
     		for (Circle compStone : compStones) {
     			compStone.setDisable(false);
     		}
-
-    		for (Circle humanStone : humanStones) {
-    			humanStone.setDisable(true);
-    		}
-
-    		for (Button point : allPoints) {
-    			point.setDisable(true);
-    		}    		
 		}
 		else {
 			// A mill was not found. It is the computer's turn
@@ -1001,8 +991,8 @@ public class GameController extends GameShared {
 		}
 
 		stopAnimationPoints();
-    	statusLabel.setText("Choose a destination point");
-    	
+    	statusLabel.setText("YOUR TURN: Choose a destination point");
+
 		if (selectFirstPlayer().getNumberOfTotalStones() > 3) {
 	    	setAnimationAvailablePoints(stoneLocation);			
 		}
@@ -1044,22 +1034,11 @@ public class GameController extends GameShared {
         			endGame();
         		}
         		else {
-                	if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
-                		for (Button point : allPoints) {
-                			point.setDisable(false);
-                		}
-                	}
-                	else {
-                		for (Circle humanStone : humanStones) {
-                			humanStone.setDisable(false);
-                		}
-                	}
+            		for (Circle compStone : compStones) {
+            			compStone.setDisable(true);
+            		}
 
-                	for (Circle compStone : compStones) {
-                		compStone.setDisable(true);
-                	}
-
-                	pauseAndPlayForAI();
+            		pauseAndPlayForAI();
         		}
     		}
     	}
@@ -1140,7 +1119,7 @@ public class GameController extends GameShared {
 	}
 
     /**
-     * Visually moves an existing associated with the stone on the board
+     * Visually moves an existing stone on GUI
      * 
      * @param playerNum Player number that indicates whether it is Human or AI
      */
@@ -1323,31 +1302,7 @@ public class GameController extends GameShared {
 			compStone.setDisable(true);
 		}
 	}
-	
-	/**
-	 * Enable points and stones clickable, for available points or stones depending on the situation
-	 */
-	private void enablePointsandStones() {
-		if (selectFirstPlayer().getNumberOfPlacedStones() < 9) {
-			for (Button point : allPoints) {
-				point.setDisable(false);
-			}
-		}
-		else {
-			for (Button point : allPoints) {
-				point.setDisable(true);
-			}
-			
-			for (Circle humanStone : humanStones) {
-				humanStone.setDisable(false);
-			}
-
-			for (Circle compStone : compStones) {
-				compStone.setDisable(false);
-			}
-		}
-	}
-	
+		
 	/**
 	 * Get a button from location of the point
 	 * 
@@ -1490,10 +1445,10 @@ public class GameController extends GameShared {
 	}
 	
 	private void pauseAndPlayForAI() {
+    	disablePointsAndStones();
 		pauseTimer.setOnFinished(event -> turnComputer(selectSecondPlayer()));
 		statusLabel.setText("The Computer is thinking...");
 		stopAnimationPoints();
-    	disablePointsAndStones();
     	pauseTimer.play();
 	}
 	
