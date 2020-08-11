@@ -354,49 +354,6 @@ public class GameController extends GameShared {
      * Performs first turn; if the AI goes first it will call the AI to take its turn
      */
     public void firstTurnPlay() {
-        humanStones[0] = humanStone1;
-        humanStones[1] = humanStone2;
-        humanStones[2] = humanStone3;
-        humanStones[3] = humanStone4;
-        humanStones[4] = humanStone5;
-        humanStones[5] = humanStone6;
-        humanStones[6] = humanStone7;
-        humanStones[7] = humanStone8;
-        humanStones[8] = humanStone9;
-        compStones[0] = compStone1;
-        compStones[1] = compStone2;
-        compStones[2] = compStone3;
-        compStones[3] = compStone4;
-        compStones[4] = compStone5;
-        compStones[5] = compStone6;
-        compStones[6] = compStone7;
-        compStones[7] = compStone8;
-        compStones[8] = compStone9;
-        allPoints[0] = outSqLineSEnd1;
-        allPoints[1] = outSqLineSMid;
-        allPoints[2] = outSqLineSEnd2;
-        allPoints[3] = outSqLineWMid;
-        allPoints[4] = outSqLineEMid;
-        allPoints[5] = outSqLineNEnd1;
-        allPoints[6] = outSqLineNMid;
-        allPoints[7] = outSqLineNEnd2;
-        allPoints[8] = midSqLineSEnd1;
-        allPoints[9] = midSqLineSMid;
-        allPoints[10] = midSqLineSEnd2;
-        allPoints[11] = midSqLineWMid;
-        allPoints[12] = midSqLineEMid;
-        allPoints[13] = midSqLineNEnd1;
-        allPoints[14] = midSqLineNMid;
-        allPoints[15] = midSqLineNEnd2;
-        allPoints[16] = innSqLineSEnd1;
-        allPoints[17] = innSqLineSMid;
-        allPoints[18] = innSqLineSEnd2;
-        allPoints[19] = innSqLineWMid;
-        allPoints[20] = innSqLineEMid;
-        allPoints[21] = innSqLineNEnd1;
-        allPoints[22] = innSqLineNMid;
-        allPoints[23] = innSqLineNEnd2;
-
         if (getFirstPlayer() == 2) {
         	pauseAndPlayForAI();
     	}
@@ -581,7 +538,6 @@ public class GameController extends GameShared {
 			pauseTimer3.setOnFinished(event -> setAnimationAllPoints());
 			pauseTimer3.play();
 		}
-
 		pauseTimer3.setDuration(Duration.millis(1500));
 		pauseTimer2.setOnFinished(event -> promptEachTurn());
 		pauseTimer2.play();
@@ -1489,10 +1445,52 @@ public class GameController extends GameShared {
     void initialize() {
         assert exitButton != null : "fx:id=\"exitButton\" was not injected: check your FXML file 'Board.fxml'.";
         assert rulesButton != null : "fx:id=\"rulesButton\" was not injected: check your FXML file 'Board.fxml'.";
+        humanStones[0] = humanStone1;
+        humanStones[1] = humanStone2;
+        humanStones[2] = humanStone3;
+        humanStones[3] = humanStone4;
+        humanStones[4] = humanStone5;
+        humanStones[5] = humanStone6;
+        humanStones[6] = humanStone7;
+        humanStones[7] = humanStone8;
+        humanStones[8] = humanStone9;
+        compStones[0] = compStone1;
+        compStones[1] = compStone2;
+        compStones[2] = compStone3;
+        compStones[3] = compStone4;
+        compStones[4] = compStone5;
+        compStones[5] = compStone6;
+        compStones[6] = compStone7;
+        compStones[7] = compStone8;
+        compStones[8] = compStone9;
+        allPoints[0] = outSqLineSEnd1;
+        allPoints[1] = outSqLineSMid;
+        allPoints[2] = outSqLineSEnd2;
+        allPoints[3] = outSqLineWMid;
+        allPoints[4] = outSqLineEMid;
+        allPoints[5] = outSqLineNEnd1;
+        allPoints[6] = outSqLineNMid;
+        allPoints[7] = outSqLineNEnd2;
+        allPoints[8] = midSqLineSEnd1;
+        allPoints[9] = midSqLineSMid;
+        allPoints[10] = midSqLineSEnd2;
+        allPoints[11] = midSqLineWMid;
+        allPoints[12] = midSqLineEMid;
+        allPoints[13] = midSqLineNEnd1;
+        allPoints[14] = midSqLineNMid;
+        allPoints[15] = midSqLineNEnd2;
+        allPoints[16] = innSqLineSEnd1;
+        allPoints[17] = innSqLineSMid;
+        allPoints[18] = innSqLineSEnd2;
+        allPoints[19] = innSqLineWMid;
+        allPoints[20] = innSqLineEMid;
+        allPoints[21] = innSqLineNEnd1;
+        allPoints[22] = innSqLineNMid;
+        allPoints[23] = innSqLineNEnd2;
     	fadeTransition.setFromValue(1.0);
     	fadeTransition.setToValue(0.0);
     	fadeTransition.setCycleCount(Animation.INDEFINITE);
         setGameConfig();
-        firstTurnPlay();    	
+        firstTurnPlay();
     }
 }
