@@ -230,6 +230,7 @@ public class GameController extends GameShared {
      */
     @FXML
     public void rulesPressed(ActionEvent event) {
+    	MainController.displayRules(event);
     }
 
     /**

@@ -20,8 +20,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 
 public class MainController {
-	private Stage ruleStage;
-	private boolean firstRulesOpen = false;
+	private static Stage ruleStage;
+	private static boolean firstRulesOpen = false;
 
 	@FXML
 	private Button quitButton;
@@ -62,7 +62,7 @@ public class MainController {
 	 * @param event
 	 */
 	@FXML
-	public void displayRules(ActionEvent event) {
+	public static void displayRules(ActionEvent event) {
 		if (!firstRulesOpen) {
 			// only create a new rule stage when it is loaded for the first time. Otherwise
 			// simply show the stage.
