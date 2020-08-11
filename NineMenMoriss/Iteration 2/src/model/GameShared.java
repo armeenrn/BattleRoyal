@@ -44,13 +44,33 @@ public class GameShared {
 		goFirst = rand.nextInt(2) + 1; 		
 		
 		if (goFirst == HUMAN_PLAYER_NUM) {
-			player1 = new HumanPlayer("YOU", 1, true, gameBoard);
-			player2 = new AIPlayer("COMPUTER", 2, false, gameBoard);	
+			try {
+				player1 = new HumanPlayer("YOU", 1, true, gameBoard);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				player2 = new AIPlayer("COMPUTER", 2, false, gameBoard);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 		
 		if (goFirst == COMP_PLAYER_NUM) {
-			player1 = new HumanPlayer("YOU", 1, false, gameBoard);
-			player2 = new AIPlayer("COMPUTER", 2, true, gameBoard);	
+			try {
+				player1 = new HumanPlayer("YOU", 1, false, gameBoard);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				player2 = new AIPlayer("COMPUTER", 2, true, gameBoard);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 			
 		}
 
@@ -236,8 +256,16 @@ public class GameShared {
 		
 		for (Stone eachStone : player.getStones()) {
 			for (Line eachLine : getFilledLine(player)) {
-				if (eachLine.doesLineContain(eachStone) == true) {
-					shouldAdd = false;
+				try {
+					if (eachLine.doesLineContain(eachStone) == true) {
+						shouldAdd = false;
+					}
+				} catch (NullPointerException e) {
+
+					e.printStackTrace();
+				} catch (Exception e) {
+					
+					e.printStackTrace();
 				}
 			}
 			
@@ -291,42 +319,47 @@ public class GameShared {
 		if (checkIfPointIsUnOccupied(pointToSelect) == 0) {
 			for (Square eachSquare : gameBoard.getSquares()) {
 				for (Line eachLine : eachSquare.getLines()) {
-					if (eachLine.doesLineContain(stoneToSelect) == true) { 	/* checking if each line has the stone */
-						if (eachLine.doesLineContainPoint(pointToSelect) == true) {
-							
-							/* 
-							 * if the stone is on EndPoint1 of the line, 
-							 * 	we check if the point selected is on the adjacent midPoint
-							 */
-							
-							if (eachLine.getPoints()[0] == stoneToSelect.getLocation()) {
-								if (eachLine.getPoints()[1] == pointToSelect) {
-									answer = true;
+					try {
+						if (eachLine.doesLineContain(stoneToSelect) == true) { 	/* checking if each line has the stone */
+							if (eachLine.doesLineContainPoint(pointToSelect) == true) {
+								
+								/* 
+								 * if the stone is on EndPoint1 of the line, 
+								 * 	we check if the point selected is on the adjacent midPoint
+								 */
+								
+								if (eachLine.getPoints()[0] == stoneToSelect.getLocation()) {
+									if (eachLine.getPoints()[1] == pointToSelect) {
+										answer = true;
+									}
+								}
+								
+								/*
+								 * if the stone is on a midPoint of the line, 
+								 * 	we check if the point selected is on either adjacent end point
+								 */
+								
+								else if (eachLine.getPoints()[1] == stoneToSelect.getLocation()) {
+									if ((eachLine.getPoints()[0] == pointToSelect) || (eachLine.getPoints()[2] == pointToSelect)) {
+										answer = true;
+									}	
+								}
+								
+								/*
+								 * if the stone selected is on EndPoint2 of the line, 
+								 * 	we check if the point selected is on the adjacent midPoint
+								 */
+								
+								else if (eachLine.getPoints()[2] == stoneToSelect.getLocation()) {
+									if (eachLine.getPoints()[1] == pointToSelect) {
+										answer = true;
+									}	
 								}
 							}
-							
-							/*
-							 * if the stone is on a midPoint of the line, 
-							 * 	we check if the point selected is on either adjacent end point
-							 */
-							
-							else if (eachLine.getPoints()[1] == stoneToSelect.getLocation()) {
-								if ((eachLine.getPoints()[0] == pointToSelect) || (eachLine.getPoints()[2] == pointToSelect)) {
-									answer = true;
-								}	
-							}
-							
-							/*
-							 * if the stone selected is on EndPoint2 of the line, 
-							 * 	we check if the point selected is on the adjacent midPoint
-							 */
-							
-							else if (eachLine.getPoints()[2] == stoneToSelect.getLocation()) {
-								if (eachLine.getPoints()[1] == pointToSelect) {
-									answer = true;
-								}	
-							}
 						}
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			}
