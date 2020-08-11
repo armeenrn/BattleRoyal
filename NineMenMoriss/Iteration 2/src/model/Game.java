@@ -28,11 +28,11 @@ public class Game extends GameShared {
 	 * play runs the game
 	 */
 	public void play() {
+		setGameConfig();
+
 		int firstTurn = getFirstPlayer();
 		HumanPlayer player1 = selectFirstPlayer();
-		AIPlayer player2 = selectSecondPlayer();
-		
-		setGameConfig();
+		AIPlayer player2 = selectSecondPlayer();	
 
 		if (firstTurn == 1) {
 			System.out.println("You go first." + "\n");
@@ -162,6 +162,7 @@ public class Game extends GameShared {
 	 * 
 	 * @param compPlayer
 	 */
+	@Override
 	public void turnComputer(AIPlayer compPlayer) {
 		displayPointsAsList();
 		ArrayList<Line> filled_Lines_At_Start_Of_Turn = getFilledLine(compPlayer);
@@ -230,8 +231,7 @@ public class Game extends GameShared {
 
 		if ((!(filled_Lines_At_End_Of_Turn.equals(filled_Lines_At_Start_Of_Turn)))
 				&& filled_Lines_At_End_Of_Turn.size() >= filled_Lines_At_Start_Of_Turn.size()) {
-			System.out.println("The computer formed a new line at: ");
-			System.out.print(getFilledLine(compPlayer).get(filled_Lines_At_End_Of_Turn.size() - 1));
+			System.out.println("The computer formed a new line!");
 			System.out.println("The computer removes one of your stones on the board." + "\n");
 			Stone removeStone = compPlayer.lookforBestRemove(getGameBoard(),
 					selectFirstPlayer());
