@@ -6,8 +6,9 @@ import java.util.ArrayList;
  * This class keeps track of the player's name, stones, first or second turn.
  * All the details about the player during the game can be extracted from here.
  * 
- * @author Srishti
- *
+ * 	10.00 6 August 2020
+ * 	@author Srishti Pahel
+ * 	Team D
  */
 public class Player {
 	private ArrayList<Stone> stones;
@@ -85,7 +86,7 @@ public class Player {
 	 * A getter method to get total number of placed stones at any given moment
 	 * during the game.
 	 * 
-	 * @return number od stones placed on the board
+	 * @return number of stones placed on the board
 	 */
 	public int getNumberOfPlacedStones() {
 		return placedStones;
@@ -235,7 +236,6 @@ public class Player {
 			adjacentPoints.add(allPoints[20]);
 			adjacentPoints.add(allPoints[22]);
 		} else {
-			// shouldn't happen.
 			System.out.println(
 					"ArrayList currentPoint contains an error. It is either empty or some index values do not exist.");
 		}
@@ -243,76 +243,3 @@ public class Player {
 		return adjacentPoints;
 	}
 }
-
-//MY OLD code
-//import java.util.Scanner;
-//public class Player {
-//	
-//	private String name;
-//	
-//	private Stone[] stonesRemaining;
-//	
-//	private Stone[] stonesOnBoard;
-//
-//	public Player(String name) {
-//		this.name = name;
-//		stonesRemaining = new Stone[9];
-//		
-//		for (int index = 0; index < stonesRemaining.length; index++) {
-//			stonesRemaining[index] = new Stone();
-//		}
-//		
-//		stonesOnBoard = new Stone[9];
-//	}
-//	
-//	public String getName() {
-//		return name;
-//	}
-//	
-//	public Stone[] getStonesRemaining() {
-//		
-//		return stonesRemaining;
-//	}
-//	
-//	public Stone[] getStonesOnBoard() {
-//		
-//		return stonesOnBoard;
-//	}
-//	
-//	public Stone chooseANewStone() {
-//		Stone result = null;
-//	
-//		
-//		for (int index = 0; index < stonesRemaining.length; index++) {
-//			if (stonesRemaining[index] != null) {
-//				result = stonesRemaining[index];
-//				stonesRemaining[index] = null;
-//				index = stonesRemaining.length;
-//			}
-//		}
-//		
-//		if (result != null) {
-//			addStoneToBoardList(result);
-//		}
-//		
-//		return result;
-//	}
-//	
-//	
-//	public Stone chooseExistingStone(int whatToChoose) {
-//		return getStonesOnBoard()[whatToChoose];
-//	}
-// 	
-//	
-//	public void addStoneToBoardList(Stone newStone) {
-//		
-//		for (int index = 0; index < stonesOnBoard.length; index++) {
-//			if (stonesOnBoard[index] == null) {
-//				stonesOnBoard[index] = newStone;
-//				index = stonesOnBoard.length;
-//			}
-//		}
-//	}
-//	
-//	
-//}

@@ -1,13 +1,15 @@
 /*
- * Point represents the a point on the board
+ * Point represents the point on the board
  */
 
 package model;
 
 /**
- * public class Point creates the points on the board 10.00 6 August 2020
+ * public class Point creates the points on the board 
  * 
- * @author Armeen Rashidian, Daniel Kim Team D
+ * 	10.00 6 August 2020
+ *	@author Armeen Rashidian, Daniel Kim 
+ * 	Team D
  */
 
 public class Point {

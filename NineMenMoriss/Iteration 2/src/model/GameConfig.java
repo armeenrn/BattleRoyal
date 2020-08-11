@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /** 
- * public class GameConfig runs the GUI program
+ * public class GameConfig has shared methods of both GUI and text versions of the program
  * 
  * 	10.00 6 August 2020
  * 	@author Daniel Kim, Armeen Rashidian
@@ -354,7 +354,7 @@ public abstract class GameConfig {
 							}
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 				}
@@ -365,7 +365,7 @@ public abstract class GameConfig {
 	}
 
 	/**
-	 * getAdjacentPoints returns an Arraylist of the available adjacent points that a particular stone can be moved to
+	 * getAdjacentPoints returns an ArrayList of the available adjacent points that a particular stone can be moved to
 	 * 	@param stoneToMove, the stone that has been selected to be moved
 	 * 	@return adjacentPoints, an ArrayList of the available points that are adjacent to that selected stone
 	 */

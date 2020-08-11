@@ -2,10 +2,11 @@ package model;
 
 /**
  * The class can be accessed to view details about any and all stones of any
- * player.
+ * 	player.
  * 
- * @author Srishti
- *
+ * 	10.00 6 August 2020
+ * 	@author Srishti Pahel
+ *	Team D
  */
 public class Stone {
 	private Point location;

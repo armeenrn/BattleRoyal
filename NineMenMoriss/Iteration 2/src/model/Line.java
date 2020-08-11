@@ -6,7 +6,7 @@
  * print appropriate message based on the information gathered about the stones
  * and their relative position on the board.
  * 
- * @author Srishti
+ * @author Srishti Pahel
  * @version 1.1
  * 10.00 6 August 2020
  * Team D
@@ -15,11 +15,7 @@ package model;
 
 public class Line {
 	private String name;
-	/*
-	private Point endPoint1;
-	private Point midPoint;
-	private Point endPoint2;
-	*/
+	
 	private Point[] points;
 
 	/**
@@ -46,20 +42,8 @@ public class Line {
 		}
 	}
 
-	public Point[] getPoints() {// Why is this Point [] only whereas other getter methods use Point only?
+	public Point[] getPoints() {
 		return points;
-	}
-/*
-	public Point getEndPoint1() {
-		return endPoint1;
-	}
-
-	public Point getEndPoint2() {
-		return endPoint2;
-	}
-
-	public Point getMidPoint() {
-		return midPoint;
 	}
 
 	/**
@@ -68,7 +52,7 @@ public class Line {
 	 * @param player Player in which stones will be checked
 	 * @return Indicates if the line is filled
 	 */
-	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
+	public boolean isLineFilled(Player player) {
 		if (points[0].getOccupiedPlayer() == player.getPlayerNumber()) {
 			if (points[0].getOccupiedPlayer() == points[1].getOccupiedPlayer()) {
 				if (points[1].getOccupiedPlayer() == points[2].getOccupiedPlayer()) {

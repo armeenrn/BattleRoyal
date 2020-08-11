@@ -1,7 +1,7 @@
 /**
  * Has all the text prompts for the game
  * 
- * @author armeen rashidian
+ * @author Armeen Rashidian
  * @version 1.0
  * 10.00 6 August 2020
  * Team D
