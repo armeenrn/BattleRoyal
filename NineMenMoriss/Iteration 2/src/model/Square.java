@@ -9,10 +9,12 @@ package model;
  */
 public class Square {
 	private String name;
+	/*
 	private Line lineN;
 	private Line lineW;
 	private Line lineE;
 	private Line lineS;
+	*/
 	private Line[] lines;
 
 	/**
@@ -38,18 +40,20 @@ public class Square {
 			Point midNorth = new Point(startX + size / 2, startY + size);
 			Point northEast = new Point(startX + size, startY + size);
 			Point midEast = new Point(startX + size, startY + size / 2);
-
-			lineN = new Line("lineN", northWest, midNorth, northEast);
-			lineW = new Line("lineW", southWest, midWest, northWest);
-			lineE = new Line("lineE", southEast, midEast, northEast);
-			lineS = new Line("lineS", southWest, midSouth, southEast);
-
+			
 			lines = new Line[4];
 
+			lines[3] = new Line("lineN", northWest, midNorth, northEast);
+			lines[2] = new Line("lineE", southEast, midEast, northEast);
+			lines[1] = new Line("lineW", southWest, midWest, northWest);
+			lines[0] = new Line("lineS", southWest, midSouth, southEast);
+			
+			/*
 			lines[0] = lineS;
 			lines[1] = lineW;
 			lines[2] = lineE;
 			lines[3] = lineN;
+			*/
 		} catch (Exception cnf) {
 			System.out.println("Classes used do not exist: " + cnf);
 		}
@@ -68,28 +72,31 @@ public class Square {
 			throws ClassNotFoundException {
 		name = "pseudo-square";
 		try {
-			lineN = northMidLine;
-			lineW = westMidLine;
-			lineE = eastMidLine;
-			lineS = southMidLine;
-
 			lines = new Line[4];
-
+			
+			lines[3] = northMidLine;
+			lines[2] = eastMidLine;
+			lines[1] = westMidLine;
+			lines[0] = southMidLine;
+			
+			/*
 			lines[0] = lineN;
 			lines[1] = lineW;
 			lines[2] = lineE;
 			lines[3] = lineS;
+			*/
 		} catch (Exception cnf) {
 			System.out.println("Classes used do not exist: " + cnf);
 		}
 
 	}
 
-	/**
+	/*
 	 * Getter method to retrieve north Line of the Square object
 	 * 
 	 * @return North Line object
 	 */
+	/*
 	public Line getNorthLine() {
 		return lineN;
 	}
@@ -99,6 +106,7 @@ public class Square {
 	 * 
 	 * @return West Line object
 	 */
+	/*
 	public Line getWestLine() {
 		return lineW;
 	}
@@ -108,6 +116,7 @@ public class Square {
 	 * 
 	 * @return East Line object
 	 */
+	/*
 	public Line getEastLine() {
 		return lineE;
 	}
@@ -117,6 +126,7 @@ public class Square {
 	 * 
 	 * @return South Line object
 	 */
+	/*
 	public Line getSouthLine() {
 		return lineS;
 	}
