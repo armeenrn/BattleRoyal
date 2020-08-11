@@ -353,8 +353,8 @@ public class AIPlayer extends Player {
 				if (numEmptyPoint == 2 && numCompPoint == 1) {
 					if (getNumberOfPlacedStones() < 9) {
 						// placing stage; place a stone on the same line, prefer midpoint
-						if (line.getMidPoint().getOccupiedPlayer() == 0) {
-							pointToMoveTo = line.getMidPoint();
+						if (line.getPoints()[1].getOccupiedPlayer() == 0) {
+							pointToMoveTo = line.getPoints()[1];
 							return true;
 						}
 						else {
@@ -368,8 +368,8 @@ public class AIPlayer extends Player {
 							if (!currentStone.getDead()) {
 								bestMoveStone = currentStone;
 
-								if (line.getMidPoint().getOccupiedPlayer() == 0) {
-									pointToMoveTo = line.getMidPoint();
+								if (line.getPoints()[1].getOccupiedPlayer() == 0) {
+									pointToMoveTo = line.getPoints()[1];
 									return true;
 								}
 								else {
@@ -578,7 +578,7 @@ public class AIPlayer extends Player {
 				// Case 1-2
 				for (Point adjacentAdjacent : adjacentsToAdjacentPoint) {
 					if (adjacentAdjacent.getOccupiedPlayer() == 2) {
-						if (pointToTest == line.getMidPoint()) {
+						if (pointToTest == line.getPoints()[1]) {
 							// Case 1-2-1
 							bestMoveStone = adjacentPoint.getOccupiedStone();
 							pointToMoveTo = pointToTest;
