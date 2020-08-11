@@ -39,9 +39,6 @@ public class GameController extends GameShared {
 	@FXML
 	private Pane boardPane;
 	
-	@FXML
-	private Button hintButton;
-	
     @FXML
     private Button exitButton;
 
@@ -547,17 +544,6 @@ public class GameController extends GameShared {
 		pauseTimer2.setDuration(Duration.millis(1500));
 	}
 
-	/**
-	 * Shows hint when clicked
-	 * 
-	 * @param event Button click
- 	 */
-    @FXML
-    public void hintButtonClicked(ActionEvent event) {
-    	// prompt findbestmove methods
-
-    }
-    
     /**
 	 * Activates when any point is clicked
 	 * 
@@ -723,95 +709,95 @@ public class GameController extends GameShared {
      * @param point Clicked point
      */
     private void setCoordinatesStone(Point point) {
-    	if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getEndPoint1())) {
+    	if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getPoints()[0])) {
     		clickedX = outSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;    		
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getPoints()[1])) {
     		clickedX = outSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getEndPoint2())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[0].getPoints()[2])) {
     		clickedX = outSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[1].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[1].getPoints()[1])) {
     		clickedX = outSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[2].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[2].getPoints()[1])) {
     		clickedX = outSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getEndPoint1())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getPoints()[0])) {
     		clickedX = outSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getPoints()[1])) {
     		clickedX = outSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getEndPoint2())) {
+    	else if (point.equals(getGameBoard().getSquares()[0].getLines()[3].getPoints()[2])) {
     		clickedX = outSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getEndPoint1())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getPoints()[0])) {
     		clickedX = midSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getPoints()[1])) {
     		clickedX = midSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getEndPoint2())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[0].getPoints()[2])) {
     		clickedX = midSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[1].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[1].getPoints()[1])) {
     		clickedX = midSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[2].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[2].getPoints()[1])) {
     		clickedX = midSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getEndPoint1())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getPoints()[0])) {
     		clickedX = midSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getPoints()[1])) {
     		clickedX = midSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getEndPoint2())) {
+    	else if (point.equals(getGameBoard().getSquares()[1].getLines()[3].getPoints()[2])) {
     		clickedX = midSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getEndPoint1())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getPoints()[0])) {
     		clickedX = innSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getPoints()[1])) {
     		clickedX = innSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getEndPoint2())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[0].getPoints()[2])) {
     		clickedX = innSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[1].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[1].getPoints()[1])) {
     		clickedX = innSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[2].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[2].getPoints()[1])) {
     		clickedX = innSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[3].getEndPoint1())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[3].getPoints()[0])) {
     		clickedX = innSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
-    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[3].getMidPoint())) {
+    	else if (point.equals(getGameBoard().getSquares()[2].getLines()[3].getPoints()[1])) {
     		clickedX = innSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
@@ -831,146 +817,146 @@ public class GameController extends GameShared {
     	Point pointSelected;
     	
     	if (button.equals(outSqLineSEnd1)) {
-        	// get outerSquare().getLines()[0].getEndPoint1();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getEndPoint1();
+        	// get outerSquare().getLines()[0].getPoints()[0];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getPoints()[0];
     		clickedX = outSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineSMid)) {
-        	// get outerSquare().getLines()[0].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getMidPoint();
+        	// get outerSquare().getLines()[0].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getPoints()[1];
     		clickedX = outSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineSEnd2)) {
-        	// get outerSquare().getLines()[0].getEndPoint2();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getEndPoint2();
+        	// get outerSquare().getLines()[0].getPoints()[2];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[0].getPoints()[2];
     		clickedX = outSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineWMid)) {
-        	// get outerSquare().getLines()[1].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[1].getMidPoint();
+        	// get outerSquare().getLines()[1].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[1].getPoints()[1];
     		clickedX = outSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineEMid)) {
-        	// get outerSquare().getLines()[2].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[2].getMidPoint();
+        	// get outerSquare().getLines()[2].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[2].getPoints()[1];
     		clickedX = outSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineNEnd1)) {
-        	// get outerSquare().getLines()[3].getEndPoint1();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getEndPoint1();
+        	// get outerSquare().getLines()[3].getPoints()[0];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getPoints()[0];
     		clickedX = outSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineNMid)) {
-        	// get outerSquare().getLines()[3].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getMidPoint();
+        	// get outerSquare().getLines()[3].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getPoints()[1];
     		clickedX = outSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(outSqLineNEnd2)) {
-        	// get outerSquare().getLines()[3].getEndPoint2();
-    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getEndPoint2();
+        	// get outerSquare().getLines()[3].getPoints()[2];
+    		pointSelected = getGameBoard().getSquares()[0].getLines()[3].getPoints()[2];
     		clickedX = outSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = outSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineSEnd1)) {
-        	// get midSquare().getLines()[0].getEndPoint1();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getEndPoint1();
+        	// get midSquare().getLines()[0].getPoints()[0];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getPoints()[0];
     		clickedX = midSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineSMid)) {
-        	// get midSquare().getLines()[0].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getMidPoint();
+        	// get midSquare().getLines()[0].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getPoints()[1];
     		clickedX = midSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineSEnd2)) {
-        	// get midSquare().getLines()[0].getEndPoint2();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getEndPoint2();
+        	// get midSquare().getLines()[0].getPoints()[2];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[0].getPoints()[2];
     		clickedX = midSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineWMid)) {
-        	// get midSquare().getLines()[1].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[1].getMidPoint();
+        	// get midSquare().getLines()[1].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[1].getPoints()[1];
     		clickedX = midSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineEMid)) {
-        	// get midSquare().getLines()[2].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[2].getMidPoint();
+        	// get midSquare().getLines()[2].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[2].getPoints()[1];
     		clickedX = midSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineNEnd1)) {
-        	// get midSquare().getLines()[3].getEndPoint1();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getEndPoint1();
+        	// get midSquare().getLines()[3].getPoints()[0];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getPoints()[0];
     		clickedX = midSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineNMid)) {
-        	// get midSquare().getLines()[3].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getMidPoint();
+        	// get midSquare().getLines()[3].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getPoints()[1];
     		clickedX = midSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(midSqLineNEnd2)) {
-        	// get midSquare().getLines()[3].getEndPoint2();
-    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getEndPoint2();
+        	// get midSquare().getLines()[3].getPoints()[2];
+    		pointSelected = getGameBoard().getSquares()[1].getLines()[3].getPoints()[2];
     		clickedX = midSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = midSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineSEnd1)) {
-        	// get innerSquare().getLines()[0].getEndPoint1();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getEndPoint1();
+        	// get innerSquare().getLines()[0].getPoints()[0];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getPoints()[0];
     		clickedX = innSqLineSEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineSEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineSMid)) {
-        	// get innerSquare().getLines()[0].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getMidPoint();
+        	// get innerSquare().getLines()[0].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getPoints()[1];
     		clickedX = innSqLineSMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineSMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineSEnd2)) {
-        	// get innerSquare().getLines()[0].getEndPoint2();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getEndPoint2();
+        	// get innerSquare().getLines()[0].getPoints()[2];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[0].getPoints()[2];
     		clickedX = innSqLineSEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineSEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineWMid)) {
-        	// get innerSquare().getLines()[1].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[1].getMidPoint();
+        	// get innerSquare().getLines()[1].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[1].getPoints()[1];
     		clickedX = innSqLineWMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineWMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineEMid)) {
-        	// get innerSquare().getLines()[2].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[2].getMidPoint();
+        	// get innerSquare().getLines()[2].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[2].getPoints()[1];
     		clickedX = innSqLineEMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineEMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineNEnd1)) {
-        	// get innerSquare().getLines()[3].getEndPoint1();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getEndPoint1();
+        	// get innerSquare().getLines()[3].getPoints()[0];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getPoints()[0];
     		clickedX = innSqLineNEnd1.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineNEnd1.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineNMid)) {
-        	// get innerSquare().getLines()[3].getMidPoint();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getMidPoint();
+        	// get innerSquare().getLines()[3].getPoints()[1];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getPoints()[1];
     		clickedX = innSqLineNMid.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineNMid.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
     	else if (button.equals(innSqLineNEnd2)) {
-        	// get innerSquare().getLines()[3].getEndPoint2();
-    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getEndPoint2();
+        	// get innerSquare().getLines()[3].getPoints()[2];
+    		pointSelected = getGameBoard().getSquares()[2].getLines()[3].getPoints()[2];
     		clickedX = innSqLineNEnd2.getTranslateX() + MARGIN_LAYOUT_X_AND_Y;
     		clickedY = innSqLineNEnd2.getTranslateY() + MARGIN_LAYOUT_X_AND_Y;
     	}
@@ -1311,76 +1297,76 @@ public class GameController extends GameShared {
 	private Button getButtonFromPoint(Point point) {
 		Button selectedPoint;
 		
-    	if (point == getGameBoard().getSquares()[0].getLines()[0].getEndPoint1()) {
+    	if (point == getGameBoard().getSquares()[0].getLines()[0].getPoints()[0]) {
     		selectedPoint = outSqLineSEnd1;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[0].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[0].getPoints()[1]) {
     		selectedPoint = outSqLineSMid;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[0].getEndPoint2()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[0].getPoints()[2]) {
     		selectedPoint = outSqLineSEnd2;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[1].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[1].getPoints()[1]) {
     		selectedPoint = outSqLineWMid;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[2].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[2].getPoints()[1]) {
     		selectedPoint = outSqLineEMid;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getEndPoint1()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getPoints()[0]) {
     		selectedPoint = outSqLineNEnd1;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getPoints()[1]) {
     		selectedPoint = outSqLineNMid;
     	}
-    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getEndPoint2()) {
+    	else if (point == getGameBoard().getSquares()[0].getLines()[3].getPoints()[2]) {
     		selectedPoint = outSqLineNEnd2;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getEndPoint1()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getPoints()[0]) {
     		selectedPoint = midSqLineSEnd1;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getPoints()[1]) {
     		selectedPoint = midSqLineSMid;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getEndPoint2()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[0].getPoints()[2]) {
     		selectedPoint = midSqLineSEnd2;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[1].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[1].getPoints()[1]) {
     		selectedPoint = midSqLineWMid;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[2].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[2].getPoints()[1]) {
     		selectedPoint = midSqLineEMid;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getEndPoint1()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getPoints()[0]) {
     		selectedPoint = midSqLineNEnd1;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getPoints()[1]) {
     		selectedPoint = midSqLineNMid;
     	}
-    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getEndPoint2()) {
+    	else if (point == getGameBoard().getSquares()[1].getLines()[3].getPoints()[2]) {
     		selectedPoint = midSqLineNEnd2;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getEndPoint1()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getPoints()[0]) {
     		selectedPoint = innSqLineSEnd1;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getPoints()[1]) {
     		selectedPoint = innSqLineSMid;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getEndPoint2()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[0].getPoints()[2]) {
     		selectedPoint = innSqLineSEnd2;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[1].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[1].getPoints()[1]) {
     		selectedPoint = innSqLineWMid;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[2].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[2].getPoints()[1]) {
     		selectedPoint = innSqLineEMid;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getEndPoint1()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getPoints()[0]) {
     		selectedPoint = innSqLineNEnd1;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getMidPoint()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getPoints()[1]) {
     		selectedPoint = innSqLineNMid;
     	}
-    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getEndPoint2()) {
+    	else if (point == getGameBoard().getSquares()[2].getLines()[3].getPoints()[2]) {
     		selectedPoint = innSqLineNEnd2;
     	}
     	else {

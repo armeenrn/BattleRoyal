@@ -120,11 +120,6 @@
                </font>
             </Label>
             <Button fx:id="animationButton" layoutX="418.0" layoutY="413.0" mnemonicParsing="false" opacity="0.0" visible="false" />
-            <Button fx:id="hintButton" layoutX="389.0" layoutY="792.0" mnemonicParsing="false" onAction="#hintButtonClicked" text="Hint">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
          </children></Pane>
    </children>
 </Pane>
