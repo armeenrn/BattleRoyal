@@ -1,14 +1,10 @@
-/*
- * GameShared runs the GUI version of the game 
- */
-
 package model;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 /** 
- * public class GameShared runs the GUI program
+ * public class GameConfig has shared methods of both GUI and text versions of the program
  * 
  * 	10.00 6 August 2020
  * 	@author Daniel Kim, Armeen Rashidian
@@ -16,7 +12,7 @@ import java.util.Random;
  */
 
 
-public class GameShared {
+public abstract class GameConfig {
 	private double BOARDWIDTH = 30;
 	private double CENTER_X = 0;
 	private double CENTER_Y = 0;
@@ -358,7 +354,7 @@ public class GameShared {
 							}
 						}
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 				}
@@ -369,7 +365,7 @@ public class GameShared {
 	}
 
 	/**
-	 * getAdjacentPoints returns an Arraylist of the available adjacent points that a particular stone can be moved to
+	 * getAdjacentPoints returns an ArrayList of the available adjacent points that a particular stone can be moved to
 	 * 	@param stoneToMove, the stone that has been selected to be moved
 	 * 	@return adjacentPoints, an ArrayList of the available points that are adjacent to that selected stone
 	 */
@@ -410,5 +406,15 @@ public class GameShared {
 		
 		return pointsAsList;
 	}
+
+	/**
+	 * Performs a turn with AI
+	 * 
+	 * @param compPlayer
+	 */
+	public abstract void turnComputer(AIPlayer compPlayer); 
+		// TODO Auto-generated method stub
+		
+	
 	
 }

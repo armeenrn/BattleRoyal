@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>115</y>
+      <w>235</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>model::GameText
+--
+-BOARDWIDTH = 30: double
+-CENTER_X = 0: double
+-CENTER_Y = 0: double
+-player1: HumanPlayer
+-player2: AIPlayer
+-goFirst: int
+-playerList: Player[]
+-gameBoard: Board
+-NO_ONE_NUM = 0: int
+-HUMAN_PLAYER_NUM = 1: int
+-COMP_PLAYER_NUM = 2: int
+--
++setGameConfig(): void
++getGameBoard(): Board
++selectFirstPlayer(): HumanPlayer
++selectSecondPlayer(): AIPlayer
++getFirstPlayer(): int
++getPlayerNumOne(): int
++getPlayerNumTwo(): int
++getFilledLine(Player player): ArrayList&lt;Line&gt;
++setNewStoneInPlace(Player player, Point place): void
++move(Player player, Stone stone, Point place): void
++getStonesOfOpponent(Player opponent): ArrayList&lt;Stone&gt;
++moveStone(Player player, Stone stone, Point point): void
++removeStone(Player opponentPlayer, Stone stoneToBeRemoved): void
++getFreeStones(Player player): ArrayList&lt;Stone&gt;
++checkIfPointIsUnOccupied(Point point): int
++checkIfAjdacent(Stone stoneToSelect, Point pointToSelect): boolean
++getAdjacentPoints(Stone stoneToMove): ArrayList&lt;Point&gt;
++getPointsAsList(): ArrayList&lt;Point&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>845</x>
+      <y>440</y>
+      <w>250</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>model::AIPlayer
+--
+-bestMoveStone: Stone
+-pointToMoveTo: Point
+--
++AIPlayer(String name, int num, boolean goFirst, Board gameBoard): ctor
++getBestMoveStone(): Stone
++getRandomPoint(ArrayList&lt;Point&gt; pointsList): Point
++selectRandomStone(ArrayList&lt;Stone&gt; stonesList): Stone
++selectRandomStoneToRemove(ArrayList&lt;Stone&gt; stonesOfOpponent): Stone
++lookforBestRemove(Board board, Player opponentPlayer): Stone
++findStopMillByRemove(Board board, Player opponentPlayer): Stone
++lookForBestMove(Board board): Point
++checkMillByPlace(Board board): boolean
++checkStopMillByPlace(Board board): boolean
++checkTwoStepsFromMillByPlace(Board board): boolean
++checkMillByMove(Board board): boolean
++checkStopMillByMove(Board board): boolean
++checkTwoStepsFromMillByMove(Board board): boolean
++TwoStepsFromMillCaseOne(Point pointToTest, Line line): boolean
++TwoStepsFromMillCaseTwo(Point pointToTest, Line line): boolean
++TwoStepsFromMillCaseThree(Point pointToTest, Line line): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>940</x>
+      <y>215</y>
+      <w>230</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>model::Player
+--
+-stones: ArrayList&lt;Stone&gt;
+-placedStones = 0: int
+-totalStones = 9: int
+-name: String
+-playerNumber: int
+-board: Board
+-allPoints = new Point[24]: Point[]
+--
++Player(String name, int num, boolean goFirst, Board gameBoard): ctor
++toString(): String
++getStones(): ArrayList&lt;Stone&gt;
++getNumberOfPlacedStones(): int
++getNumberOfTotalStones(): int
++increaseNumberOfPlacedStones(): void
++decreaseNumberOfOwnedStones(): void
++getPlayerNumber(): int
++getPointList(): Point[]
++getAdjacentPoints(Point currentPoint): ArrayList&lt;Point&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>950</x>
+      <y>30</y>
+      <w>175</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>model::GameConfig
+--
+-winner = 0: int
+-textGameConfig: GameShared
+--
++Game(): ctor
++play(): void
++displayScore(): void
++turnHumanPlayer(HumanPlayer humanPlayer): void
++turnComputer(AIPlayer compPlayer): void
++displayPointsAsList(): void
++displayAdjacentPoints(Stone stoneToMove): void
++displayStonesOfOpponent(Player opponent): void
++displayStones(): void
++displayFreeStones(Player player): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1440</x>
+      <y>570</y>
+      <w>145</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>model::Point
+--
+-x: double
+-y: double
+-occupiedStone: Stone
+-occupiedPlayer: int
+--
++Point(double xCoord, double yCoord): ctor
++getX(): double
++getY(): double
++getOccupiedStone(): Stone
++setOccupiedStone(Stone stone): void
++getOccupiedPlayer(): int
++setOccupiedPlayer(int occupiedPlayer): void
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>25</y>
+      <w>130</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>application::MainController
+--
+-ruleStage: Stage
+-firstRulesOpen = false: boolean
+-quitButton: Button
+-rulesButton: Button
+-tutorialButton: Button
+-playButton: Button
+--
++playGame(ActionEvent event): void
++quitApp(ActionEvent event): void
++displayRules(ActionEvent event): void
+~initialize(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1355</x>
+      <y>320</y>
+      <w>275</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>model::Line
+--
+-name: String
+-points: Point[]
+--
++Line(String name, Point endPoint1, Point midPoint, Point endPoint2): ctor
++getPoints(): // Why is this Point [] only whereas other getter methods use Point only?&#13;
+Point[]
++isLineFilled(// check if all three points of a line are occupied for player&#13;
+Player player): // check if all three points of a line are occupied for player&#13;
+boolean
++doesLineContain(Stone stoneToCheck): boolean
++doesLineContainPoint(Point pointToBeChecked): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>645</x>
+      <y>420</y>
+      <w>140</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>model::Stone
+--
+-location: Point
+-owner: Player
+-isDead: boolean
+--
++Stone(Player owner): ctor
++Stone(Player owner, Point location): ctor
++setLocation(Point location): void
++getLocation(): Point
++getOwner(): Player
++getDead(): boolean
++setDead(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1380</x>
+      <y>30</y>
+      <w>235</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>model::Board
+--
+-northMidLine: Line
+-westMidLine: Line
+-eastMidLine: Line
+-southMidLine: Line
+-squares: Square[]
+--
++Board(double range, double centreXCoord, double centreYCoord): ctor
++getSquares(): Square[]
++displayBoard(): void
++getPointByCoordinates(double xcor, double ycor): Point
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1100</x>
+      <y>470</y>
+      <w>255</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>model::HumanPlayer
+--
+-name: String
+--
++HumanPlayer(String name, int num, boolean goFirst, Board gameBoard): ctor
++selectStoneToMove(ArrayList&lt;Stone&gt; stonesToSelect): Stone
++selectDestination(ArrayList&lt;Point&gt; pointsList): Point
++selectStoneToRemove(ArrayList&lt;Stone&gt; stonesOfOpponent): Stone
++toString(): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1295</x>
+      <y>180</y>
+      <w>285</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>model::Square
+--
+-name: String
+-lines: Line[]
+--
++Square(String name, double size, double startX, double startY): ctor
++Square(Line northMidLine, Line westMidLine, Line eastMidLine, Line southMidLine): ctor
++toString(): String
++getLines(): Line[]
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>270</x>
+      <y>80</y>
+      <w>125</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>application::MainApp
+--
+-stage: Stage
+--
++start(Stage primaryStage): void
++changeScreen(String fxmlFile): void
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>295</x>
+      <y>20</y>
+      <w>95</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>application::TextApplication
+--
+--
++run(): void
++main(String[] args): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>545</x>
+      <y>10</y>
+      <w>1190</w>
+      <h>745</h>
+    </coordinates>
+    <panel_attributes>model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>30</x>
+      <y>0</y>
+      <w>390</w>
+      <h>1175</h>
+    </coordinates>
+    <panel_attributes>application</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>975</x>
+      <y>385</y>
+      <w>25</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;110.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>385</y>
+      <w>100</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>180.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1400</x>
+      <y>255</y>
+      <w>50</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1490</x>
+      <y>430</y>
+      <w>15</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1590</x>
+      <y>130</y>
+      <w>20</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;380.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1360</x>
+      <y>130</y>
+      <w>120</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>220.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1045</x>
+      <y>155</y>
+      <w>15</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>780</x>
+      <y>295</y>
+      <w>170</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>320.0;10.0;10.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>825</x>
+      <y>190</y>
+      <w>125</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>230.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>385</x>
+      <y>40</y>
+      <w>575</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;1130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>145</x>
+      <y>135</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>165</y>
+      <w>320</w>
+      <h>1005</h>
+    </coordinates>
+    <panel_attributes>application::GameGUI
+--
+-boardPane: Pane
+-hintButton: Button
+-exitButton: Button
+-rulesButton: Button
+-namePlayer2: Label
+-namePlayer1: Label
+-statusLabel: Label
+-outSqLineSEnd1: Button
+-outSqLineSMid: Button
+-outSqLineSEnd2: Button
+-outSqLineWMid: Button
+-outSqLineEMid: Button
+-outSqLineNEnd1: Button
+-outSqLineNMid: Button
+-outSqLineNEnd2: Button
+-midSqLineSEnd1: Button
+-midSqLineSMid: Button
+-midSqLineSEnd2: Button
+-midSqLineWMid: Button
+-midSqLineEMid: Button
+-midSqLineNEnd1: Button
+-midSqLineNMid: Button
+-midSqLineNEnd2: Button
+-innSqLineSEnd1: Button
+-innSqLineSMid: Button
+-innSqLineSEnd2: Button
+-innSqLineWMid: Button
+-innSqLineEMid: Button
+-innSqLineNEnd1: Button
+-innSqLineNMid: Button
+-innSqLineNEnd2: Button
+-humanStone1: Circle
+-humanStone2: Circle
+-humanStone3: Circle
+-humanStone4: Circle
+-humanStone5: Circle
+-humanStone6: Circle
+-humanStone7: Circle
+-humanStone8: Circle
+-humanStone9: Circle
+-compStone1: Circle
+-compStone2: Circle
+-compStone3: Circle
+-compStone4: Circle
+-compStone5: Circle
+-compStone6: Circle
+-compStone7: Circle
+-compStone8: Circle
+-compStone9: Circle
+-animationButton: Button
+-winner = 0: int
+-MARGIN_LAYOUT_X_AND_Y = 22.5: double
+-pauseTimer = new PauseTransition(Duration.millis(2000)): PauseTransition
+-pauseTimer2 = new PauseTransition(Duration.millis(1500)): PauseTransition
+-pauseTimer3 = new PauseTransition(Duration.millis(1500)): PauseTransition
+-fadeTransition = new FadeTransition(Duration.millis(1200)): FadeTransition
+-moveTransition = new TranslateTransition(): TranslateTransition
+-chosenStone: Stone
+-destination: Point
+-clickedX: double
+-clickedY: double
+-allPoints = new Button[24]: Button[]
+-humanStones = new Circle[9]: Circle[]
+-compStones = new Circle[9]: Circle[]
+--
++exitCurrentGame(ActionEvent event): void
++rulesPressed(ActionEvent event): void
++humanStone1Clicked(MouseEvent event): void
++humanStone2Clicked(MouseEvent event): void
++humanStone3Clicked(MouseEvent event): void
++humanStone4Clicked(MouseEvent event): void
++humanStone5Clicked(MouseEvent event): void
++humanStone6Clicked(MouseEvent event): void
++humanStone7Clicked(MouseEvent event): void
++humanStone8Clicked(MouseEvent event): void
++humanStone9Clicked(MouseEvent event): void
++compStone1Clicked(MouseEvent event): void
++compStone2Clicked(MouseEvent event): void
++compStone3Clicked(MouseEvent event): void
++compStone4Clicked(MouseEvent event): void
++compStone5Clicked(MouseEvent event): void
++compStone6Clicked(MouseEvent event): void
++compStone7Clicked(MouseEvent event): void
++compStone8Clicked(MouseEvent event): void
++compStone9Clicked(MouseEvent event): void
++firstTurnPlay(): void
++promptEachTurn(): void
++endGame(): void
++turnComputer(AIPlayer compPlayer): void
+-compTurnPlaceStage(AIPlayer compPlayer): void
+-compTurnMoveAdjacentStage(AIPlayer compPlayer): void
+-compTurnJumpStage(AIPlayer compPlayer): void
+-compTurnCheckMillAndEndTurn(AIPlayer compPlayer, ArrayList&lt;Line&gt; filledLines_StartTurn): void
++hintButtonClicked(ActionEvent event): void
++pointClicked(ActionEvent event): void
+-humanTurnPlaceStage(Button button): boolean
+-humanTurnMoveAdjacentStage(Button button): boolean
+-humanTurnJumpStage(Button button): boolean
+-humanTurnCheckMillAndEndTurn(ArrayList&lt;Line&gt; filledLines_StartTurn): void
+-setCoordinatesStone(Point point): void
+-chooseLocation(Button button): Point
+-moveFromChosenStone(Point stoneLocation): void
+-removeChosenStone(Stone stone, int playerNum): void
+-stonePlacedNewVisually(int playerNum): void
+-stoneMovedVisually(int playerNum): void
+-stoneRemovedVisually(int playerNum): void
+-setStoneLayoutVisual(Circle stone): void
+-disablePointsAndStones(): void
+-enablePointsandStones(): void
+-getButtonFromPoint(Point point): Button
+-setAnimationAvailablePoints(Point point): void
+-setAnimationAllPoints(): void
+-playAnimationPoints(): void
+-stopAnimationPoints(): void
+-pauseAndPlayForAI(): void
+~initialize(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>375</x>
+      <y>280</y>
+      <w>230</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;190.0;440.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>825</x>
+      <y>125</y>
+      <w>135</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>375</x>
+      <y>605</y>
+      <w>1075</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;2130.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>450</y>
+      <w>285</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;550.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>75</y>
+      <w>590</w>
+      <h>195</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>1160.0;20.0;240.0;10.0;10.0;370.0</additional_attributes>
+  </element>
+</diagram>
