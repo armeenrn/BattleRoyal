@@ -9,8 +9,10 @@
 package application;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -19,7 +21,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.shape.Circle;
-
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.animation.PauseTransition;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -27,6 +30,8 @@ import javafx.animation.TranslateTransition;
 
 import javafx.util.Duration;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import model.Point;
@@ -200,6 +205,9 @@ public class GameController extends GameShared {
 	private double clickedX;
 	private double clickedY;
 	
+	private boolean firstRulesOpen = false;
+	private Stage ruleStage;
+
 	private Button[] allPoints = new Button[24];
 
 	private Circle[] humanStones = new Circle[9];
@@ -230,7 +238,23 @@ public class GameController extends GameShared {
      */
     @FXML
     public void rulesPressed(ActionEvent event) {
-    	MainController.displayRules(event);
+		if (!firstRulesOpen) {
+			// only create a new rule stage when it is loaded for the first time. Otherwise
+			// simply show the stage.
+			try {
+				ruleStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				Scene scene = new Scene(loader.load(new FileInputStream("src/view/Rules.fxml")), 600, 313);
+				ruleStage.initStyle(StageStyle.UTILITY);
+				ruleStage.setTitle("Rules");
+				ruleStage.setScene(scene);
+				firstRulesOpen = true;
+			} catch (IOException e) {
+				System.out.println("Problem loading Rules.fxml");
+			}
+		}
+
+		ruleStage.show();
     }
 
     /**
