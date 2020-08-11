@@ -7,16 +7,17 @@ package model;
  *
  */
 public class Board {
-
-	// private Square outerSquare;
-	// private Square midSquare;
-	// private Square innerSquare;
+	
+	/*
+	private Square outerSquare;
+	private Square midSquare;
+	private Square innerSquare;
 	private Line northMidLine;
 	private Line westMidLine;
 	private Line eastMidLine;
 	private Line southMidLine;
+	*/
 	private Square[] squares;
-
 //Add an extra element for pseudoSquares
 	/**
 	 * This constructor allows to create and set the value of each index of the
@@ -29,7 +30,7 @@ public class Board {
 	 */
 	public Board(double range, double centreXCoord, double centreYCoord) {
 		squares = new Square[4];
-
+		
 		try {
 			squares[0] = new Square("Outer Square", range, centreXCoord - range / 2, centreYCoord - range / 2);
 		} catch (ClassNotFoundException e) {
@@ -52,25 +53,28 @@ public class Board {
 			e.printStackTrace();
 		}
 		// squares[2] = innerSquare;
-
+		Line northMidLine = null;
 		try {
 			northMidLine = new Line("North Mid Line", squares[2].getLines()[3].getPoints()[1],
 					squares[1].getLines()[3].getPoints()[1], squares[0].getLines()[3].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Line westMidLine = null;
 		try {
 			westMidLine = new Line("West Mid Line", squares[2].getLines()[1].getPoints()[1],
 					squares[1].getLines()[1].getPoints()[1], squares[0].getLines()[1].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Line eastMidLine = null;
 		try {
 			eastMidLine = new Line("East Mid Line", squares[2].getLines()[2].getPoints()[1],
 					squares[1].getLines()[2].getPoints()[1], squares[0].getLines()[2].getPoints()[1]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		Line southMidLine = null;
 		try {
 			southMidLine = new Line("South Mid Line", squares[2].getLines()[0].getPoints()[1],
 					squares[1].getLines()[0].getPoints()[1], squares[0].getLines()[0].getPoints()[1]);
