@@ -54,9 +54,6 @@ public class TextApplication {
 						"The player wins once the opponent has 2 stones left on the board during or after Stage 2.");
 				System.out.println("The player also wins if the opponent is not able to make a valid move.");
 				System.out.println("********************");
-				System.out.println("RESTRICTIONS\n********************");
-				System.out.println(
-						"A player may not remove a stone that is part of a mill, unless there are no other stones left to remove.");
 			} else {
 				System.out.println("Invalid input. Please try again:");
 			}
