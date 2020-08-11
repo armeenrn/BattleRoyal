@@ -299,8 +299,8 @@ public class GameShared {
 							 * 	we check if the point selected is on the adjacent midPoint
 							 */
 							
-							if (eachLine.getEndPoint1() == stoneToSelect.getLocation()) {
-								if (eachLine.getMidPoint() == pointToSelect) {
+							if (eachLine.getPoints()[0] == stoneToSelect.getLocation()) {
+								if (eachLine.getPoints()[1] == pointToSelect) {
 									answer = true;
 								}
 							}
@@ -310,8 +310,8 @@ public class GameShared {
 							 * 	we check if the point selected is on either adjacent end point
 							 */
 							
-							else if (eachLine.getMidPoint() == stoneToSelect.getLocation()) {
-								if ((eachLine.getEndPoint1() == pointToSelect) || (eachLine.getEndPoint2() == pointToSelect)) {
+							else if (eachLine.getPoints()[1] == stoneToSelect.getLocation()) {
+								if ((eachLine.getPoints()[0] == pointToSelect) || (eachLine.getPoints()[2] == pointToSelect)) {
 									answer = true;
 								}	
 							}
@@ -321,8 +321,8 @@ public class GameShared {
 							 * 	we check if the point selected is on the adjacent midPoint
 							 */
 							
-							else if (eachLine.getEndPoint2() == stoneToSelect.getLocation()) {
-								if (eachLine.getMidPoint() == pointToSelect) {
+							else if (eachLine.getPoints()[2] == stoneToSelect.getLocation()) {
+								if (eachLine.getPoints()[1] == pointToSelect) {
 									answer = true;
 								}	
 							}
