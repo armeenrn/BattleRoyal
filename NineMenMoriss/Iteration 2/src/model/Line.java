@@ -15,13 +15,11 @@ package model;
 
 public class Line {
 	private String name;
-	/*
 	private Point endPoint1;
 	private Point midPoint;
 	private Point endPoint2;
-	*/
 	private Point[] points;
-	
+
 	/**
 	 * Constructor for a Line object, with its name and points on the line
 	 * 
@@ -34,15 +32,17 @@ public class Line {
 		this.name = name;
 		points = new Point[3];
 
-		points[0] = endPoint1;
-		points[1] = midPoint;
-		points[2] = endPoint2;
+		this.endPoint1 = endPoint1;
+		points[0] = this.endPoint1;
+		this.midPoint = midPoint;
+		points[1] = this.midPoint;
+		this.endPoint2 = endPoint2;
+		points[2] = this.endPoint2;
 	}
 
-	public Point[] getPoints() {
+	public Point[] getPoints() {// Why is this Point [] only whereas other getter methods use Point only?
 		return points;
 	}
-	/*
 
 	public Point getEndPoint1() {
 		return endPoint1;
@@ -55,7 +55,6 @@ public class Line {
 	public Point getMidPoint() {
 		return midPoint;
 	}
-	*/
 	
 	/**
 	 * Checks if all three points of the line is filled by the same player's stones
@@ -64,9 +63,9 @@ public class Line {
 	 * @return Indicates if the line is filled
 	 */
 	public boolean isLineFilled(Player player) {// check if all three points of a line are occupied for player
-		if (points[0].getOccupiedPlayer() == player.getPlayerNumber()) {
-			if (points[0].getOccupiedPlayer() == points[1].getOccupiedPlayer()) {
-				if (points[1].getOccupiedPlayer() == points[2].getOccupiedPlayer()) {
+		if (endPoint1.getOccupiedPlayer() == player.getPlayerNumber()) {
+			if (endPoint1.getOccupiedPlayer() == midPoint.getOccupiedPlayer()) {
+				if (midPoint.getOccupiedPlayer() == endPoint2.getOccupiedPlayer()) {
 					return true;
 				}
 
@@ -95,15 +94,15 @@ public class Line {
 	public boolean doesLineContain(Stone stoneToCheck) {
 		boolean contains = false;
 		
-		if (points[0].getOccupiedStone() == stoneToCheck) {
+		if (endPoint1.getOccupiedStone() == stoneToCheck) {
 			contains = true;
 		}
 		
-		else if (points[1].getOccupiedStone() == stoneToCheck) {
+		else if (midPoint.getOccupiedStone() == stoneToCheck) {
 			contains = true;
 		}
 		
-		else if (points[2].getOccupiedStone() == stoneToCheck) {
+		else if (endPoint2.getOccupiedStone() == stoneToCheck) {
 			contains = true;
 		}
 		
@@ -119,15 +118,15 @@ public class Line {
 	public boolean doesLineContainPoint(Point pointToBeChecked) {
 		boolean contains = false;
 
-		if (points[0] == pointToBeChecked) {
+		if (endPoint1 == pointToBeChecked) {
 			contains = true;
 		}
 
-		else if (points[1] == pointToBeChecked) {
+		else if (midPoint == pointToBeChecked) {
 			contains = true;
 		}
 
-		else if (points[2] == pointToBeChecked) {
+		else if (endPoint2 == pointToBeChecked) {
 			contains = true;
 		}
 
