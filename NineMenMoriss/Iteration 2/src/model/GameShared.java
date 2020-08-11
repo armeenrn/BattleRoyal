@@ -16,7 +16,7 @@ import java.util.Random;
  */
 
 
-public class GameShared {
+public abstract class GameShared {
 	private double BOARDWIDTH = 30;
 	private double CENTER_X = 0;
 	private double CENTER_Y = 0;
@@ -410,5 +410,15 @@ public class GameShared {
 		
 		return pointsAsList;
 	}
+
+	/**
+	 * Performs a turn with AI
+	 * 
+	 * @param compPlayer
+	 */
+	public abstract void turnComputer(AIPlayer compPlayer); 
+		// TODO Auto-generated method stub
+		
+	
 	
 }
